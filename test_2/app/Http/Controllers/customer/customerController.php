@@ -56,4 +56,15 @@ class customerController extends Controller
         // echo "</pre>";
         return redirect('/customer')->with('success', 'Customer Created Successfully');
     }
+
+    // public function edit($id)
+    // {
+    //     $customer = [
+    //         'id' => 1,
+    //         'name' => 'John Doe',
+    //         'email' => '4t2Pb@example.com',
+    //         'phone' => '1234567890'
+    //     ];
+    //     return view('customer.edit', compact('customer'));
+    // }
 }
