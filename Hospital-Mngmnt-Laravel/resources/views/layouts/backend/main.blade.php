@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html class="loading semi-dark-layout" lang="en" data-layout="semi-dark-layout" data-textdirection="ltr">
+{{-- <html class="loading semi-dark-layout" lang="en" data-layout="semi-dark-layout" data-textdirection="ltr"> --}}
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -9,7 +10,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Dashboard ecommerce - Vuexy - Bootstrap HTML admin template</title>
+    <title>HMS SHAAN's</title></title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets') }}/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets') }}/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -65,9 +66,9 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
-                <!-- Dashboard Ecommerce Starts -->
+                <!-- Dashboard  Starts -->
                 @yield('page-content')
-                <!-- Dashboard Ecommerce ends -->
+                <!-- Dashboard  ends -->
 
             </div>
         </div>

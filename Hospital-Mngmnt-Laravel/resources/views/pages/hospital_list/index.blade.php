@@ -1,0 +1,320 @@
+@extends('layouts.backend.main')
+
+@section('page-content')
+    <section id="multilingual-datatable">
+        <div class="row" id="table-hover-row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title fw-bolder">Hospital List</h2>
+                        <a href="{{ url('hospital_list/create') }}" class="btn btn-primary float-end">Add Hospital</a>
+                    </div>
+                    <div class="table-responsive">
+                        {{-- {{print_r($hospitals->toArray())}} --}}
+                        <table class="table table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Country</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Description</th>
+                                    <th>Logo</th>
+                                    <th>Banner</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($hospitals as $hospital)
+                                    <tr>
+                                        <td>{{ $hospital->id }}</td>
+                                        <td>{{ $hospital->name }}</td>
+                                        <td>{{ $hospital->country }}</td>
+                                        <td>{{ $hospital->address }}</td>
+                                        <td>{{ $hospital->phone }}</td>
+                                        <td>{{ $hospital->email }}</td>
+                                        <td>{{ $hospital->description }}.</td>
+                                        <td><img src="{{ asset('img') }}/logos/{{ $hospital->logo }}"
+                                                alt="{{ $hospital->name }} Logo"></td>
+                                        <td><img src="{{ asset('img') }}/banners/{{ $hospital->banner }}"
+                                                alt="{{ $hospital->name }} Banner"></td>
+                                        <td>{{ $hospital->created_at }}</td>
+                                        <td>{{ $hospital->updated_at }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i data-feather="more-vertical"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <!-- Show Link (Commented Out) -->
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('hospital_list/' . $hospital->id) }}">
+                                                        <i data-feather="eye" class="me-50"></i>
+                                                        <span>Show</span>
+                                                    </a>
+
+                                                    <!-- Edit Link -->
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('hospital_list/edit/' . $hospital->id) }}">
+                                                        <i data-feather="edit-2" class="me-50"></i>
+                                                        <span>Edit</span>
+                                                    </a>
+
+                                                    <!-- Delete Link (Fixed URL) -->
+                                                    <a class="dropdown-item"
+                                                        href="{{ url('hospital_list/delete/' . $hospital->id) }}">
+                                                        <i data-feather="trash" class="me-50"></i>
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <!-- Feather Icons Script -->
+                                            <script>
+                                                feather.replace();
+                                            </script>
+
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="12" class="text-center fw-bold text-danger fs-10">No Hospitals Found
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+
+
+
+{{-- table data html code  --}}
+{{-- <tr>
+                                    <td>
+                                        <img src="../../../app-assets/images/icons/react.svg" class="me-75" height="20"
+                                            width="20" alt="React" />
+                                        <span class="fw-bold">React Project</span>
+                                    </td>
+                                    <td>Ronald Frest</td>
+                                    <td>
+                                        <div class="avatar-group">
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0" title="Lilian Nenez">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0"
+                                                title="Alberto Glotzbach">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0"
+                                                title="Alberto Glotzbach">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge rounded-pill badge-light-success me-1">Completed</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i data-feather="more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">
+                                                    <i data-feather="edit-2" class="me-50"></i>
+                                                    <span>Edit</span>
+                                                </a>
+                                                <a class="dropdown-item" href="#">
+                                                    <i data-feather="trash" class="me-50"></i>
+                                                    <span>Delete</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="../../../app-assets/images/icons/vuejs.svg" class="me-75"
+                                            height="20" width="20" alt="Vuejs" />
+                                        <span class="fw-bold">Vuejs Project</span>
+                                    </td>
+                                    <td>Jack Obes</td>
+                                    <td>
+                                        <div class="avatar-group">
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0" title="Lilian Nenez">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0"
+                                                title="Alberto Glotzbach">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0"
+                                                title="Alberto Glotzbach">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge rounded-pill badge-light-info me-1">Scheduled</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i data-feather="more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">
+                                                    <i data-feather="edit-2" class="me-50"></i>
+                                                    <span>Edit</span>
+                                                </a>
+                                                <a class="dropdown-item" href="#">
+                                                    <i data-feather="trash" class="me-50"></i>
+                                                    <span>Delete</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="../../../app-assets/images/icons/bootstrap.svg" class="me-75"
+                                            height="20" width="20" alt="Bootstrap" />
+                                        <span class="fw-bold">Bootstrap Project</span>
+                                    </td>
+                                    <td>Jerry Milton</td>
+                                    <td>
+                                        <div class="avatar-group">
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0" title="Lilian Nenez">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0"
+                                                title="Alberto Glotzbach">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                            <div data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up my-0"
+                                                title="Alberto Glotzbach">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg"
+                                                    alt="Avatar" height="26" width="26" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge rounded-pill badge-light-warning me-1">Pending</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i data-feather="more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">
+                                                    <i data-feather="edit-2" class="me-50"></i>
+                                                    <span>Edit</span>
+                                                </a>
+                                                <a class="dropdown-item" href="#">
+                                                    <i data-feather="trash" class="me-50"></i>
+                                                    <span>Delete</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>  --}}
+
+
+{{-- multilingual datatable html code  --}}
+{{-- <section id="multilingual-datatable">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header border-bottom">
+                        <h4 class="card-title">Hospital List</h4>
+                    </div>
+                    <div class="card-datatable">
+                        <table class="dt-multilingual table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Email</th>
+                                    <th>Date</th>
+                                    <th>Salary</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                    <td>Active</td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                    <td>Active</td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                    <td>Active</td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> --}}
