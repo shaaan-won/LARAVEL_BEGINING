@@ -30,23 +30,27 @@ Route::get('/database', function () {
 
 // End of Dashboard Routes
 
+
+
 //Hospital list routes and CRUD
 
 Route::get('/hospital_list', [HospitalListController::class, 'index'])->name('hospital_list');
 
 Route::get('/hospital_list/create', [HospitalListController::class, 'create'])->name('hospital_list.create');
 
-// Route::post('/hospital_list', [HospitalListController::class, 'store'])->name('hospital_list.store');
+Route::post('/hospital_list', [HospitalListController::class, 'store'])->name('hospital_list.store');
 
-// Route::get('/hospital_list/{id}/edit', [HospitalListController::class, 'edit'])->name('hospital_list.edit');
+Route::get('/hospital_list/{id}', [HospitalListController::class, 'show'])->name('hospital_list.show');
 
-// Route::put('/hospital_list/{id}', [HospitalListController::class, 'update'])->name('hospital_list.update');
+Route::get('/hospital_list/{id}/edit', [HospitalListController::class, 'edit'])->name('hospital_list.edit');
 
-// Route::get('/hospital_list/{id}', [HospitalListController::class, 'show'])->name('hospital_list.show');
+Route::put('/hospital_list/{id}', [HospitalListController::class, 'update'])->name('hospital_list.update');
 
-// Route::delete('/hospital_list/{id}', [HospitalListController::class, 'destroy'])->name('hospital_list.destroy');
+// when using hard delete
+Route::delete('/hospital_list/{id}', [HospitalListController::class, 'destroy'])->name('hospital_list.destroy');
 
-// Route::get('/hospital_list/{id}/delete', [HospitalListController::class, 'destroy'])->name('hospital_list.delete');
+// when using soft delete
+Route::get('/hospital_list/delete/{id}', [HospitalListController::class, 'delete'])->name('hospital_list.delete');
 
 // Route::get('/hospital_list/{id}/search', [HospitalListController::class, 'search'])->name('hospital_list.search');
 

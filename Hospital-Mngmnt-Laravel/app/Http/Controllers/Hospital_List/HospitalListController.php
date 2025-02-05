@@ -27,7 +27,7 @@ class HospitalListController extends Controller
      */
     public function create()
     {
-        
+
         return view('pages.hospital_list.create');
     }
 
@@ -36,7 +36,51 @@ class HospitalListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'hospital-name' => 'required|unique:hms_hospitals,name',
+            'country' => 'required',
+            'address' => 'required|string',
+            'website' => 'required',
+            'phone' => 'required|numeric|min:9',
+            'email' => 'required|email',
+            'description' => 'required',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10024',
+            'banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10024',
+
+        ]);
+
+        $hospitals = new HospitalList();
+        $hospitals->name = $request->input('hospital-name');
+        $hospitals->country = $request->input('country');
+        $hospitals->address = $request->input('address');
+        $hospitals->website = $request->input('website');
+        $hospitals->phone = $request->input('phone');
+        $hospitals->email = $request->input('email');
+        $hospitals->description = $request->input('description');
+
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logoName = $hospitals->name . '.' . $logo->getClientOriginalExtension();
+            $logo->move(public_path('img/hospital_list/logos'), $logoName);
+            $hospitals->logo = $logoName;
+            // session()->flash('logo', $logoName);
+        }
+
+        if ($request->hasFile('banner')) {
+            $banner = $request->file('banner');
+            $bannerName = $hospitals->name . '.' . $banner->getClientOriginalExtension();
+            $banner->move(public_path('img/hospital_list/banners'), $bannerName);
+            $hospitals->banner = $bannerName;
+            // session()->flash('banner', $bannerName);
+        }
+
+        $success = $hospitals->save();
+
+        if ($success) {
+            return redirect('/hospital_list')->with('success', 'Hospital created successfully.');
+        } else {
+            return redirect('/hospital_list')->with('error', 'Hospital created failed.');
+        }
     }
 
     /**
@@ -44,7 +88,11 @@ class HospitalListController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data_id = HospitalList::find($id);
+        if (!$data_id) {
+            return redirect('/hospital_list')->with('error', 'Hospital record not found.');
+        }
+        return view('pages.hospital_list.show', compact('data_id'));
     }
 
     /**
@@ -52,7 +100,8 @@ class HospitalListController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $hospitals = HospitalList::find($id);
+        return view('pages.hospital_list.update', compact('hospitals'));
     }
 
     /**
@@ -60,14 +109,80 @@ class HospitalListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'hospital-name' => 'required',
+            'country' => 'required',
+            'address' => 'required|string',
+            'website' => 'required',
+            'phone' => 'required|min:9',
+            'email' => 'required|email',
+            'description' => 'required',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10024',
+            'banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10024',
+
+        ]);
+
+        // $hospitals = new HospitalList();//Question arise
+        $hospitals = HospitalList::find($id);
+        $hospitals->name = $request->input('hospital-name');
+        $hospitals->country = $request->input('country');
+        $hospitals->address = $request->input('address');
+        $hospitals->website = $request->input('website');
+        $hospitals->phone = $request->input('phone');
+        $hospitals->email = $request->input('email');
+        $hospitals->description = $request->input('description');
+
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logoName = $hospitals->name . '.' . $logo->getClientOriginalExtension();
+            $logo->move(public_path('img/hospital_list/logos'), $logoName);
+            $hospitals->logo = $logoName;
+            // session()->flash('logo', $logoName);
+        }
+
+        if ($request->hasFile('banner')) {
+            $banner = $request->file('banner');
+            $bannerName = $hospitals->name . '.' . $banner->getClientOriginalExtension();
+            $banner->move(public_path('img/hospital_list/banners'), $bannerName);
+            $hospitals->banner = $bannerName;
+            // session()->flash('banner', $bannerName);
+        }
+
+        $success = $hospitals->save();
+        if ($success) {
+            return redirect('/hospital_list')->with('success', 'Hospital updated successfully.');
+        } else {
+            return redirect('/hospital_list')->with('error', 'Hospital updated failed.');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
+
+    //  soft delete by confirmation
+    public function delete($id)
+    {
+        $data_id = HospitalList::find($id);
+
+        // Check if the hospital exists
+        if (!$data_id) {
+            return redirect('/hospital_list')->with('error', 'Hospital record not found.');
+        }
+
+        return view('pages.hospital_list.delete', compact('data_id'));
+    }
+
+
+    // hard delete without confirmation only by id
     public function destroy(string $id)
     {
-        //
+        $hospitals = HospitalList::find($id);
+        $success = $hospitals->delete();
+        if ($success) {
+            return redirect('/hospital_list')->with('success', 'Hospital deleted successfully.');
+        } else {
+            return redirect('/hospital_list')->with('error', 'Hospital deleted failed.');
+        }
     }
 }

@@ -4,7 +4,12 @@
     <section id="multilingual-datatable">
         <div class="row" id="table-hover-row">
             <div class="col-12">
+                @if (session('success'))
+                    <div class="card-header m-2 p-2 d-flex justify-content-center alert alert-success">
+                        {{ session('success') }}</div>
+                @endif
                 <div class="card">
+
                     <div class="card-header">
                         <h2 class="card-title fw-bolder">Hospital List</h2>
                         <a href="{{ url('hospital_list/create') }}" class="btn btn-primary float-end">Add Hospital</a>
@@ -18,6 +23,7 @@
                                     <th>Name</th>
                                     <th>Country</th>
                                     <th>Address</th>
+                                    <th>website</th>
                                     <th>Phone</th>
                                     <th>Email</th>
                                     <th>Description</th>
@@ -35,13 +41,21 @@
                                         <td>{{ $hospital->name }}</td>
                                         <td>{{ $hospital->country }}</td>
                                         <td>{{ $hospital->address }}</td>
+                                        <td>{{ $hospital->website }}</td>
                                         <td>{{ $hospital->phone }}</td>
                                         <td>{{ $hospital->email }}</td>
                                         <td>{{ $hospital->description }}.</td>
-                                        <td><img src="{{ asset('img') }}/logos/{{ $hospital->logo }}"
-                                                alt="{{ $hospital->name }} Logo"></td>
-                                        <td><img src="{{ asset('img') }}/banners/{{ $hospital->banner }}"
-                                                alt="{{ $hospital->name }} Banner"></td>
+                                        <td>
+                                            <img class="img-fluid" style="max-width: 80px; height: auto;"
+                                                src="{{ asset('img/hospital_list/logos/' . $hospital->logo) }}"
+                                                alt="{{ $hospital->name }} Logo">
+                                        </td>
+                                        <td>
+                                            <img class="img-fluid" style="max-width: 80px; height: auto;"
+                                                src="{{ asset('img/hospital_list/banners/' . $hospital->banner) }}"
+                                                alt="{{ $hospital->name }} Banner">
+                                        </td>
+
                                         <td>{{ $hospital->created_at }}</td>
                                         <td>{{ $hospital->updated_at }}</td>
                                         <td>
@@ -60,17 +74,27 @@
 
                                                     <!-- Edit Link -->
                                                     <a class="dropdown-item"
-                                                        href="{{ url('hospital_list/edit/' . $hospital->id) }}">
+                                                        href="{{ url('hospital_list/' . $hospital->id . '/edit') }}">
                                                         <i data-feather="edit-2" class="me-50"></i>
                                                         <span>Edit</span>
                                                     </a>
 
-                                                    <!-- Delete Link (Fixed URL) -->
                                                     <a class="dropdown-item"
                                                         href="{{ url('hospital_list/delete/' . $hospital->id) }}">
                                                         <i data-feather="trash" class="me-50"></i>
                                                         <span>Delete</span>
                                                     </a>
+
+                                                    <!-- Delete Link For hard delete (Fixed URL) -->
+                                                    {{-- <form action="{{ url('hospital_list/' . $hospital->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i data-feather="trash" class="me-50"></i>
+                                                            <span>Delete</span>
+                                                        </button>
+                                                    </form> --}}
                                                 </div>
                                             </div>
 
