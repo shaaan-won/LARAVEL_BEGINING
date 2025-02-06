@@ -16,7 +16,7 @@
                     </div>
                     <div class="table-responsive">
                         {{-- {{print_r($hospitals->toArray())}} --}}
-                        <table class="table table-hover ">
+                        <table class="table table-hover  table-responsive ">
                             <thead>
                                 <tr>
                                     <th>ID</th>

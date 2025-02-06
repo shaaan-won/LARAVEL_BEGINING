@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Hospital_List\HospitalListController;
+use App\Http\Controllers\Patient\PatientController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -54,7 +55,11 @@ Route::get('/hospital_list/delete/{id}', [HospitalListController::class, 'delete
 
 // Route::get('/hospital_list/{id}/search', [HospitalListController::class, 'search'])->name('hospital_list.search');
 
-
 //End of Hospital list routes
 
+
+//Resource routes for patients
+
+Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
+Route::resource('/patients', PatientController::class);
 

@@ -164,6 +164,7 @@ class HospitalListController extends Controller
     public function delete($id)
     {
         $data_id = HospitalList::find($id);
+        // $Message = "Are you sure you want to delete this record?";
 
         // Check if the hospital exists
         if (!$data_id) {
