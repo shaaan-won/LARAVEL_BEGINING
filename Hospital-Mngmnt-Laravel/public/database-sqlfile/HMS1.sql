@@ -52,16 +52,31 @@ CREATE TABLE if not exists hms_departments (
 
 -- 🌟 Doctors & Availability
 DROP TABLE IF EXISTS hms_doctors;
-CREATE TABLE if not exists hms_doctors (
-    id INT  AUTO_INCREMENT PRIMARY KEY,
-    user_id INT   ,
-    department_id INT  ,
-    specialization VARCHAR(255) ,
-    experience INT  COMMENT 'Years of Experience',
-    contact_number VARCHAR(20) ,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE `hms_doctors` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, -- Unique ID for the doctor
+  `user_id` INT(11) DEFAULT NULL, -- Foreign key for authentication (if applicable)
+  `name` VARCHAR(255) DEFAULT NULL,
+  `date_of_birth` DATE DEFAULT NULL,
+  `department_id` INT(11) DEFAULT NULL, -- Foreign key for department reference
+  `specialization` VARCHAR(255) DEFAULT NULL, -- Doctor's specialization
+  `experience` INT(11) DEFAULT NULL COMMENT 'Years of Experience',
+  `contact_number` VARCHAR(20) DEFAULT NULL,
+  `email` VARCHAR(255)  DEFAULT NULL, -- Unique email for doctor communication
+  `address` TEXT DEFAULT NULL, -- Doctor's address
+  `gender` ENUM('Male', 'Female', 'Other') DEFAULT NULL,
+  `qualification` TEXT DEFAULT NULL, -- Medical degrees
+  `registration_no` VARCHAR(50)  DEFAULT NULL, -- Unique medical license number
+  `photo` VARCHAR(255) DEFAULT NULL, -- Profile picture path
+  `bio` TEXT DEFAULT NULL, -- Short doctor biography
+  `available_days` VARCHAR(50) DEFAULT NULL, -- Available consultation days (e.g., '["Monday", "Wednesday"]')
+  `available_time` VARCHAR(50) DEFAULT NULL, -- Time slots (e.g., '09:00 AM - 03:00 PM')
+  `consultation_fee` DECIMAL(10,2) DEFAULT NULL, -- Consultation fee
+  `status` ENUM('Active', 'Inactive') DEFAULT 'Active', -- Status of doctor
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
 
 DROP TABLE IF EXISTS hms_doctor_availability;
 CREATE TABLE if not exists hms_doctor_availability (

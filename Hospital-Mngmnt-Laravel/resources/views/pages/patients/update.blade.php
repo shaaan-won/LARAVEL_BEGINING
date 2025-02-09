@@ -3,7 +3,7 @@
 @section('page-content')
     @php
         $users = DB::table('hms_users')->get();
-        // print_r($patient);
+        // print_r($patient->toArray());
     @endphp
 
 
@@ -11,28 +11,30 @@
         <div class="row justify-content-center">
             <div class="col-md-11 col-lg-9 col-12 mt-3 fw-bold fs-4 mx-auto"> <!-- Made width smaller -->
                 <div class="card mb-4">
-                    <div class="card-header bg-secondary text-white">
+                    <div class="card-header bg-primary text-white">
                         <h4 class="card-title">Update Patient Details of <span class="text-success">{{ $patient->name }}</span></h4>
-                        <a href="{{ url('patients') }}" class="btn btn-primary float-end">Back</a>
+                        <a href="{{ url('patients') }}" class="btn btn-secondary float-end">Back</a>
                     </div>
                     <div class="card-body">
                         @if (session('error'))
                             <div class="alert alert-danger">{{ session('error') }}</div>
                         @endif
 
-                        <form action="{{ url('/patients') }}" id="patient-form" method="post">
+                        <form action="{{ url('patients/' . $patient->id ) }}" id="patient-form" method="post">
                             @csrf
-                            {{-- @method('POST') --}}
+                            @method('PUT')
 
-                            <div class="mb-1">
+                            <div class="mt-3 mb-1">
                                 <label class="form-label fw-bold fs-5" for="user_name">User Name</label>
                                 <select class="form-select form-control-lg select2" id="user_name" name="user_name">
                                     <option value="">Select User</option>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}"
-                                            {{ old('user_name', $patient->user_id ?? '') == $user->id ? 'selected' : '' }}>
+                                            {{ old('user_name', $patient->user_id ) == $user->id ? 'selected' : '' }}>
                                             {{ $user->name }}
                                         </option>
+                                        {{-- <option value="{{ $name }}" {{ old('country', $hospitals->country) == $name ? 'selected' : '' }}>
+                                            {{ $user->name }}</option> --}}
                                     @endforeach
                                 </select>
                                 @error('user_name')

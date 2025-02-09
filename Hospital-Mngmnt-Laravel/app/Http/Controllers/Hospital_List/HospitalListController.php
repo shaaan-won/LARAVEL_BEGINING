@@ -132,23 +132,85 @@ class HospitalListController extends Controller
         $hospitals->email = $request->input('email');
         $hospitals->description = $request->input('description');
 
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoName = $hospitals->name . '.' . $logo->getClientOriginalExtension();
-            $logo->move(public_path('img/hospital_list/logos'), $logoName);
-            $hospitals->logo = $logoName;
-            // session()->flash('logo', $logoName);
+        function handleFileUpload($request, $fileKey, $destinationPath, $hospital, $attribute)
+        {
+            if ($request->hasFile($fileKey)) {
+                $file = $request->file($fileKey);
+                $fileName = $hospital->name . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path($destinationPath), $fileName);
+                $hospital->$attribute = $fileName;
+            }
         }
 
-        if ($request->hasFile('banner')) {
-            $banner = $request->file('banner');
-            $bannerName = $hospitals->name . '.' . $banner->getClientOriginalExtension();
-            $banner->move(public_path('img/hospital_list/banners'), $bannerName);
-            $hospitals->banner = $bannerName;
-            // session()->flash('banner', $bannerName);
-        }
+        handleFileUpload($request, 'logo', 'img/hospital_list/logos', $hospitals, 'logo');
+        handleFileUpload($request, 'banner', 'img/hospital_list/banners', $hospitals, 'banner');
 
-        $success = $hospitals->save();
+
+
+
+
+        // if ($request->hasfile('logo')) {
+        //     $logoName=$request->name.".".$request->file('logo')->extension();
+
+        //     $photoPath = public_path('img/hospital_list/logos/' . $logoName);
+        //     if (file_exists($photoPath)) {
+        //         unlink($photoPath);
+        //     }
+
+
+        //     $request->file('logo')->move(public_path('img/hospital_list/logos/'), $logoName);
+
+        //     $hospitals->photo= $logoName;
+        // }else{
+        //     $hospitals->photo=  $hospitals->photo;
+        // }
+
+        // if ($request->hasfile('banner')) {
+        //     $bannerName=$request->name.".".$request->file('banner')->extension();
+
+        //     $bannerPath = public_path('img/hospital_list/banners/' . $bannerName);
+        //     if (file_exists($bannerPath)) {
+        //         unlink($bannerPath);
+        //     }
+
+        //     $request->file('banner')->move(public_path('img/hospital_list/banners/'), $bannerName);
+
+        //     $hospitals->banner= $bannerName;
+        // }else{
+        //     $hospitals->banner=  $hospitals->banner;
+        // }
+
+
+
+
+
+        // if ($request->hasFile('logo')) {
+        //     $logoName = $hospitals->name . '.' . $request->file('logo')->extension();
+        //     $photoPath = public_path('img/hospital_list/logos/' . $logoName);
+
+        //     if (file_exists($photoPath)) {
+        //         unlink($photoPath);
+        //     }
+
+        //     $request->file('logo')->move(public_path('img/hospital_list/logos/'), $logoName);
+        //     $hospitals->photo = $logoName;
+        // }
+
+        // if ($request->hasFile('banner')) {
+        //     $bannerName = $hospitals->name . '.' . $request->file('banner')->extension();
+        //     $bannerPath = public_path('img/hospital_list/banners/' . $bannerName);
+
+        //     if (file_exists($bannerPath)) {
+        //         unlink($bannerPath);
+        //     }
+
+        //     $request->file('banner')->move(public_path('img/hospital_list/banners/'), $bannerName);
+        //     $hospitals->banner = $bannerName;
+        // }
+
+
+
+        $success = $hospitals->update();
         if ($success) {
             return redirect('/hospital_list')->with('success', 'Hospital updated successfully.');
         } else {

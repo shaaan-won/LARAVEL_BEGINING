@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2025 at 11:00 PM
+-- Generation Time: Feb 09, 2025 at 06:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `hospital_management`
 --
-Drop database if exists `hospital_management`;
+drop database if exists `hospital_management`;
 CREATE DATABASE IF NOT EXISTS `hospital_management` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `hospital_management`;
 -- --------------------------------------------------------
@@ -116,13 +116,36 @@ CREATE TABLE `hms_departments` (
 CREATE TABLE `hms_doctors` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,
   `specialization` varchar(255) DEFAULT NULL,
   `experience` int(11) DEFAULT NULL COMMENT 'Years of Experience',
   `contact_number` varchar(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `gender` enum('Male','Female','Other') DEFAULT NULL,
+  `qualification` text DEFAULT NULL,
+  `registration_no` varchar(50) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `bio` text DEFAULT NULL,
+  `available_days` varchar(50) DEFAULT NULL,
+  `available_time` varchar(50) DEFAULT NULL,
+  `consultation_fee` decimal(10,2) DEFAULT NULL,
+  `status` enum('Active','Inactive') DEFAULT 'Active',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_doctors`
+--
+
+INSERT INTO `hms_doctors` (`id`, `user_id`, `name`, `date_of_birth`, `department_id`, `specialization`, `experience`, `contact_number`, `email`, `address`, `gender`, `qualification`, `registration_no`, `photo`, `bio`, `available_days`, `available_time`, `consultation_fee`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Shawon Islam', '2025-02-07', NULL, 'Cardiologist', 10, '+8801712345678', 'dr.rahman@example.com', '123 Green Road, Dhaka', 'Male', 'MBBS, MD (Cardiology)', 'REG123456', 'Shawon Islam.jpg', 'Experienced cardiologist with 10 years in the field.', '[\"Monday\", \"Wednesday\", \"Friday\"]', '09:00 AM - 03:00 PM', 1500.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 17:18:54'),
+(2, 2, 'Shawon Islam', '2025-02-10', NULL, 'Neurologist', 8, '+8801811223344', 'dr.karim@example.com', '456 Banani, Dhaka', 'Male', 'MBBS, DM (Neurology)', 'REG654321', 'Shawon Islam.jpg', 'Specialist in neurological disorders.', '[\"Tuesday\", \"Thursday\", \"Saturday\"]', '10:00 AM - 04:00 PM', 2000.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 17:21:13'),
+(3, 3, 'Shawon Islam 1', '2025-02-11', NULL, 'Orthopedic Surgeon', 15, '+8801912334455', 'dr.hasan@example.com', '789 Gulshan, Dhaka', 'Male', 'MBBS, MS (Orthopedics)', 'REG789123', 'Shawon Islam 1.jpg', 'Expert in bone and joint surgeries.', '[\"Monday\", \"Wednesday\", \"Friday\"]', '08:00 AM - 02:00 PM', 1800.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 17:22:46'),
+(4, 4, NULL, NULL, 4, 'Gynecologist', 12, '+8801555667788', 'dr.fatima@example.com', '222 Uttara, Dhaka', 'Female', 'MBBS, DGO', 'REG987654', 'img/doctors/dr_fatima.jpg', 'Dedicated women’s health specialist.', '[\"Sunday\", \"Tuesday\", \"Thursday\"]', '09:30 AM - 03:30 PM', 1700.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 23:14:57');
 
 -- --------------------------------------------------------
 
@@ -168,9 +191,8 @@ CREATE TABLE `hms_hospitals` (
 INSERT INTO `hms_hospitals` (`id`, `name`, `country`, `address`, `website`, `phone`, `email`, `description`, `logo`, `banner`, `created_at`, `updated_at`) VALUES
 (1, 'CityCare Hospital', 'USA', '123 Main St, New York', 'citycare.com', '+1-212-555-1234', 'info@citycare.com', 'A leading multi-specialty hospital.', 'CityCare Hospital.jpg', 'CityCare Hospital.jpg', '2025-02-04 23:48:39', '2025-02-05 21:58:13'),
 (2, 'Greenland Medical Center', 'UK', '45 Baker St, London', 'greenland.comm', '+44-20-7946-0123', 'contact@greenlandmed.uk', 'State-of-the-art healthcare services.', 'Greenland Medical Center.jpg', 'Greenland Medical Center.jpeg', '2025-02-04 23:48:39', '2025-02-05 21:57:49'),
-(3, 'Sunrise Hospital', 'India', '67 MG Road, Mumbai', 'sunrise.com', '+91-9876543210', 'help@sunrisehosp.in', '24/7 emergency and specialized care.', 'Sunrise Hospital.png', 'Sunrise Hospital.jpeg', '2025-02-04 23:48:39', '2025-02-05 21:57:01'),
-(4, 'MediLife Healthcare', 'Canada', '89 Elm St, Toronto', 'medilife.com', '+1-416-555-7890', 'support@medilife.ca', 'Providing patient-centered care.', 'MediLife Healthcare.jpg', 'MediLife Healthcare.jpg', '2025-02-04 23:48:39', '2025-02-05 21:56:21'),
-(10, 'Shaans4', 'Bangladesh', 'Shahapur,Sonargaon', 'shawon.site', '+8801941424166', 'devildshawon@gmail.com', 'dhxfvsxd', 'Shaans4.jpg', 'Shaans4.jpg', '2025-02-05 19:01:23', '2025-02-05 21:09:56');
+(3, 'Sunrise Hospital', 'India', '67 MG Road, Mumbai', 'sunrise.com', '+91-9876543210', 'help@sunrisehosp.in', '24/7 emergency and specialized care.', 'Sunrise Hospital.jpg', 'Sunrise Hospital.jpg', '2025-02-04 23:48:39', '2025-02-06 13:50:11'),
+(4, 'MediLife Healthcare', 'Canada', '89 Elm St, Toronto', 'medilife.com', '+1-416-555-7890', 'support@medilife.ca', 'Providing patient-centered care.', 'MediLife Healthcare.png', 'MediLife Healthcare.jpg', '2025-02-04 23:48:39', '2025-02-08 15:08:01');
 
 -- --------------------------------------------------------
 
@@ -211,6 +233,18 @@ CREATE TABLE `hms_patients` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_patients`
+--
+
+INSERT INTO `hms_patients` (`id`, `user_id`, `name`, `date_of_birth`, `email`, `contact_number`, `emergency_contact`, `address`, `gender`, `blood_group`, `insurance_provider`, `insurance_number`, `created_at`, `updated_at`) VALUES
+(1, 1, 'John Doe', '1990-05-15', 'john.doe@example.com', '+1234567890', '+0987654321', '123 Main St, New York, USA', 'male', 'O+', 'BlueCross', 'INS123456', '2025-02-06 13:12:26', '2025-02-06 18:58:08'),
+(2, 2, 'Jane Smith', '1985-09-22', 'jane.smith@example.com', '+9876543210', '+0123456789', '456 Elm St, California, USA', 'female', 'A-', 'UnitedHealth', 'INS987654', '2025-02-06 13:12:26', '2025-02-06 18:58:12'),
+(3, 3, 'lwjfrenc ecwe', '1992-07-10', 'michael.johnson@example.com', '+1122334455', '+5544332211', '789 Oak St, Texas, USA', 'female', 'B+', 'Aetna', 'INS556677', '2025-02-06 13:12:26', '2025-02-06 13:16:48'),
+(4, 4, 'Emily Davis', '1998-12-05', 'emily.davis@example.com', '+6655443322', '+2233445566', '321 Pine St, Florida, USA', 'female', 'AB-', 'Cigna', 'INS998877', '2025-02-06 13:12:26', '2025-02-06 18:58:23'),
+(6, 2, 'Shawon Islam', '1985-09-22', 'jane.smith@example.com', '+9876543210', '+0123456789', '456 Elm St, California, USA', 'male', 'A-', 'UnitedHealth', 'INS987654', '2025-02-06 13:03:44', '2025-02-06 13:03:44'),
+(7, 4, 'FAQRUL ISLAM TAPAN', '1998-12-05', 'emily.davis@example.com', '+6655443322', '+2233445566', '321 Pine St, Florida, USA', 'male', 'AB-', 'Cigna', 'INS998877', '2025-02-06 13:05:58', '2025-02-06 13:05:58');
 
 -- --------------------------------------------------------
 
@@ -308,6 +342,16 @@ CREATE TABLE `hms_users` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_users`
+--
+
+INSERT INTO `hms_users` (`id`, `name`, `email`, `password`, `role_id`, `phone`, `address`, `created_at`, `updated_at`) VALUES
+(1, 'John Doe', 'johndoe@example.com', '$2y$10$abcdefghijABCDEFGHIJ1234567890', 1, '1234567890', '123 Main St, New York, NY', '2025-02-06 11:33:36', '2025-02-06 11:33:36'),
+(2, 'Jane Smith', 'janesmith@example.com', '$2y$10$klmnopqrstKLMNOPQRST1234567890', 2, '9876543210', '456 Elm St, Los Angeles, CA', '2025-02-06 11:33:36', '2025-02-06 11:33:36'),
+(3, 'Michael Johnson', 'michaelj@example.com', '$2y$10$uvwxyzUVWXYZ1234567890abcdef', 3, '5551234567', '789 Oak St, Chicago, IL', '2025-02-06 11:33:36', '2025-02-06 11:33:36'),
+(4, 'Emily Davis', 'emilyd@example.com', '$2y$10$12345ABCDEABCDEABCDEABCDEABCDE', 2, '6669876543', '321 Pine St, Houston, TX', '2025-02-06 11:33:36', '2025-02-06 11:33:36');
 
 -- --------------------------------------------------------
 
@@ -467,7 +511,7 @@ ALTER TABLE `hms_departments`
 -- AUTO_INCREMENT for table `hms_doctors`
 --
 ALTER TABLE `hms_doctors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hms_doctor_availability`
@@ -491,7 +535,7 @@ ALTER TABLE `hms_medicine_sales`
 -- AUTO_INCREMENT for table `hms_patients`
 --
 ALTER TABLE `hms_patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `hms_patient_medical_histories`
@@ -527,7 +571,7 @@ ALTER TABLE `hms_suppliers`
 -- AUTO_INCREMENT for table `hms_users`
 --
 ALTER TABLE `hms_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hms_wards`

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Doctors\DoctorListController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\Patient\PatientController;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +64,12 @@ Route::get('/hospital_list/delete/{id}', [HospitalListController::class, 'delete
 Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
 Route::resource('/patients', PatientController::class);
 
+//End of resource routes
+
+
+// Resource routes for doctors
+
+Route::get('/doctors/delete/{id}', [DoctorListController::class, 'delete'])->name('doctors.delete');
+Route::resource('/doctors', DoctorListController::class);
+
+//End of resource routes

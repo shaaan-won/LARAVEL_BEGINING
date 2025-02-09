@@ -106,7 +106,7 @@ class PatientController extends Controller
             'terms' => 'required',
         ]);
 
-        $patient = new Patient();
+        $patient = Patient::find($patient->id);
         $patient->user_id = $request->input('user_name');
         $patient->name = $request->input('name');
         $patient->date_of_birth = $request->input('date_of_birth');
@@ -121,7 +121,7 @@ class PatientController extends Controller
         // $patient->terms = $request->input('terms');
         // print_r($patient->toArray());
 
-        $success =  $patient->save();
+        $success =  $patient->update();
         if ($success) {
             return redirect('/patients')->with('success', 'Patient Updated successfully.');
         } else {
