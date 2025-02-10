@@ -16,6 +16,14 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Database  check 
+
+Route::get('/database', function () {
+    return view('pages.dashboard.db_connection');
+})->name('database');
+
+// End of Database check
+
 // Dashboard Routes working 
 
 Route::get('/', function () {
@@ -26,11 +34,19 @@ Route::get('/dashboard', function () {
     return view('pages.dashboard.dashboard');
 })->name('dashboard');
 
-Route::get('/database', function () {
-    return view('pages.dashboard.db_connection');
-})->name('database');
-
 // End of Dashboard Routes
+
+//Dashboards for MOFI template 
+
+Route::get('/mofi', function () {
+    return view('pages.dashboardmofi.dashboardmofi');
+});
+
+Route::get('/mofi/dashboardmofi', function () {
+    return view('pages.dashboardmofi.dashboardmofi');
+});
+
+//End of dashboards
 
 
 
