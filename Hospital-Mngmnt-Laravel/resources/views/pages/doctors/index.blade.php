@@ -22,7 +22,7 @@
                                     <th>ID</th>
                                     <th>User ID</th>
                                     <th>Name</th>
-                                    <th>Date of Birth</th>
+                                    {{-- <th>Date of Birth</th>
                                     <th>Department</th>
                                     <th>Specialization</th>
                                     <th>Experience (Years)</th>
@@ -31,14 +31,14 @@
                                     <th>Address</th>
                                     <th>Gender</th>
                                     <th>Qualification</th>
-                                    <th>Registration No</th>
+                                    <th>Registration No</th> --}}
                                     <th>Photo</th>
                                     <th>Available Days</th>
                                     <th>Available Time</th>
                                     <th>Consultation Fee</th>
                                     <th>Status</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
+                                    {{-- <th>Created At</th>
+                                    <th>Updated At</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,7 +48,7 @@
                                         <td>{{ $doctor->id }}</td>
                                         <td>{{ $doctor->user_id }}</td>
                                         <td>{{ $doctor->name }}</td>
-                                        <td>{{ $doctor->date_of_birth }}</td>
+                                        {{-- <td>{{ $doctor->date_of_birth }}</td>
                                         <td>{{ $doctor->department_id ?? 'N/A' }}</td>
                                         <td>{{ $doctor->specialization }}</td>
                                         <td>{{ $doctor->experience }}</td>
@@ -57,14 +57,14 @@
                                         <td>{{ $doctor->address }}</td>
                                         <td>{{ ucfirst($doctor->gender) }}</td>
                                         <td>{{ $doctor->qualification }}</td>
-                                        <td>{{ $doctor->registration_no }}</td>
+                                        <td>{{ $doctor->registration_no }}</td> --}}
                                         <td><img src="{{ asset('img/doctors/' . $doctor->photo) }}" alt="Doctor Photo" width="50"></td>
                                         <td>{{ $doctor->available_days }}</td>
                                         <td>{{ $doctor->available_time }}</td>
                                         <td>{{ $doctor->consultation_fee }}</td>
                                         <td>{{ ucfirst($doctor->status) }}</td>
-                                        <td>{{ $doctor->created_at }}</td>
-                                        <td>{{ $doctor->updated_at }}</td>
+                                        {{-- <td>{{ $doctor->created_at }}</td>
+                                        <td>{{ $doctor->updated_at }}</td> --}}
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
