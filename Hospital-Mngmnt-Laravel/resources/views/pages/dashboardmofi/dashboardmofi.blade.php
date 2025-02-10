@@ -20,7 +20,8 @@
                                     </div>
                                     <div class="flex-shrink-0"><img
                                             src="{{ asset('assets-mofi') }}/images/dashboard-4/icon/student.png"
-                                            alt=""></div>
+                                            alt="">
+                                    </div>
                                 </div>
                             </div>
                         </div>
