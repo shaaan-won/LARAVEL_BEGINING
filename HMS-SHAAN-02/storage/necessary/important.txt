@@ -1,0 +1,3 @@
+➜ cd HMS-SHAAN-02
+➜ npm install && npm run build
+➜ composer run dev
