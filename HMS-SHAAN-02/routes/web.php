@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\PatientCheck;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/', function () {
+//     return view('welcome');
+// })->middleware(PatientCheck::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
