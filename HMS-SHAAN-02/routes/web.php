@@ -4,9 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\PatientCheck;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('dashboardmofi.dashboardmofi');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboardmofi.dashboardmofi');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
