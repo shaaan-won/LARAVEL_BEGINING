@@ -54,21 +54,21 @@
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
       <div class="page-header row">
         <!-- Page Header Start-->
-        @include('mofilayout.backend.header')
+        @include('layouts.backend.header')
         <!-- Page Header Ends                              -->
       </div>
       <!-- Page Body Start-->
       <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
-        @include('mofilayout.backend.sidebar')
+        @include('layouts.backend.sidebar')
         <!-- Page Sidebar Ends-->
         <div class="page-body">
           <!-- Container-fluid starts-->
-          @yield('mofi-page-content')
+          @yield('page-content')
           <!-- Container-fluid Ends-->
         </div>
         <!-- footer start-->
-        @include('mofilayout.backend.footer')
+        @include('layouts.backend.footer')
       </div>
     </div>
     <!-- latest jquery-->

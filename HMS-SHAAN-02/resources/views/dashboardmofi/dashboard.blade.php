@@ -1,17 +1,17 @@
-@extends('mofilayout.backend.main')
+@extends('layouts.backend.main')
 
-@section('mofi-page-content')
+@section('page-content')
     <div class="container-fluid dashboard-4">
         <div class="row">
-            <div class="col-xl-6 col-md-12 proorder-md-1">
+            <div class="col-xl-12 col-md-12 proorder-md-1">
                 <div class="row">
-                    <div class="col-xl-6 col-sm-6">
+                    <div class="col-xl-4 col-sm-6">
                         <div class="card">
                             <div class="card-body student">
                                 <div class="d-flex gap-2 align-items-end">
                                     <div class="flex-grow-1">
                                         <h2>42,954</h2>
-                                        <p class="mb-0 text-truncate"> Total Students</p>
+                                        <p class="mb-0 ">Patients</p>
                                         <div class="d-flex student-arrow text-truncate">
                                             <p class="mb-0 up-arrow bg-light-danger"><i
                                                     class="icon-arrow-down font-danger"></i></p><span
@@ -26,13 +26,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-sm-6">
+                    <div class="col-xl-4 col-sm-6">
                         <div class="card">
                             <div class="card-body student-2">
                                 <div class="d-flex gap-2 align-items-end">
                                     <div class="flex-grow-1">
                                         <h2>659</h2>
-                                        <p class="mb-0 text-truncate"> Total Teachers</p>
+                                        <p class="mb-0 ">Doctors</p>
                                         <div class="d-flex student-arrow text-truncate">
                                             <p class="mb-0 up-arrow bg-light-success"><i
                                                     class="icon-arrow-up font-success"></i></p><span
@@ -46,13 +46,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-sm-6">
+                    <div class="col-xl-4 col-sm-6">
                         <div class="card">
                             <div class="card-body student-3">
                                 <div class="d-flex gap-2 align-items-end">
                                     <div class="flex-grow-1">
                                         <h2>984</h2>
-                                        <p class="mb-0 text-truncate"> Events</p>
+                                        <p class="mb-0 text-truncate">Appointments</p>
                                         <div class="d-flex student-arrow text-truncate">
                                             <p class="mb-0 up-arrow bg-light-success"><i
                                                     class="icon-arrow-up font-success"></i></p><span
@@ -66,13 +66,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-sm-6">
+                    <div class="col-xl-4 col-sm-6">
                         <div class="card">
                             <div class="card-body student-4">
                                 <div class="d-flex gap-2 align-items-end">
                                     <div class="flex-grow-1">
                                         <h2>1,984</h2>
-                                        <p class="mb-0 text-truncate"> Invoice Status</p>
+                                        <p class="mb-0 text-truncate">Beds&wards</p>
                                         <div class="d-flex student-arrow text-truncate">
                                             <p class="mb-0 up-arrow bg-light-danger"><i
                                                     class="icon-arrow-down font-danger"></i></p><span
@@ -80,7 +80,47 @@
                                         </div>
                                     </div>
                                     <div class="flex-shrink-0"><img
-                                            src="{{ asset('assets-mofi') }}/images/dashboard-4/icon/invoice.png"
+                                            src="{{ asset('assets-mofi') }}/images/dashboard-4/icon/sent1.png"
+                                            alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="card">
+                            <div class="card-body student-4">
+                                <div class="d-flex gap-2 align-items-end">
+                                    <div class="flex-grow-1">
+                                        <h2>1,984</h2>
+                                        <p class="mb-0 text-truncate">Nurses</p>
+                                        <div class="d-flex student-arrow text-truncate">
+                                            <p class="mb-0 up-arrow bg-light-danger"><i
+                                                    class="icon-arrow-down font-danger"></i></p><span
+                                                class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-0"><img
+                                            src="{{ asset('assets-mofi') }}/images/dashboard-4/icon/user.png"
+                                            alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-sm-6">
+                        <div class="card">
+                            <div class="card-body student-4">
+                                <div class="d-flex gap-2 align-items-end">
+                                    <div class="flex-grow-1">
+                                        <h2>1,984</h2>
+                                        <p class="mb-0 text-truncate">Revenue</p>
+                                        <div class="d-flex student-arrow text-truncate">
+                                            <p class="mb-0 up-arrow bg-light-danger"><i
+                                                    class="icon-arrow-down font-danger"></i></p><span
+                                                class="f-w-500 font-danger">- 15.02%</span>than last 5 Month
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-0"><img
+                                            src="{{ asset('assets-mofi') }}/images/dashboard-4/icon/revenue.png"
                                             alt=""></div>
                                 </div>
                             </div>
@@ -88,11 +128,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-md-6 proorder-md-2">
+            {{-- <div class="col-xl-6 col-md-6 proorder-md-2">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
-                            <h4>Study Statistics</h4>
+                            <h4>Today Statistics </h4>
                             <div class="dropdown icon-dropdown">
                                 <button class="btn dropdown-toggle" id="userdropdown" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
@@ -101,8 +141,8 @@
                                         href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
+                    </div> 
+                     <div class="card-body">
                         <div class="studay-statistics">
                             <ul class="d-flex align-item-center gap-2">
                                 <li> <span class="bg-primary"> </span>UX Design</li>
@@ -112,12 +152,12 @@
                         <div id="study-statistics"></div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-xl-8 col-md-12 proorder-md-4">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
-                            <h4>Assignments</h4>
+                            <h4>Appointments List</h4>
                             <div class="dropdown icon-dropdown">
                                 <button class="btn dropdown-toggle" id="userdropdown1" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false"><i class="icon-more-alt"></i></button>
@@ -130,326 +170,43 @@
                     <div class="card-body pt-0 assignments-table px-0">
                         <div class="table-responsive theme-scrollbar">
                             <table class="table display" id="assignments-table" style="width:100%">
+                                @php
+                                    $patients = DB::table('hms_patients')->get();
+                                @endphp
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </th>
-                                        <th>Id no </th>
-                                        <th>Teacher</th>
-                                        <th>Subject </th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Progress</th>
-                                        <th>Actions</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Date of Birth</th>
+                                        <th>Email</th>
+                                        <th>Contact Number</th>
+                                        <th>Address</th>
+                                        <th>Blood Group</th>
+                                        <th>Appointment Date</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td> <span>0542</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/1.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Gary payi</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>Accounts</td>
-                                        <td>12 May 2023 </td>
-                                        <td>20 May 2023 </td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-primary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 80%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown2" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown2"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td><span>9548</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/2.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Ralph Waters</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>UI/UX Design</td>
-                                        <td>06 May 2023</td>
-                                        <td>16 May 2023</td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-secondary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 60%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown3" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown3"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td><span>2950</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/3.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Edwin Day</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>Mathematics</td>
-                                        <td>25 Sep 2023 </td>
-                                        <td>30 May 2023 </td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-warning">
-                                                    <div class="progress-bar" role="progressbar" style="width: 50%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown4" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown4"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td><span>9605</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/4.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Aaron Hogan</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>Computer App</td>
-                                        <td>23 May 2023 </td>
-                                        <td>26 May 2023</td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-tertiary">
-                                                    <div class="progress-bar" role="progressbar" style="width: 65%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown5" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown5"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td> <span>1552</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/2.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Ralph Waters</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>Accounts</td>
-                                        <td>15 May 2023 </td>
-                                        <td>26 May 2023 </td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-success">
-                                                    <div class="progress-bar" role="progressbar" style="width: 40%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown6" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown6"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td><span>125</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/3.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Aaron Hogan</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>Accounts</td>
-                                        <td>05 May 2023 </td>
-                                        <td>19 May 2023 </td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-danger">
-                                                    <div class="progress-bar" role="progressbar" style="width: 70%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown7" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown7"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <label class="form-check-label"></label>
-                                            </div>
-                                        </td>
-                                        <td><span>254</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0"><img
-                                                        src="{{ asset('assets-mofi') }}/images/dashboard-4/user/1.png"
-                                                        alt=""></div>
-                                                <div class="flex-grow-1 ms-2"><a href="product-page.html">
-                                                        <h6>Gary payi</h6>
-                                                    </a></div>
-                                                <div class="active-status active-online"></div>
-                                            </div>
-                                        </td>
-                                        <td>Accounts</td>
-                                        <td>22 May 2023 </td>
-                                        <td>02 May 2023 </td>
-                                        <td>
-                                            <div class="progress-showcase">
-                                                <div class="progress sm-progress-bar progress-border-info">
-                                                    <div class="progress-bar" role="progressbar" style="width: 25%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="dropdown icon-dropdown">
-                                                <button class="btn dropdown-toggle" id="userdropdown8" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="icon-more-alt"></i></button>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="userdropdown8"><a class="dropdown-item"
-                                                        href="#">Weekly</a><a class="dropdown-item"
-                                                        href="#">Monthly</a><a class="dropdown-item"
-                                                        href="#">Yearly</a></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @forelse ($patients as $patient)
+                                        <tr>
+                                            <td>{{ $patient->id }}</td>
+                                            <td>{{ $patient->name }}</td>
+                                            <td>{{ $patient->date_of_birth }}</td>
+                                            <td>{{ $patient->email }}</td>
+                                            <td>{{ $patient->contact_number }}</td>
+                                            <td>{{ $patient->address }}</td>
+                                            <td>{{ $patient->blood_group }}</td>
+                                            <td> NOt Sceduled</td>
+                                            <td>pending</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="15" class="text-center fw-bold text-danger fs-10">No Patients
+                                                Found</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -466,7 +223,8 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown9"><a
                                         class="dropdown-item" href="#">Address Selection</a><a
                                         class="dropdown-item" href="#">Geo-Menu</a><a class="dropdown-item"
-                                        href="#">Place Picker</a></div>
+                                        href="#">Place Picker</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -558,7 +316,8 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown12"><a
                                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
                                                 href="#">Monthly</a><a class="dropdown-item"
-                                                href="#">Yearly</a></div>
+                                                href="#">Yearly</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -576,7 +335,8 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown13"><a
                                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
                                                 href="#">Monthly</a><a class="dropdown-item"
-                                                href="#">Yearly</a></div>
+                                                href="#">Yearly</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -594,7 +354,8 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown14"><a
                                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
                                                 href="#">Monthly</a><a class="dropdown-item"
-                                                href="#">Yearly</a></div>
+                                                href="#">Yearly</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -612,7 +373,8 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown15"><a
                                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
                                                 href="#">Monthly</a><a class="dropdown-item"
-                                                href="#">Yearly</a></div>
+                                                href="#">Yearly</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -630,7 +392,8 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown16"><a
                                                 class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
                                                 href="#">Monthly</a><a class="dropdown-item"
-                                                href="#">Yearly</a></div>
+                                                href="#">Yearly</a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>

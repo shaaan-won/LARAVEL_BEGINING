@@ -1,23 +1,30 @@
 <?php
 
+use App\Http\Controllers\Doctors\DoctorListController;
+use App\Http\Controllers\Hospital_List\HospitalListController;
+use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\PatientCheck;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/', function () {
 //     return view('welcome');
 // })->middleware(PatientCheck::class);
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
+Route::match(['get', 'post'], '/', function () {
     return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboardmofi.dashboardmofi');
+    return view('dashboardmofi.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -27,3 +34,44 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+//Hospital list routes and CRUD
+
+Route::get('/hospital_list', [HospitalListController::class, 'index'])->name('hospital_list');
+
+Route::get('/hospital_list/create', [HospitalListController::class, 'create'])->name('hospital_list.create');
+
+Route::post('/hospital_list', [HospitalListController::class, 'store'])->name('hospital_list.store');
+
+Route::get('/hospital_list/{id}', [HospitalListController::class, 'show'])->name('hospital_list.show');
+
+Route::get('/hospital_list/{id}/edit', [HospitalListController::class, 'edit'])->name('hospital_list.edit');
+
+Route::put('/hospital_list/{id}', [HospitalListController::class, 'update'])->name('hospital_list.update');
+
+// when using hard delete
+Route::delete('/hospital_list/{id}', [HospitalListController::class, 'destroy'])->name('hospital_list.destroy');
+
+// when using soft delete
+Route::get('/hospital_list/delete/{id}', [HospitalListController::class, 'delete'])->name('hospital_list.delete');
+
+// Route::get('/hospital_list/{id}/search', [HospitalListController::class, 'search'])->name('hospital_list.search');
+
+//End of Hospital list routes
+
+
+//Resource routes for patients
+
+Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
+Route::resource('/patients', PatientController::class);
+
+//End of resource routes
+
+
+// Resource routes for doctors
+
+Route::get('/doctors/delete/{id}', [DoctorListController::class, 'delete'])->name('doctors.delete');
+Route::resource('/doctors', DoctorListController::class);
+
+//End of resource routes
