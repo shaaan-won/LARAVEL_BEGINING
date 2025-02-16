@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('auth.login');
 // });
 
+// hdfhjnsdzjftjkhg
+
+
+
 Route::match(['get', 'post'], '/', function () {
     return view('auth.login');
 });
