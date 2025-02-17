@@ -401,8 +401,9 @@
                     </div>
                 </div>
             </div>
+            
             {{-- new div for proorder --}}
-            <div class="col-xxl-5 col-xl-6 box-col-6 proorder-4-xl-1 proorder-md-7">
+            <div class="col-xxl-6 col-xl-6 box-col-6  proorder-md-7">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
@@ -527,7 +528,30 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-7 col-xl-12 box-col-12 proorder-md-8">
+            <div class="col-xxl-6 col-xl-6 box-col-6 proorder-md-9">
+                <div class="card">
+                    <div class="card-header card-no-border pb-0">
+                        <div class="header-top">
+                            <h4>Schedule</h4>
+                            <div class="dropdown icon-dropdown">
+                                <button class="btn dropdown-toggle" id="userdropdown19" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"><i
+                                        class="icon-more-alt"></i></button>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown19"><a
+                                        class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
+                                        href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body schedult-calendar pt-0">
+                        <div class="schedule-container">
+                            <div id="schedulechart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-12 col-xl-12 box-col-12 proorder-md-8">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
@@ -554,29 +578,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-5 col-xl-6 box-col-6 proorder-md-9">
-                <div class="card">
-                    <div class="card-header card-no-border pb-0">
-                        <div class="header-top">
-                            <h4>Schedule</h4>
-                            <div class="dropdown icon-dropdown">
-                                <button class="btn dropdown-toggle" id="userdropdown19" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                        class="icon-more-alt"></i></button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown19"><a
-                                        class="dropdown-item" href="#">Weekly</a><a class="dropdown-item"
-                                        href="#">Monthly</a><a class="dropdown-item" href="#">Yearly</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body schedult-calendar pt-0">
-                        <div class="schedule-container">
-                            <div id="schedulechart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 @endsection

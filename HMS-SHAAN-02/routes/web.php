@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // })->middleware(PatientCheck::class);
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-
-Route::match(['get', 'post'], '/', function () {
+Route::get('/', function () {
     return view('auth.login');
 });
+
+// Route::match(['get', 'post'], '/', function () {
+//     return view('auth.login');   //from chat gpt if cant access by the public localhost
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboardmofi.dashboard');
