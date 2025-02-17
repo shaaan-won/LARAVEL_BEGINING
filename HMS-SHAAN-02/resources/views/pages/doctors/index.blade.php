@@ -16,7 +16,7 @@
                     </div>
                     <div class="table-responsive">
                         {{-- {{print_r($doctors->toArray())}} --}}
-                        <table class="table table-hover table-responsive">
+                        <table class="table table-striped table-responsive">
                             <thead>
                                 <tr>
                                     <th>ID</th>

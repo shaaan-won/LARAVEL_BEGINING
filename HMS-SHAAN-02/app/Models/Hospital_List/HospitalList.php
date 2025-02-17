@@ -9,7 +9,7 @@ class HospitalList extends Model
 {
     use HasFactory;
 
-    protected $table = 'hms_hospitals';
+    protected $table = 'hospitals';
 
     // protected $fillable = [
     //     'name',

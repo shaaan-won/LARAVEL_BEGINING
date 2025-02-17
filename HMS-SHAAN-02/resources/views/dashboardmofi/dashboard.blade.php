@@ -153,7 +153,7 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="col-xl-8 col-md-12 proorder-md-4">
+            <div class=" col-xl-12 col-md-12  proorder-md-3 ">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
@@ -169,9 +169,9 @@
                     </div>
                     <div class="card-body pt-0 assignments-table px-0">
                         <div class="table-responsive theme-scrollbar">
-                            <table class="table display" id="assignments-table" style="width:100%">
+                            <table class="table display overflow-auto" id="assignments-table" style="width:100%">
                                 @php
-                                    $patients = DB::table('hms_patients')->get();
+                                    $patients = DB::table('patients')->get();
                                 @endphp
                                 <thead>
                                     <tr>
@@ -201,17 +201,17 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="15" class="text-center fw-bold text-danger fs-10">No Patients
+                                            <td colspan="9" class="text-center fw-bold text-danger fs-10">No Patients
                                                 Found</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+            {{-- new div for live meeting & schedule --}}
             <div class="col-xl-4 col-md-6 proorder-md-5">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
@@ -263,7 +263,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-4 col-xl-7 box-col-7 col-md-6 proorder-md-3">
+            <div class="col-xxl-4 col-xl-4 box-col-7 col-md-6 proorder-md-3">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
@@ -284,7 +284,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-3 col-xl-5 box-col-5 col-md-6 proorder-md-6">
+            <div class="col-xxl-4 col-xl-4 box-col-5 col-md-6 proorder-md-6">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">
                         <div class="header-top">
@@ -401,6 +401,7 @@
                     </div>
                 </div>
             </div>
+            {{-- new div for proorder --}}
             <div class="col-xxl-5 col-xl-6 box-col-6 proorder-4-xl-1 proorder-md-7">
                 <div class="card">
                     <div class="card-header card-no-border pb-0">

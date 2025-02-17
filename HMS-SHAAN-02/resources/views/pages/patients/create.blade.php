@@ -2,7 +2,7 @@
 
 @section('page-content')
     @php
-        $users = DB::table('hms_users')->get();
+        $users = DB::table('users')->get();
     @endphp
 
 

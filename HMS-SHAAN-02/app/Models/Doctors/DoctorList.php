@@ -9,5 +9,5 @@ class DoctorList extends Model
 {
     use HasFactory;
 
-    protected $table = "hms_doctors";
+    protected $table = "doctors";
 }

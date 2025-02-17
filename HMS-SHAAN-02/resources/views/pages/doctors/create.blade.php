@@ -2,8 +2,8 @@
 
 @section('page-content')
     @php
-        $departments = DB::table('hms_departments')->get();  // Fetch departments for the dropdown
-        $users = DB::table('hms_users')->get();  // Fetch users for the user selection
+        $departments = DB::table('departments')->get();  // Fetch departments for the dropdown
+        $users = DB::table('users')->get();  // Fetch users for the user selection
     @endphp
 
     <section class="bs-validation">

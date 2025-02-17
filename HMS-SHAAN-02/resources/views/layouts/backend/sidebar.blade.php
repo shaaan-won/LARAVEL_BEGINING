@@ -41,42 +41,16 @@
                             <svg class="fill-icon">
                                 <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-home"></use>
                             </svg><span class="lan-3">Dashboard </span></a>
-                        {{-- <ul class="sidebar-submenu">
-                            <li><a class="lan-4" href="index.html">Default</a></li>
-                            <li><a class="lan-5" href="dashboard-02.html">Project</a></li>
-                            <li><a href="dashboard-03.html">Ecommerce</a></li>
-                            <li><a href="dashboard-04.html">Education</a></li>
-                        </ul> --}}
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
-                        href="{{ url('/hospitals') }}">
-                        <svg class="stroke-icon">
-                            <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#stroke-bonus-kit"></use>
-                        </svg>
-                        <svg class="fill-icon">
-                            <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-bonus-kit"></use>
-                        </svg><span>Hospitals</span></a>
-                    <ul class="sidebar-submenu">
-                        <li><a href="scrollable.html">Scrollable</a></li>
-                        <li><a href="tree.html">Tree view</a></li>
-                        <li><a href="toasts.html">Toasts</a></li>
-                        <li><a href="rating.html">Rating</a></li>
-                        <li><a href="dropzone.html">dropzone</a></li>
-                        <li><a href="tour.html">Tour</a></li>
-                        <li><a href="sweet-alert2.html">SweetAlert2</a></li>
-                        <li><a href="modal-animated.html">Animated Modal</a></li>
-                        <li><a href="owl-carousel.html">Owl Carousel</a></li>
-                        <li><a href="ribbons.html">Ribbons</a></li>
-                        <li><a href="pagination.html">Pagination</a></li>
-                        <li><a href="breadcrumb.html">Breadcrumb</a></li>
-                        <li><a href="range-slider.html">Range Slider</a></li>
-                        <li><a href="image-cropper.html">Image cropper</a></li>
-                        <li><a href="basic-card.html">Basic Card</a></li>
-                        <li><a href="creative-card.html">Creative Card</a></li>
-                        <li><a href="dragable-card.html">Draggable Card</a></li>
-                        <li><a href="timeline-v-1.html">Timeline </a></li>
-                    </ul>
-                </li>
+                            href="{{ url('/hospital_list') }}">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#stroke-bonus-kit"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-bonus-kit"></use>
+                            </svg><span>Hospitals</span></a>
+                    </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title"
                             href="{{ url('/patients') }}">
                             <svg class="stroke-icon">
@@ -84,11 +58,7 @@
                             </svg>
                             <svg class="fill-icon">
                                 <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-project"></use>
-                            </svg><span> Patients </span></a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="projects.html">Project List</a></li>
-                            <li><a href="projectcreate.html">Create new</a></li>
-                        </ul>
+                            </svg><span> Patients List </span></a>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
                             href="{{ url('/doctors') }}">

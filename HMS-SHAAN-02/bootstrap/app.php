@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AccessControl\AccessControl;
 use App\Http\Middleware\PatientCheck;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,7 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->append(PatientCheck::class);
+        $middleware->alias([
+            // $middleware->append(PatientCheck::class),
+            'SuperAdminCheck' => AccessControl::class,
+            // 'PatientCheck' => PatientCheck::class,
+
+
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
