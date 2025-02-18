@@ -5,3 +5,11 @@ laravel new HMS-SHAAN-02 {it will install breeze al all things}
 ➜ cd HMS-SHAAN-02
 ➜ npm install && npm run build
 ➜ composer run dev
+
+basic:
+php artisan make:model Appointment -m
+php artisan make:controller AppointmentController --resource
+
+Advanced:
+php artisan make:model Appointment -mrc
+php artisan make:model Appointment -mcrfs // advanced

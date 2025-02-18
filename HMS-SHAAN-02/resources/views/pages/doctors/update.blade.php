@@ -2,16 +2,17 @@
 
 @section('page-content')
     @php
-        $users = DB::table('hms_users')->get();
-        $departments = DB::table('hms_departments')->get(); 
+        $users = DB::table('users')->get();
+        $departments = DB::table('departments')->get(); 
+        $statuses = DB::table('statuses')->get();
     @endphp
 
     <section class="bs-validation">
         <div class="row justify-content-center">
             <div class="col-md-11 col-lg-9 col-12 mt-3 fw-bold fs-4 mx-auto">
                 <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="card-title">Update Doctor Details of <span class="text-success">{{ $doctor->name }}</span></h4>
+                    <div class="card-header bg-warning text-white">
+                        <h4 class="card-title">Update Doctor Details of <span class="text-primary fw-bold">{{ $doctor->name }}</span></h4>
                         <a href="{{ url('doctors') }}" class="btn btn-secondary float-end">Back</a>
                     </div>
                     <div class="card-body table-responsive mt-2">
@@ -174,7 +175,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-1">
+                            {{-- <div class="mb-1">
                                 <label class="form-label fw-bold fs-5" for="available_days">Available Days</label>
                                 <input type="text" class="form-control form-control-lg" id="available_days" name="available_days" placeholder="e.g. Monday, Wednesday, Friday" value="{{ old('available_days', $doctor->available_days) }}" />
                                 @error('available_days')
@@ -187,11 +188,24 @@
                                 @error('available_time')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="mb-1">
                                 <label class="form-label fw-bold fs-5" for="consultation_fee">Consultation Fee</label>
                                 <input type="text" class="form-control form-control-lg" id="consultation_fee" name="consultation_fee" placeholder="200.00" value="{{ old('consultation_fee', $doctor->consultation_fee) }}" />
                                 @error('consultation_fee')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label fw-bold fs-5" for="status">Status</label>
+                                <select class="form-select form-select-lg" id="status" name="status">
+                                    @foreach ($statuses as $status)
+                                        <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('status')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

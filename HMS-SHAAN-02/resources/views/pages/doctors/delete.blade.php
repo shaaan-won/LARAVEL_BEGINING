@@ -71,24 +71,14 @@
                             <td>{{ $doctor->bio ?? 'N/A' }}</td>
                         </tr>
                         <tr>
-                            <th>Available Days</th>
-                            <td>
-                            {{ $doctor->available_days ?? 'N/A' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Available Time</th>
-                            <td>{{ $doctor->available_time ?? 'N/A' }}</td>
-                        </tr>
-                        <tr>
                             <th>Consultation Fee</th>
                             <td>{{ $doctor->consultation_fee ? '$' . number_format($doctor->consultation_fee, 2) : 'N/A' }}</td>
                         </tr>
                         <tr>
                             <th>Status</th>
                             <td>
-                                <span class="badge bg-{{ $doctor->status == 'Active' ? 'success' : 'danger' }}">
-                                    {{ $doctor->status }}
+                                <span class="badge bg-{{ $doctor->status_id == 'Active' ? 'success' : 'danger' }}">
+                                    {{ $doctor->status_id }}
                                 </span>
                             </td>
                         </tr>

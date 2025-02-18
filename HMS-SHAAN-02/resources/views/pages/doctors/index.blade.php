@@ -33,8 +33,7 @@
                                     <th>Qualification</th>
                                     <th>Registration No</th> --}}
                                     <th>Photo</th>
-                                    <th>Available Days</th>
-                                    <th>Available Time</th>
+                                    <th>Bio</th>
                                     <th>Consultation Fee</th>
                                     <th>Status</th>
                                     {{-- <th>Created At</th>
@@ -59,10 +58,9 @@
                                         <td>{{ $doctor->qualification }}</td>
                                         <td>{{ $doctor->registration_no }}</td> --}}
                                         <td><img src="{{ asset('img/doctors/' . $doctor->photo) }}" alt="Doctor Photo" width="50"></td>
-                                        <td>{{ $doctor->available_days }}</td>
-                                        <td>{{ $doctor->available_time }}</td>
+                                        <td>{{ $doctor->bio }}</td>
                                         <td>{{ $doctor->consultation_fee }}</td>
-                                        <td>{{ ucfirst($doctor->status) }}</td>
+                                        <td>{{ ucfirst($doctor->status_id) }}</td>
                                         {{-- <td>{{ $doctor->created_at }}</td>
                                         <td>{{ $doctor->updated_at }}</td> --}}
                                         <td>

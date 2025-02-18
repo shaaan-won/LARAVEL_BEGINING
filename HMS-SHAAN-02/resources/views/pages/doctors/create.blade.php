@@ -4,6 +4,7 @@
     @php
         $departments = DB::table('departments')->get();  // Fetch departments for the dropdown
         $users = DB::table('users')->get();  // Fetch users for the user selection
+        $statuses = DB::table('statuses')->get();
     @endphp
 
     <section class="bs-validation">
@@ -174,7 +175,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-1">
+                            {{-- <div class="mb-1">
                                 <label class="form-label fw-bold fs-5" for="available_days">Available Days</label>
                                 <input type="text" class="form-control form-control-lg" id="available_days" name="available_days" placeholder="e.g. Monday, Wednesday, Friday" value="{{ old('available_days') }}" />
                                 @error('available_days')
@@ -187,11 +188,26 @@
                                 @error('available_time')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="mb-1">
                                 <label class="form-label fw-bold fs-5" for="consultation_fee">Consultation Fee</label>
                                 <input type="text" class="form-control form-control-lg" id="consultation_fee" name="consultation_fee" placeholder="200.00" value="{{ old('consultation_fee') }}" />
                                 @error('consultation_fee')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-1">
+                                <label class="form-label fw-bold fs-5" for="status">Status</label>
+                                <select class="form-select form-control-lg" id="status" name="status_id">
+                                    <option value="">Select Status</option>
+                                    @foreach ($statuses as $status)
+                                        <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('status')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>

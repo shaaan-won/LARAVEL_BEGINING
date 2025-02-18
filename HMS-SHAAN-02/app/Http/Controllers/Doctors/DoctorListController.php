@@ -34,9 +34,9 @@ class DoctorListController extends Controller
     // Validate the incoming request data
     $request->validate([
         'user_id' => 'required',
-        'name' => 'required|max:255 |unique:hms_doctors,name',
+        'name' => 'required|max:255 |unique:doctors,name',
         'date_of_birth' => 'required|date',
-        'department_id' => 'nullable|exists:hms_departments,id',
+        'department_id' => 'nullable|exists:departments,id',
         'specialization' => 'required|max:255',
         'experience' => 'required|integer',
         'contact_number' => 'required|max:20',
@@ -46,10 +46,8 @@ class DoctorListController extends Controller
         'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation for the image
         'qualification' => 'required|string|max:255',
         'registration_no' => 'required|string|max:255',
-        'available_days' => 'required',
-        'available_time' => 'required',
         'consultation_fee' => 'required|integer',
-        // 'status' => 'required|in:Active,Inactive',
+        'status_id' => 'required',
     ]);
 
     // Create a new DoctorList instance
@@ -66,12 +64,11 @@ class DoctorListController extends Controller
     $doctor->gender = $request->input('gender');
     $doctor->qualification = $request->input('qualification');
     $doctor->registration_no = $request->input('registration_no');
-    $doctor->available_days = $request->input('available_days');
-    $doctor->available_time = $request->input('available_time');
+    $doctor->bio = $request->input('bio');
     $doctor->consultation_fee = $request->input('consultation_fee');
-    // $doctor->status = $request->input('status');
+    $doctor->status_id = $request->input('status_id');
 
-    // Handle the image uploa   d
+    // Handle the image upload
     if ($request->hasFile('photo')) {
         $image = $request->file('photo');
         $imageName = $doctor->name . '.' . $image->getClientOriginalExtension();
@@ -115,9 +112,9 @@ class DoctorListController extends Controller
         // print_r($request->all());
         $request->validate([
             'user_id' => 'required',
-            'name' => 'required|max:255|unique:hms_doctors',
+            'name' => 'required|max:255',
             'date_of_birth' => 'required|date',
-            'department_id' => 'nullable|exists:hms_departments,id',
+            'department_id' => 'nullable|exists:departments,id',
             'specialization' => 'required|max:255',
             'experience' => 'required|integer',
             'contact_number' => 'required|max:20',
@@ -127,10 +124,8 @@ class DoctorListController extends Controller
             'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation for the image
             'qualification' => 'required|string|max:255',
             'registration_no' => 'required|string|max:255',
-            'available_days' => 'required',
-            'available_time' => 'required',
             'consultation_fee' => 'required|integer',
-            // 'status' => 'required|in:Active,Inactive',
+            'status_id' => 'required',
         ]);
 
         $doctor = DoctorList::find($doctor->id);
@@ -146,10 +141,9 @@ class DoctorListController extends Controller
         $doctor->gender = $request->input('gender');
         $doctor->qualification = $request->input('qualification');
         $doctor->registration_no = $request->input('registration_no');
-        $doctor->available_days = $request->input('available_days');
-        $doctor->available_time = $request->input('available_time');
+        $doctor->bio = $request->input('bio');
         $doctor->consultation_fee = $request->input('consultation_fee');
-        // $doctor->status = $request->input('status');
+        $doctor->status_id = $request->input('status_id');
 
         // Handle the image upload
         //use the handleFileUpload method to prevent code duplication
