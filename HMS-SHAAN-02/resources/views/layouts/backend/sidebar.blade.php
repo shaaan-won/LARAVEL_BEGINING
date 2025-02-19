@@ -694,3 +694,114 @@
         </nav>
     </div>
 </div>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  (function ($) {
+    $(".toggle-nav").click(function () {
+      $("#sidebar-links .nav-menu").css("left", "0px");
+    });
+
+    $(".mobile-back").click(function () {
+      $("#sidebar-links .nav-menu").css("left", "-410px");
+    });
+
+    $(".page-wrapper").attr("class", "page-wrapper " + localStorage.getItem("page-wrapper"));
+    if (localStorage.getItem("page-wrapper") === null) {
+      $(".page-wrapper").addClass("compact-wrapper");
+    }
+
+    // Sidebar Toggle
+    const $nav = $(".sidebar-wrapper");
+    const $header = $(".page-header");
+    const $toggle_nav_top = $(".toggle-sidebar");
+
+    $toggle_nav_top.click(function () {
+      $nav.toggleClass("close_icon");
+      $header.toggleClass("close_icon");
+      $(window).trigger("overlay");
+    });
+
+    $(window).on("overlay", function () {
+      const $bgOverlay = $(".bg-overlay");
+      const $isHidden = $nav.hasClass("close_icon");
+      if ($(window).width() <= 1184 && !$isHidden && $bgOverlay.length === 0) {
+        $('<div class="bg-overlay active"></div>').appendTo($("body"));
+      }
+      if ($isHidden && $bgOverlay.length > 0) {
+        $bgOverlay.remove();
+      }
+    });
+
+    $("body").on("click", ".bg-overlay", function () {
+      $header.addClass("close_icon");
+      $nav.addClass("close_icon");
+      $(this).remove();
+    });
+
+    $(".sidebar-wrapper .back-btn").on("click", function () {
+      $header.toggleClass("close_icon");
+      $nav.toggleClass("close_icon");
+      $(window).trigger("overlay");
+    });
+
+    // Responsive Sidebar
+    const $window = $(window);
+    const handleResize = () => {
+      if ($window.width() <= 1184) {
+        $toggle_nav_top.attr("checked", false);
+        $nav.addClass("close_icon");
+        $header.addClass("close_icon");
+      } else {
+        $toggle_nav_top.attr("checked", true);
+        $nav.removeClass("close_icon");
+        $header.removeClass("close_icon");
+      }
+    };
+
+    handleResize();
+    $window.resize(handleResize);
+
+    // Active Page Link Scroll
+    $(document).ready(function () {
+      const contentWrapper = $(".simplebar-wrapper .simplebar-content-wrapper");
+      const activeLink = contentWrapper.find("a.active");
+
+      if (contentWrapper.length && activeLink.length && $("#pageWrapper").hasClass("compact-wrapper")) {
+        contentWrapper.animate(
+          { scrollTop: activeLink.offset().top - 400 },
+          1000
+        );
+      }
+    });
+
+    // Mega Menu & Level Menu Toggle
+    $(".left-header .mega-menu .nav-link, .left-header .level-menu .nav-link").on("click", function (event) {
+      event.stopPropagation();
+      $(this).siblings(".mega-menu-container, .header-level-menu").toggleClass("show");
+    });
+
+    $(document).click(function () {
+      $(".mega-menu-container, .header-level-menu").removeClass("show");
+    });
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop() >= 50) {
+        $(".mega-menu-container, .header-level-menu").removeClass("show");
+      }
+    });
+
+    // Sidebar Menu Click Outside Close
+    $(document).on("click", function (event) {
+      if (!$(event.target).closest(".outside").length) {
+        $(".menu-to-be-close").slideUp("fast");
+      }
+    });
+
+    $(".outside").click(function () {
+      $(this).find(".menu-to-be-close").slideToggle("fast");
+    });
+
+  })(jQuery);
+</script> --}}
+

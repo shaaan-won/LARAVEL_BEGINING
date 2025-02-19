@@ -11,8 +11,8 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <h2 class="card-title fw-bolder">Hospital List</h2>
-                        <a href="{{ url('patients/create') }}" class="btn btn-primary float-end">Add Hospital</a>
+                        <h2 class="card-title fw-bolder">Patient List</h2>
+                        <a href="{{ url('patients/create') }}" class="btn btn-primary float-end">Add Patient</a>
                     </div>
                     <div class="table-responsive">
                         {{-- {{print_r($hospitals->toArray())}} --}}

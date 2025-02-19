@@ -5,6 +5,7 @@ use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WardController;
 use App\Http\Middleware\PatientCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // })->middleware(PatientCheck::class);
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-// Route::match(['get', 'post'], '/', function () {
-//     return view('auth.login');   //from chat gpt if cant access by the public localhost
+// Route::get('/', function () {
+//     return view('auth.login');
 // });
+
+Route::match(['get', 'post'], '/', function () {
+    return view('auth.login');   //from chat gpt if cant access by the public localhost
+});
 
 Route::get('/dashboard', function () {
     return view('dashboardmofi.dashboard');
@@ -101,5 +102,12 @@ Route::resource('/doctors', DoctorController::class);
 //Resource routes for erp
 
 Route::resource('/doctoravailabilitys', DoctorAvailabilityController::class);
+
+//End of resource routes
+
+//Resource routes for wards
+
+Route::get('/wards/delete/{id}', [WardController::class, 'delete'])->name('wards.delete');
+Route::resource('/wards', WardController::class);
 
 //End of resource routes

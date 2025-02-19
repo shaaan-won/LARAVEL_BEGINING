@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2025 at 08:21 AM
+-- Generation Time: Feb 19, 2025 at 07:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,9 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `hms_shaan_02`
 --
-drop database if exists `hms_shaan_02`;
-CREATE DATABASE `hms_shaan_02` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `hms_shaan_02`;
+Drop database if exists project_hms_shaan;
+CREATE DATABASE project_hms_shaan DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE project_hms_shaan;
 -- --------------------------------------------------------
 
 --
@@ -34,10 +34,10 @@ CREATE TABLE `hms_appointments` (
   `patient_id` int(11) DEFAULT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `appointment_date` datetime DEFAULT NULL,
-  `status` enum('pending','confirmed','cancelled','completed','rescheduled') DEFAULT 'pending',
+  `status_id` int(11) DEFAULT NULL,
   `cancellation_reason` text DEFAULT NULL,
   `consultation_notes` text DEFAULT NULL,
-  `payment_status` enum('unpaid','paid','partial') DEFAULT 'unpaid',
+  `payment_status_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -140,23 +140,21 @@ CREATE TABLE `hms_departments` (
 CREATE TABLE `hms_doctors` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `date_of_birth` date DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,
   `specialization` varchar(255) DEFAULT NULL,
   `experience` int(11) DEFAULT NULL COMMENT 'Years of Experience',
   `contact_number` varchar(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `address` text DEFAULT NULL,
   `gender` enum('Male','Female','Other') DEFAULT NULL,
   `qualification` text DEFAULT NULL,
-  `registration_no` varchar(50) DEFAULT NULL,
+  `registration_no` varchar(50) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `bio` text DEFAULT NULL,
-  `available_days` varchar(50) DEFAULT NULL,
-  `available_time` varchar(50) DEFAULT NULL,
   `consultation_fee` decimal(10,2) DEFAULT NULL,
-  `status` enum('Active','Inactive') DEFAULT 'Active',
+  `status_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -165,27 +163,36 @@ CREATE TABLE `hms_doctors` (
 -- Dumping data for table `hms_doctors`
 --
 
-INSERT INTO `hms_doctors` (`id`, `user_id`, `name`, `date_of_birth`, `department_id`, `specialization`, `experience`, `contact_number`, `email`, `address`, `gender`, `qualification`, `registration_no`, `photo`, `bio`, `available_days`, `available_time`, `consultation_fee`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Shawon Islam', '2025-02-07', NULL, 'Cardiologist', 10, '+8801712345678', 'dr.rahman@example.com', '123 Green Road, Dhaka', 'Male', 'MBBS, MD (Cardiology)', 'REG123456', 'Shawon Islam.jpg', 'Experienced cardiologist with 10 years in the field.', '[\"Monday\", \"Wednesday\", \"Friday\"]', '09:00 AM - 03:00 PM', 1500.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 17:18:54'),
-(2, 2, 'Shawon Islam', '2025-02-10', NULL, 'Neurologist', 8, '+8801811223344', 'dr.karim@example.com', '456 Banani, Dhaka', 'Male', 'MBBS, DM (Neurology)', 'REG654321', 'Shawon Islam.jpg', 'Specialist in neurological disorders.', '[\"Tuesday\", \"Thursday\", \"Saturday\"]', '10:00 AM - 04:00 PM', 2000.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 17:21:13'),
-(3, 3, 'Shawon Islam 1', '2025-02-11', NULL, 'Orthopedic Surgeon', 15, '+8801912334455', 'dr.hasan@example.com', '789 Gulshan, Dhaka', 'Male', 'MBBS, MS (Orthopedics)', 'REG789123', 'Shawon Islam 1.jpg', 'Expert in bone and joint surgeries.', '[\"Monday\", \"Wednesday\", \"Friday\"]', '08:00 AM - 02:00 PM', 1800.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 17:22:46'),
-(4, 4, NULL, NULL, 4, 'Gynecologist', 12, '+8801555667788', 'dr.fatima@example.com', '222 Uttara, Dhaka', 'Female', 'MBBS, DGO', 'REG987654', 'img/doctors/dr_fatima.jpg', 'Dedicated women’s health specialist.', '[\"Sunday\", \"Tuesday\", \"Thursday\"]', '09:30 AM - 03:30 PM', 1700.00, 'Active', '2025-02-09 23:14:57', '2025-02-09 23:14:57');
+INSERT INTO `hms_doctors` (`id`, `user_id`, `name`, `date_of_birth`, `department_id`, `specialization`, `experience`, `contact_number`, `email`, `address`, `gender`, `qualification`, `registration_no`, `photo`, `bio`, `consultation_fee`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Dr. John Doe', '1980-05-15', 1, 'Cardiology', 15, '1234567890', 'johndoe@example.com', '123 Heart St, New York, USA', 'Male', 'MBBS, MD (Cardiology)', 'DOC12345', 'john_doe.jpg', 'Experienced cardiologist specializing in heart diseases.', 150.00, 2, '2025-02-18 12:27:41', '2025-02-18 12:27:41'),
+(2, 2, 'Dr. Sarah Smith', '1985-09-22', 2, 'Neurology', 10, '0987654321', 'sarahsmith@example.com', '456 Brain Ave, Los Angeles, USA', 'Female', 'MBBS, DM (Neurology)', 'DOC67890', 'sarah_smith.jpg', 'Expert in treating neurological disorders.', 180.00, 1, '2025-02-18 12:27:41', '2025-02-18 12:27:41'),
+(3, 3, 'Dr. Michael Brown', '1975-12-10', 3, 'Orthopedics', 20, '1122334455', 'michaelbrown@example.com', '789 Bone Rd, Chicago, USA', 'Male', 'MBBS, MS (Orthopedics)', 'DOC11223', 'michael_brown.jpg', 'Specialist in bone and joint treatments.', 120.00, 2, '2025-02-18 12:27:41', '2025-02-18 12:27:41'),
+(4, 4, 'Dr. Emma Johnson', '1990-07-08', 4, 'Dermatology', 8, '2233445566', 'emmajohnson@example.com', '567 Skin Lane, Houston, USA', 'Female', 'MBBS, MD (Dermatology)', 'DOC33445', 'emma_johnson.jpg', 'Expert in skincare and dermatological treatments.', 130.00, 1, '2025-02-18 12:27:41', '2025-02-18 12:27:41'),
+(5, 3, 'Shawon Islam', '2025-02-05', NULL, 'agas', 44, '0541651', 'shawoni397@gmail.com', 'Shahapur', 'Male', 'sdgasdg', 'ADfy28234', 'Shawon Islam.jpg', 'dfgbasdg', 1500.00, 1, '2025-02-18 06:56:13', '2025-02-18 06:56:13'),
+(6, 2, 'Shawon Islam 1', '2025-02-20', NULL, 'fdfgsdh', 3, '0541651', 'sshawoni397@gmail.com', 'Shahapur', 'Male', 'agagat', 'ADfy28234sf', 'Shawon Islam 1.jpg', 'aSDvs', 1500.00, 1, '2025-02-18 07:03:25', '2025-02-18 07:03:25');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hms_doctor_availability`
+-- Table structure for table `hms_doctor_availabilities`
 --
 
-CREATE TABLE `hms_doctor_availability` (
+CREATE TABLE `hms_doctor_availabilities` (
   `id` int(11) NOT NULL,
-  `doctor_id` int(11) DEFAULT NULL,
-  `day` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') DEFAULT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `day` varchar(255) DEFAULT NULL,
   `start_time` time DEFAULT NULL,
   `end_time` time DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_doctor_availabilities`
+--
+
+INSERT INTO `hms_doctor_availabilities` (`id`, `doctor_id`, `day`, `start_time`, `end_time`, `created_at`, `updated_at`) VALUES
+(1, 1, '30', '01:29:00', '17:33:00', '2025-02-19 13:29:54', '2025-02-19 13:29:54');
 
 -- --------------------------------------------------------
 
@@ -373,6 +380,35 @@ CREATE TABLE `hms_patient_medical_histories` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hms_payment_statuses`
+--
+
+CREATE TABLE `hms_payment_statuses` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_payment_statuses`
+--
+
+INSERT INTO `hms_payment_statuses` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'paid', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(2, 'pending', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(3, 'due', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(4, 'cancel', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(5, 'refund', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(6, 'partially paid', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(7, 'partially due', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(8, 'partially cancel', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(9, 'partially refund', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(10, 'DNP', '2025-02-18 13:09:54', '2025-02-18 13:09:54');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hms_pharmacies`
 --
 
@@ -448,7 +484,42 @@ CREATE TABLE `hms_sessions` (
 --
 
 INSERT INTO `hms_sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ZqLRUr3dububDFu0bcO5Z1RdYJZXC8LtHCYngIPY', 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRXRESU1BSTV1Zk1VbkhXc0ZsdFpZaTVuVlc3cnRkOUtsVklRejFPMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly9sb2NhbGhvc3QvTEFSQVZFTF9CRUdJTklORy9ITVMtU0hBQU4tMDIvcHVibGljL2Rhc2hib2FyZCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1739776849);
+('7kRIb0nBFOoanlblQtcmh4P4ChWjLVTEpWhsgIUv', 4, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiS1V1a2lWVndXNkFlNzJ4UHo3NjR0WGh0dHVSbGlSWGY5Q3U4Z203UCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly9sb2NhbGhvc3QvTEFSQVZFTF9CRUdJTklORy9ITVMtU0hBQU4tMDIvcHVibGljL2Rhc2hib2FyZCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7fQ==', 1739985055),
+('7tANW6mQOP7PgRP9h45BK8qgYkm5N1AAyMm50mLS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYk1KRlg3b096Z1A1amt1ZTlZREQ3Q2FRWGllMWpwYWY5NUZYRVBQcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=', 1739985557),
+('8rKlQW96sKw7DxfOIT8WVxVP5B74KHVdt46CxVwD', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoic2ZCUTc2VWNlT0tPWmRjR0lkR2w4TnVwSVV6WDNRaGxiYnhBMU9MNyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==', 1739986200),
+('el3YjzY9ePf8i1N0Lwh3M8f5OaJahmKDDZrpu6bq', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZzRYSzBqTUFrb1hWc2lielFqWEhwUEY3OWhBaUFMc1BQdWpvS01pYyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTM6Imh0dHA6Ly9sb2NhbGhvc3QvTEFSQVZFTF9CRUdJTklORy9ITVMtU0hBQU4tMDIvcHVibGljIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1739985938);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_statuses`
+--
+
+CREATE TABLE `hms_statuses` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_statuses`
+--
+
+INSERT INTO `hms_statuses` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'active', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(2, 'inactive', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(3, 'suspended', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(4, 'pending', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(5, 'completed', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(6, 'cancelled', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(7, 'confirmed', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(8, 'reject', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(9, 'reschedule', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(10, 'available', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(11, 'occupied', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(12, 'maintenance', '2025-02-17 10:35:44', '2025-02-17 10:35:44'),
+(13, 'deleted', '2025-02-17 10:35:44', '2025-02-17 10:35:44');
 
 -- --------------------------------------------------------
 
@@ -492,8 +563,9 @@ CREATE TABLE `hms_users` (
 
 INSERT INTO `hms_users` (`id`, `name`, `email`, `email_verified_at`, `role_id`, `phone`, `address`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Test User', 'test@example.com', '2025-02-12 21:34:33', 3, '78456892345', 'uytgr oiugrtofiwuer oiugh', '$2y$12$Z.8.vn7a4HgzWeJ4IgvAMeZSHmlTIZ.zHo/uROEU0ZuSVMbSXB/Ja', 'lkeSA7goJL', '2025-02-12 21:34:33', '2025-02-12 21:34:33'),
-(2, 'Shawon Islam', 'shawoni397@gmail.com', NULL, 2, '96793528096', 'iry7t oiurtgoiqu rugt ', '$2y$12$Lv0ID10ochHaEND3a9aYm.v/Lp0u/qGh7gybYaindubtHx.NoIAUK', 'FHnaDOS3fmpSmiI2JTn8rz2CmesLMOgZwu1kXskKuCN6HqMApKynqborEjkT', '2025-02-12 21:47:48', '2025-02-12 21:47:48'),
-(3, 'Shawon Islam', 'sshawoni397@gmail.com', NULL, 1, '2956209356', 'kiuerty iurt iurt y', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', NULL, '2025-02-16 01:20:47', '2025-02-16 01:20:47');
+(2, 'Shawon Islam', 'shawoni397@gmail.com', NULL, 1, '96793528096', 'iry7t oiurtgoiqu rugt ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', 'fL9MFmDBtf0BNS97qNfBZsfY8tvjBW14y7tQZcj9o9iLl5iAfwyZF0CTTLrY', '2025-02-12 21:47:48', '2025-02-12 21:47:48'),
+(3, 'Shawon Islam', 'sshawoni397@gmail.com', NULL, 2, '2956209356', 'kiuerty iurt iurt y', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', NULL, '2025-02-16 01:20:47', '2025-02-16 01:20:47'),
+(4, 'Shawon Islam', 'shawon.idb61@gmail.com', NULL, 1, NULL, NULL, '$2y$12$u19XzKiGmzdpjsVhnPpsdeZZXx3HNCk6b9plijUqHqkLX.CW7fBAW', NULL, '2025-02-19 07:12:22', '2025-02-19 07:12:22');
 
 -- --------------------------------------------------------
 
@@ -504,10 +576,21 @@ INSERT INTO `hms_users` (`id`, `name`, `email`, `email_verified_at`, `role_id`, 
 CREATE TABLE `hms_wards` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `type` enum('ICU','General Ward','Private Room','Emergency') DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_wards`
+--
+
+INSERT INTO `hms_wards` (`id`, `name`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'ICU - A1', 'ICU', '2025-02-19 21:01:01', '2025-02-19 21:29:18'),
+(2, 'General Ward - B2', 'General Wards', '2025-02-19 21:01:01', '2025-02-19 21:29:28'),
+(3, 'Private Room - C3', 'Private sections', '2025-02-19 21:01:01', '2025-02-19 21:29:38'),
+(4, 'Emergency - D4', 'Emergency', '2025-02-19 21:01:01', '2025-02-19 21:29:48'),
+(5, 'Local wards', 'Locals in the floor', '2025-02-19 21:29:55', '2025-02-19 21:29:55');
 
 --
 -- Indexes for dumped tables
@@ -562,9 +645,9 @@ ALTER TABLE `hms_doctors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hms_doctor_availability`
+-- Indexes for table `hms_doctor_availabilities`
 --
-ALTER TABLE `hms_doctor_availability`
+ALTER TABLE `hms_doctor_availabilities`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -624,6 +707,12 @@ ALTER TABLE `hms_patient_medical_histories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hms_payment_statuses`
+--
+ALTER TABLE `hms_payment_statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hms_pharmacies`
 --
 ALTER TABLE `hms_pharmacies`
@@ -648,6 +737,12 @@ ALTER TABLE `hms_sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sessions_user_id_index` (`user_id`),
   ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `hms_statuses`
+--
+ALTER TABLE `hms_statuses`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `hms_suppliers`
@@ -706,13 +801,13 @@ ALTER TABLE `hms_departments`
 -- AUTO_INCREMENT for table `hms_doctors`
 --
 ALTER TABLE `hms_doctors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `hms_doctor_availability`
+-- AUTO_INCREMENT for table `hms_doctor_availabilities`
 --
-ALTER TABLE `hms_doctor_availability`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `hms_doctor_availabilities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hms_failed_jobs`
@@ -757,6 +852,12 @@ ALTER TABLE `hms_patient_medical_histories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `hms_payment_statuses`
+--
+ALTER TABLE `hms_payment_statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `hms_pharmacies`
 --
 ALTER TABLE `hms_pharmacies`
@@ -784,13 +885,13 @@ ALTER TABLE `hms_suppliers`
 -- AUTO_INCREMENT for table `hms_users`
 --
 ALTER TABLE `hms_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hms_wards`
 --
 ALTER TABLE `hms_wards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

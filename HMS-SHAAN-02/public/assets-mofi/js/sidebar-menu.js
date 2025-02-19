@@ -450,6 +450,28 @@
   }
 
 
+  // $(document).ready(function() {
+  //   // Your code here
+  //   if (
+  //     $(".simplebar-wrapper .simplebar-content-wrapper") &&
+  //     $("#pageWrapper").hasClass("compact-wrapper")
+  //   ) {
+  //     const $activeLink = $(".simplebar-wrapper .simplebar-content-wrapper a.active");
+
+  //     if ($activeLink.length > 0) { // Check if any element was found
+  //       $(".simplebar-wrapper .simplebar-content-wrapper").animate(
+  //         {
+  //           scrollTop: $activeLink.offset().top - 400,
+  //         },
+  //         1000
+  //       );
+  //     } else {
+  //       console.warn("No active link found inside .simplebar-wrapper .simplebar-content-wrapper");
+  //     }
+  //   }
+  // });
+
+
 
 
   // $(document).ready(function () {
