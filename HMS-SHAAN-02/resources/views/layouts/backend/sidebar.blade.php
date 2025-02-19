@@ -60,7 +60,7 @@
                                 <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-project"></use>
                             </svg><span> Patients List </span></a>
                     </li>
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
+                    {{-- <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
                             href="{{ url('/doctors') }}">
                             <svg class="stroke-icon">
                                 <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#stroke-form"></use>
@@ -68,6 +68,19 @@
                             <svg class="fill-icon">
                                 <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-form"> </use>
                             </svg><span>Doctors</span></a>
+                    </li> --}}
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title"
+                            href="javascript:void(0)">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#stroke-form"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets-mofi') }}/svg/icon-sprite.svg#fill-form"> </use>
+                            </svg><span> Doctors </span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ url('/doctors') }}">Doctors List</a></li>
+                            <li><a href="{{ url('/doctoravailabilitys') }}">Doctors Schedule</a></li>
+                        </ul>
                     </li>
                     <li class="sidebar-main-title">
                         <div>

@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Doctors\DoctorListController;
+use App\Http\Controllers\DoctorAvailabilityController;
+use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\ProfileController;
@@ -92,7 +93,13 @@ Route::resource('/patients', PatientController::class);
 
 // Resource routes for doctors
 
-Route::get('/doctors/delete/{id}', [DoctorListController::class, 'delete'])->name('doctors.delete');
-Route::resource('/doctors', DoctorListController::class);
+Route::get('/doctors/delete/{id}', [DoctorController::class, 'delete'])->name('doctors.delete');
+Route::resource('/doctors', DoctorController::class);
+
+//End of resource routes
+
+//Resource routes for erp
+
+Route::resource('/doctoravailabilitys', DoctorAvailabilityController::class);
 
 //End of resource routes

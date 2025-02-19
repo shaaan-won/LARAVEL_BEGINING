@@ -37,6 +37,7 @@
     <link id="color" rel="stylesheet" href="{{ asset('assets-mofi')}}/css/color-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets-mofi')}}/css/responsive.css">
+    <script src="{{ asset('assets-mofi')}}/js/jquery.min.js"></script>
   </head>
   <body> 
     <div class="loader-wrapper"> 
@@ -102,5 +103,6 @@
     <script src="{{ asset('assets-mofi')}}/js/script.js"></script>
     <script src="{{ asset('assets-mofi')}}/js/theme-customizer/customizer.js"></script>
     <!-- Plugin used-->
+    <script src="{{ asset('assets-mofi')}}/js/custom-script.js"></script>
   </body>
 </html>
