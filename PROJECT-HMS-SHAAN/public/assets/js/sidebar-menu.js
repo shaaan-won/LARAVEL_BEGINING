@@ -435,36 +435,39 @@
   }
 
   // active link
-  // if (
-  //   $(".simplebar-wrapper .simplebar-content-wrapper") &&
-  //   $("#pageWrapper").hasClass("compact-wrapper")
-  // ) {
-  //   $(".simplebar-wrapper .simplebar-content-wrapper").animate(
-  //     {
-  //       scrollTop:
-  //         $(".simplebar-wrapper .simplebar-content-wrapper a.active").offset()
-  //           .top - 400,
-  //     },
-  //     1000
-  //   );
-  // }
-
   if (
-    $(".simplebar-wrapper .simplebar-content-wrapper").length &&
+    $(".simplebar-wrapper .simplebar-content-wrapper") &&
     $("#pageWrapper").hasClass("compact-wrapper")
   ) {
-    let activeElement = $(".simplebar-wrapper .simplebar-content-wrapper a.active");
-  
-    if (activeElement.length) {  // Check if the active element exists
-      $(".simplebar-wrapper .simplebar-content-wrapper").animate(
-        {
-          scrollTop: activeElement.offset().top - 400,
-        },
-        1000
-      );
-    } else {
-      console.warn("No active element found for scrolling.");
-    }
+    $(".simplebar-wrapper .simplebar-content-wrapper").animate(
+      {
+        scrollTop:
+          $(".simplebar-wrapper .simplebar-content-wrapper a.active").offset()
+            // .top - 400,
+            // .top,
+            // .top - 100,
+            ,
+      },
+      1000
+    );
   }
+
+  // if (
+  //   $(".simplebar-wrapper .simplebar-content-wrapper").length &&
+  //   $("#pageWrapper").hasClass("compact-wrapper")
+  // ) {
+  //   let activeElement = $(".simplebar-wrapper .simplebar-content-wrapper a.active");
+  
+  //   if (activeElement.length) {  // Check if the active element exists
+  //     $(".simplebar-wrapper .simplebar-content-wrapper").animate(
+  //       {
+  //         scrollTop: activeElement.offset().top - 400,
+  //       },
+  //       1000
+  //     );
+  //   } else {
+  //     console.warn("No active element found for scrolling.");
+  //   }
+  // }
   
 })(jQuery);

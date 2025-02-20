@@ -23,3 +23,7 @@ php artisan view:clear
 
 If the issue persists, recompile the route cache:
 php artisan route:cache
+
+
+middleware:
+php artisan make:middleware MiddlewareName
