@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Middleware\AccessControl;
+namespace App\Http\Middleware\DoubleAccessControl;
 
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Receptionist
+class AdminOrSuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,11 @@ class Receptionist
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if (!Auth::check()) {
-        //     return redirect('/login')->with('error', 'Please log in to access this page.');
-        // }
-        if (auth()->user()->isReceptionist()) {
+        if ( auth()->user()->isSuperAdmin() || auth()->user()->isAdmin()) {
             return $next($request);
         }
-        return redirect('/400')->with('error', 'You do not have permission to access this page.');
+        
+        // abort(403, 'Unauthorized');
+        return redirect('/')->with('error', 'You do not have permission to access this page.');
     }
 }

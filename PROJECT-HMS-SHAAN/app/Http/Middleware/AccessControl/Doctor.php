@@ -21,6 +21,6 @@ class Doctor
         if (auth()->user()->isDoctor()) {
             return $next($request);
         }
-        return redirect('/')->with('error', 'You do not have permission to access this page.');
+        return redirect('/404')->with('error', 'You do not have permission to access this page.');
     }
 }

@@ -8,9 +8,9 @@
 
 <div class="container mt-5">
     <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0 card-title fw-bolder fs-2 text-white ">{{ $data_id['name'] }} Details</h3>
-            <a href="{{ url('hospital_list') }}" class="btn btn-warning float-end">Back</a>
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 fw-bolder text-white fs-2">{{ $data_id['name'] }} Details</h3>
+            <a href="{{ url('hospital_list') }}" class="btn btn-lg btn-warning">Back</a>
         </div>
         <div class="card-body">
             <table class="table table-striped table-bordered table-hover table-responsive">
@@ -75,12 +75,12 @@
             </table>
         </div>
         <div class="card-footer text-center justify-content-between">
-            <a href="{{ url('hospital_list') }}" class="btn btn-secondary">Back to List</a>
-            <a href="{{ url('hospital_list/' . $data_id['id'] . '/edit') }}" class="btn btn-warning">Edit</a>
-            <form action="{{ url('hospital_list/' . $data_id['id']) }}" method="POST" class="d-inline">
+            <a href="{{ url('hospital_list') }}" class="btn btn-lg btn-secondary">Back to List</a>
+            <a href="{{ url('hospital_list/' . $data_id['id'] . '/edit') }}" class="btn btn-lg btn-warning">Edit</a>
+            <form action="{{ url('hospital_list/' . $data_id['id']) }}" method="POST"  onsubmit="return confirm('Are you sure you want to delete this hospital?');" class="d-inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-lg btn-danger">Delete</button>
             </form>
         </div>
     </div>

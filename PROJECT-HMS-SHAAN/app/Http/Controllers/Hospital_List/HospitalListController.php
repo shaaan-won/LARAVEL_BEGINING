@@ -37,7 +37,7 @@ class HospitalListController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'hospital-name' => 'required|unique:hms_hospitals,name',
+            'hospital-name' => 'required|unique:hospitals,name',
             'country' => 'required',
             'address' => 'required|string',
             'website' => 'required',

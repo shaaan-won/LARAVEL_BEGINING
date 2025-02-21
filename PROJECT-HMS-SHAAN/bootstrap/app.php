@@ -6,6 +6,7 @@ use App\Http\Middleware\AccessControl\Doctor;
 use App\Http\Middleware\AccessControl\Patient;
 use App\Http\Middleware\AccessControl\Receptionist;
 use App\Http\Middleware\AccessControl\SuperAdmin;
+use App\Http\Middleware\DoubleAccessControl\AdminOrSuperAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -24,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'DoctorCheck' => Doctor::class,
             'PatientCheck' => Patient::class,
             'ReceptionistCheck' => Receptionist::class,
+            'AdminOrSuperAdminCheck' => AdminOrSuperAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

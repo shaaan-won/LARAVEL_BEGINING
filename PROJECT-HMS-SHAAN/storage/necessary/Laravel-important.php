@@ -27,3 +27,6 @@ php artisan route:cache
 
 middleware:
 php artisan make:middleware MiddlewareName
+
+auth class facades:
+C:\xampp\htdocs\LARAVEL_BEGINING\PROJECT-HMS-SHAAN\vendor\laravel\framework\src\Illuminate\Support\Facades\Auth.php

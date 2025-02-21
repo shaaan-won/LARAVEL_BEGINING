@@ -1,63 +1,12 @@
 @extends('layout.erp.app')
 @section('page')
-    {{-- /// country list php code start --}}
-    @php
-        // Path to the local JSON file
-        $jsonFilePath = public_path('assets/data/countries/countries.json');
-
-        // Initialize an array for countries
-        $countries = [];
-
-        // Check if the file exists
-        if (file_exists($jsonFilePath)) {
-            // Fetch the contents of the JSON file
-            $response = file_get_contents($jsonFilePath);
-
-            // Check if the file content was retrieved
-            if ($response !== false) {
-                $countriesData = json_decode($response, true);
-
-                // Loop through the API response and store country name in $countries
-                foreach ($countriesData as $country) {
-                    // Ensure that 'ccn3' and 'name' are present before using them
-                    if (isset($country['ccn3']) && isset($country['name']['common'])) {
-                        $countries[$country['ccn3']] = $country['name']['common'];
-                    }
-                }
-
-                // Sort the countries array in ascending order by country name
-                asort($countries);
-            }
-        }
-        // Fallback countries (in case the file doesn't exist or is empty)
-       $countries = array_merge(
-        [
-        'usa' => 'USA',
-        'uk' => 'UK',
-        'france' => 'France',
-        'australia' => 'Australia',
-        'spain' => 'Spain',
-            ],
-            $countries,
-        ); // Merge file countries with the fallback list
-    @endphp
-
-    {{-- /// country list php code end --}}
-
-    @php
-        // print_r($hospitals->toArray());
-        // print_r($hospitals->name);
-        // print_r($hospitals['name']);
-    @endphp
-
-
     <section class="bs-validation">
         <div class="row justify-content-center">
             <div class="col-md-11 col-lg-9 col-12 mt-3 fw-bold fs-4 mx-auto"> <!-- Made width smaller -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h3 class="mb-0 fw-bolder fs-2 ">Edit Hospital Details of <span
-                            class="text-white">{{ $hospitals->name }}</span></h3>
+                                class="text-white">{{ $hospitals->name }}</span></h3>
                         <a href="{{ url('hospital_list') }}" class="btn btn-lg btn-warning">Back</a>
                     </div>
                     <div class="card-body">
@@ -226,19 +175,4 @@
             </div>
         </div>
     </section>
-
-    {{-- <script>
-        $countries = fetch("https://restcountries.com/v3.1/all")
-            .then(response => response.json())
-            .then(data => {
-                let countryDropdown = document.getElementById("country");
-                data.forEach(country => {
-                    let option = document.createElement("option");
-                    option.value = country.name.common;
-                    option.textContent = country.name.common;
-                    countryDropdown.appendChild(option);
-                });
-            })
-            .catch(error => console.error("Error fetching countries:", error));
-    </script> --}}
 @endsection

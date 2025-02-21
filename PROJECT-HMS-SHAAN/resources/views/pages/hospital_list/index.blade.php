@@ -4,19 +4,34 @@
     <section id="multilingual-datatable">
         <div class="row" id="table-hover-row">
             <div class="col-12">
-                @if (session('success'))
-                    <div class="card-header m-2 p-2 d-flex justify-content-center alert alert-success">
-                        {{ session('success') }}</div>
+                @if (session('success') || session('error'))
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div
+                                        class="card-header transparent d-flex justify-content-center align-items-center bg-transparent shadow">
+                                        <h2
+                                            class="text-center font-weight-bold {{ session('success') ? 'text-success' : 'text-danger' }}">
+                                            {{ session('success') ?? session('error') }}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endif
                 <div class="card">
 
-                    <div class="card-header">
-                        <h2 class="card-title fw-bolder">Hospital List</h2>
-                        <a href="{{ url('hospital_list/create') }}" class="btn btn-primary float-end">Add Hospital</a>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0 fw-bolder fs-2">Hospital List</h2>
+                        <a href="{{ url('hospital_list/create') }}" class="btn btn-lg btn-primary">Add Hospital</a>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive theme-scrollbar card-body">
                         {{-- {{print_r($hospitals->toArray())}} --}}
-                        <table class="table table-striped table-responsive ">
+                        <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1"
+                            role="grid" aria-describedby="basic-1_info">
+
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -60,30 +75,50 @@
                                         <td>{{ $hospital->updated_at }}</td> --}}
                                         <td>
                                             <div class="dropdown">
-                                                <button type="button" class="btn btn-sm hide-arrow"
+                                                <button type="button" class="btn btn-sm hide-arrow bg-light"
                                                     data-bs-toggle="dropdown">
                                                     <i data-feather="more-vertical"></i>
                                                 </button>
-                                                <div class="dropdown-menu">
-                                                    <!-- Show Link (Commented Out) -->
-                                                    <a class="dropdown-item"
+                                                <div class="dropdown-menu p-2">
+                                                    <!-- Show Link -->
+                                                    <a class="dropdown-item text-success fs-6"  
                                                         href="{{ url('hospital_list/' . $hospital->id) }}">
                                                         <i data-feather="eye" class="me-50"></i>
                                                         <span>Show</span>
                                                     </a>
 
                                                     <!-- Edit Link -->
-                                                    <a class="dropdown-item"
+                                                    <a class="dropdown-item text-primary fs-6"
                                                         href="{{ url('hospital_list/' . $hospital->id . '/edit') }}">
                                                         <i data-feather="edit-2" class="me-50"></i>
                                                         <span>Edit</span>
                                                     </a>
 
-                                                    <a class="dropdown-item"
+                                                    <!-- Delete Link (with confirmation) -->
+                                                    <form action="{{ url('hospital_list/' . $hospital->id) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Are you sure you want to delete this hospital?');"
+                                                        style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item text-danger fs-6">
+                                                            <i data-feather="trash" class="me-50"></i>
+                                                            <span>Delete</span>
+                                                        </button>
+                                                    </form>
+
+                                                    <!-- Delete Link For soft delete (Fixed URL) -->
+                                                    {{-- <a class="dropdown-item"
+                                                        href="{{ url('hospital_list/soft_delete/' . $hospital->id) }}">
+                                                        <i data-feather="trash" class="me-50"></i>
+                                                        <span>Soft Delete</span>
+                                                    </a> --}}
+
+                                                    {{-- <a class="dropdown-item"
                                                         href="{{ url('hospital_list/delete/' . $hospital->id) }}">
                                                         <i data-feather="trash" class="me-50"></i>
                                                         <span>Delete</span>
-                                                    </a>
+                                                    </a> --}}
 
                                                     <!-- Delete Link For hard delete (Fixed URL) -->
                                                     {{-- <form action="{{ url('hospital_list/' . $hospital->id) }}"

@@ -4,6 +4,8 @@ use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +18,9 @@ Route::get('/', function () {
 
 // Ensure this route exists
 Route::get('/dashboard', function () {
-    return view('dashboard'); // Ensure you have a dashboard.blade.php file
-})->name('dashboard')->middleware(['auth', 'verified', 'SuperAdminCheck', 'AdminCheck']);
+    return view('dashboard'); // Ensure dashboard.blade.php exists in resources/views
+})->name('dashboard')
+  ->middleware(['auth', 'verified']);
 
 
 // Route::get('/dashboard', function () {
@@ -32,6 +35,26 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//End of auth routes
+
+//Error pages
+
+Route::get('/404', function () {
+    return view('pages.errors.404');
+})->name('404');
+
+Route::get('/400', function () {
+    return view('pages.errors.400');
+})->name('400');
+
+Route::get('/500', function () {
+    return view('pages.errors.500');
+})->name('500');
+
+Route::get('/503', function () {
+    return view('pages.errors.503');
+})->name('503');
 
 //Hospital list routes and CRUD
 
@@ -80,7 +103,7 @@ require __DIR__.'/auth.php';
 // Apply the middleware here
 Route::prefix('hospital_list')
     ->name('hospital_list.')
-    ->middleware(['SuperAdminCheck']) // ✅ Middleware applied correctly
+    ->middleware(['SuperAdminCheck','auth']) // ✅ Middleware applied correctly
     ->group(function () {
 
         Route::get('/', [HospitalListController::class, 'index'])->name('index');
@@ -101,17 +124,31 @@ Route::prefix('hospital_list')
     });
 
 
-//Resource routes for patients
+// patients
 
 Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
-Route::resource('/patients', PatientController::class);
+Route::resource('/patients', PatientController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
 
-//End of resource routes
+//End of patients
 
 
-// Resource routes for doctors
+//  doctors
 
 Route::get('/doctors/delete/{id}', [DoctorController::class, 'delete'])->name('doctors.delete');
-Route::resource('/doctors', DoctorController::class);
+Route::resource('/doctors', DoctorController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
 
-//End of resource routes
+//End of doctors
+
+//Users
+
+Route::get('/users&roles', [UserController::class, 'index1'])->name('users.index1')->middleware(['auth']);
+Route::resource('/users', UserController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);  
+
+//End of users
+
+//Roles
+
+Route::get('user_roles', [RoleController::class, 'index1'])->name('user_roles.index1')->middleware(['auth', 'AdminOrSuperAdminCheck']);
+Route::resource('/roles', RoleController::class)->middleware(['auth', 'SuperAdminCheck']);
+
+//End of roles

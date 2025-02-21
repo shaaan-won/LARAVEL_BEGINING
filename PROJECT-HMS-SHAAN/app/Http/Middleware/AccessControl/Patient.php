@@ -21,6 +21,6 @@ class Patient
         if (auth()->user()->isPatient()) {
             return $next($request);
         }
-        return redirect('/')->with('error', 'You do not have permission to access this page.');
+        return redirect('/504')->with('error', 'You do not have permission to access this page.');
     }
 }

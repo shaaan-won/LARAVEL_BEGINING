@@ -1,12 +1,9 @@
 @extends('layout.erp.app')
-
-
-
 @section('page')
-{{-- /// country list php code start --}}
+    {{-- /// country list php code start --}}
     @php
         // Path to the local JSON file
-        $jsonFilePath = public_path('app-assets/data/countries/countries.json');
+        $jsonFilePath = public_path('assets/data/countries/countries.json');
 
         // Initialize an array for countries
         $countries = [];
@@ -27,20 +24,22 @@
                         $countries[$country['ccn3']] = $country['name']['common'];
                     }
                 }
+
+                // Sort the countries array in ascending order by country name
+                asort($countries);
             }
         }
-
         // Fallback countries (in case the file doesn't exist or is empty)
-       $countries = array_merge(
-           [
-        'usa' => 'USA',
-        'uk' => 'UK',
-        'france' => 'France',
-        'australia' => 'Australia',
-        'spain' => 'Spain',
-            ],
-            $countries,
-        ); // Merge file countries with the fallback list
+//  $countries = array_merge(
+// [
+//     'usa' => 'USA',
+//     'uk' => 'UK',
+//     'france' => 'France',
+//     'australia' => 'Australia',
+//     'spain' => 'Spain',
+        //         ],
+        //         $countries,
+        //     ); // Merge file countries with the fallback list
     @endphp
 
 
@@ -48,16 +47,26 @@
         <div class="row justify-content-center">
             <div class="col-md-11 col-lg-9 col-12 mt-3 fw-bold fs-4 mx-auto"> <!-- Made width smaller -->
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="card-title">Add Hospital</h4>
-                        <a href="{{ url('hospital_list') }}" class="btn btn-primary float-end">Back</a>
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0 fw-bolder text-white fs-2">Add Hospital</h3>
+                        <a href="{{ url('hospital_list') }}" class="btn btn-lg btn-warning">Back</a>
                     </div>
                     <div class="card-body">
                         {{-- /// Validation Errors if there is any --}}
-                        @if (session('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @if (session('success') || session('error'))
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <div class="alert alert-{{ session('success') ? 'success' : (session('error') ? 'danger' : '') }}"
+                                                role="alert">
+                                                {{ session('success') ?? session('error') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
-
                         {{-- // form starts here --}}
                         <form action="{{ url('hospital_list') }}" id="hospital-form" method="post"
                             enctype="multipart/form-data">
@@ -72,23 +81,6 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            {{-- <div class="mb-1">
-                                <label class="form-label fw-bold fs-5" for="country">Country</label>
-                                <select class="form-select form-control-lg" id="country" name="country"
-                                    value="{{ old('country') }}">
-                                    <option value="">Select Country</option>
-                                    <option value="usa">USA</option>
-                                    <option value="uk">UK</option>
-                                    <option value="france">France</option>
-                                    <option value="australia">Australia</option>
-                                    <option value="spain">Spain</option>
-                                </select>
-                                @error('country')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
-
                             <!-- Country Dropdown -->
                             <div class="mb-1">
                                 <label class="form-label fw-bold fs-5" for="country">Country</label>
@@ -159,16 +151,16 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            
+
                                 <!-- Logo Preview -->
                                 <div>
-                                    <img id="logoPreview" 
-                                         src="{{ old('logo') ? asset('img/hospital_list/logos/' . old('logo')) : '#' }}" 
-                                         alt="Logo Preview"
-                                         style="display: {{ old('logo') ? 'block' : 'none' }}; max-width: 80px; height: auto; border: 1px solid #ccc;" />
+                                    <img id="logoPreview"
+                                        src="{{ old('logo') ? asset('img/hospital_list/logos/' . old('logo')) : '#' }}"
+                                        alt="Logo Preview"
+                                        style="display: {{ old('logo') ? 'block' : 'none' }}; max-width: 80px; height: auto; border: 1px solid #ccc;" />
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex align-items-center gap-3 mt-3">
                                 <!-- Banner Input -->
                                 <div>
@@ -180,60 +172,54 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            
+
                                 <!-- Banner Preview -->
                                 <div>
                                     <img id="bannerPreview"
-                                         src="{{ old('banner') ? asset('img/hospital_list/banners/' . old('banner')) : '#' }}" 
-                                         alt="Banner Preview"
-                                         style="display: {{ old('banner') ? 'block' : 'none' }}; max-width: 120px; height: auto; border: 1px solid #ccc;" />
+                                        src="{{ old('banner') ? asset('img/hospital_list/banners/' . old('banner')) : '#' }}"
+                                        alt="Banner Preview"
+                                        style="display: {{ old('banner') ? 'block' : 'none' }}; max-width: 120px; height: auto; border: 1px solid #ccc;" />
                                 </div>
                             </div>
-                            
                             <!-- Image Preview Script -->
                             <script>
                                 function previewImage(event, previewId) {
                                     let input = event.target;
                                     let reader = new FileReader();
-                            
-                                    reader.onload = function () {
+
+                                    reader.onload = function() {
                                         let img = document.getElementById(previewId);
                                         img.src = reader.result;
                                         img.style.display = 'block'; // Show the image
                                     };
-                            
+
                                     if (input.files && input.files[0]) {
                                         reader.readAsDataURL(input.files[0]); // Convert to Base64 URL
                                     }
                                 }
                             </script>
-                            
-
-
                             <div class="d-flex justify-content-center mt-3">
                                 <button type="submit" class="btn btn-primary btn-lg" name="submit">Submit</button>
                             </div>
-
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    {{-- <script>
-        $countries = fetch("https://restcountries.com/v3.1/all")
-            .then(response => response.json())
-            .then(data => {
-                let countryDropdown = document.getElementById("country");
-                data.forEach(country => {
-                    let option = document.createElement("option");
-                    option.value = country.name.common;
-                    option.textContent = country.name.common;
-                    countryDropdown.appendChild(option);
-                });
-            })
-            .catch(error => console.error("Error fetching countries:", error));
-    </script> --}}
 @endsection
+
+{{-- <script>
+            $countries = fetch("https://restcountries.com/v3.1/all")
+                .then(response => response.json())
+                .then(data => {
+                    let countryDropdown = document.getElementById("country");
+                    data.forEach(country => {
+                        let option = document.createElement("option");
+                        option.value = country.name.common;
+                        option.textContent = country.name.common;
+                        countryDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error fetching countries:", error));
+        </script> --}}

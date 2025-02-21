@@ -234,7 +234,7 @@
                     </div>
                 </div>
                 <ul class="profile-dropdown onhover-show-div"
-                    style="min-width: 160px; padding: 10px; font-size: 16px;">
+                    style="min-width: 180px; padding: 10px; font-size: 16px;">
                     <li><x-dropdown-link :href="route('profile.edit')" icon="user">
                         {{ __('Profile') }}
                     </x-dropdown-link></li>
