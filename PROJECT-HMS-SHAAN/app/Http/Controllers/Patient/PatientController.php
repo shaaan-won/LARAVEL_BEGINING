@@ -33,7 +33,7 @@ class PatientController extends Controller
         // print_r($request->all());  
         $request->validate([
             'user_name' => 'required',
-            'name' => 'required|unique:hms_patients,name',
+            'name' => 'required|unique:patients,name',
             'date_of_birth' => 'required|date',
             'email' => 'required',
             'contact_number' => 'required|numeric',
@@ -150,4 +150,5 @@ class PatientController extends Controller
             return redirect('/patients')->with('error', 'Hospital deleted failed.');
         }
     }
+    
 }

@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorAvailabilityController;
 use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\Patient\PatientController;
+use App\Http\Controllers\PaymentStatusController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -142,12 +145,25 @@ Route::resource('/roles', RoleController::class)->middleware(['auth', 'SuperAdmi
 
 //End of roles
 
+// Others Routes like Status , Payment status
+
+Route::resource('/statuss', StatusController::class)->middleware(['auth', 'SuperAdminCheck']);
+Route::resource('/paymentstatuss', PaymentStatusController::class)->middleware(['auth', 'SuperAdminCheck']);
+
+//End of Others Routes
+
 // patients
 
 Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
 Route::resource('/patients', PatientController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
 
 //End of patients
+
+// departments
+
+Route::resource('/departments', DepartmentController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+//End of departments
 
 
 //  doctors

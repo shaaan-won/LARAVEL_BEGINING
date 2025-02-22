@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class RoleController extends Controller{
 	public function index(){
-		$roles = Role::paginate(10);
+		$roles = Role::get();
 		return view("pages.erp.role.index",["roles"=>$roles]);
 	}
 	public function index1(){

@@ -64,6 +64,7 @@
                                 </svg><span>Appointments</span></a>
                             <ul class="sidebar-submenu">
                                 <li><a href="{{ url('appointments') }}">All Appointments</a></li>
+                                <li><a href="{{ url('appointmentdetails') }}">Appointments Details</a></li>
                                 <li><a href="buttons.html">Pending </a></li>
                                 <li><a href="buttons.html">Completed </a></li>
                                 <li><a href="buttons.html">Cancelled </a></li>
@@ -102,6 +103,7 @@
                             <li><a href="{{ url('doctors') }}">Doctors List</a></li>
                             <li><a href="{{ url('doctors/create') }}">Add Doctor</a></li>
                             <li><a href="{{ url('doctoravailabilitys') }}">Doctors Schedule</a></li>
+                            <li><a href="{{ url('departments') }}">All Departments</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
@@ -122,6 +124,34 @@
                             @endif
                         </ul>
                     </li>
+                    <li class="mega-menu sidebar-list"><i class="fa fa-thumb-tack"></i><a
+                            class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-others"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-others"></use>
+                            </svg><span>Others</span></a>
+                        <div class="mega-menu-container menu-content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col mega-box">
+                                        <div class="link-section">
+                                            <div class="submenu-title">
+                                                <h5>All Status</h5>
+                                            </div>
+                                            <ul class="submenu-content opensubmegamenu">
+                                                <li><a href="{{ url('statuss') }}">Status</a></li>
+                                                <li><a href="{{ url('paymentstatuss') }}">Payment status</a></li>
+                                                {{-- <li><a href="user-cards.html">Users Cards</a></li> --}}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title"
                             href="javascript:void(0)">
                             <svg class="stroke-icon">

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class UserController extends Controller{
 	public function index(){
-		$users = User::paginate(10);
+		$users = User::get();
 		return view("pages.erp.user.index",["users"=>$users]);
 	}
 	public function index1(){

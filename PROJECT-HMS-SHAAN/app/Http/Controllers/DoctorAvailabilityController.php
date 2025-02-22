@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class DoctorAvailabilityController extends Controller{
 	public function index(){
-		$doctoravailabilitys = DoctorAvailability::paginate(10);
+		$doctoravailabilitys = DoctorAvailability::all();
 		return view("pages.erp.doctoravailability.index",["doctoravailabilitys"=>$doctoravailabilitys]);
 	}
 	public function create(){

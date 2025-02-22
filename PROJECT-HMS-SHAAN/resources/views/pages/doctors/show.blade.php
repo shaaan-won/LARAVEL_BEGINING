@@ -15,6 +15,10 @@
                             <td>{{ $doctor->id }}</td>
                         </tr>
                         <tr>
+                            <th>Author User</th>
+                            <td>{{ optional($doctor->user)->name ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
                             <th>Name</th>
                             <td>{{ $doctor->name }}</td>
                         </tr>
@@ -69,8 +73,8 @@
                         <tr>
                             <th>Status</th>
                             <td>
-                                <span class="badge bg-{{ $doctor->status_id == 'Active' ? 'success' : 'danger' }}">
-                                    {{ $doctor->status_id }}
+                                <span class="badge bg-{{ $doctor->status->name == 'Active' ? 'success' : 'danger' }}">
+                                    {{ Str::upper($doctor->status->name) }}
                                 </span>
                             </td>
                         </tr>
