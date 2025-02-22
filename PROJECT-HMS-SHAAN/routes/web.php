@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DoctorAvailabilityController;
 use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\Patient\PatientController;
@@ -124,20 +126,7 @@ Route::prefix('hospital_list')
     });
 
 
-// patients
-
-Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
-Route::resource('/patients', PatientController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
-
-//End of patients
-
-
-//  doctors
-
-Route::get('/doctors/delete/{id}', [DoctorController::class, 'delete'])->name('doctors.delete');
-Route::resource('/doctors', DoctorController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
-
-//End of doctors
+//End of Hospital list routes
 
 //Users
 
@@ -152,3 +141,26 @@ Route::get('user_roles', [RoleController::class, 'index1'])->name('user_roles.in
 Route::resource('/roles', RoleController::class)->middleware(['auth', 'SuperAdminCheck']);
 
 //End of roles
+
+// patients
+
+Route::get('/patients/delete/{id}', [PatientController::class, 'delete'])->name('patients.delete');
+Route::resource('/patients', PatientController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+//End of patients
+
+
+//  doctors
+
+Route::get('/doctors/delete/{id}', [DoctorController::class, 'delete'])->name('doctors.delete');
+Route::resource('/doctors', DoctorController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+Route::resource('doctoravailabilitys', DoctorAvailabilityController::class)->middleware(['auth']);
+
+//End of doctors
+
+// Appointments
+
+Route::resource('appointments', AppointmentController::class);
+
+//End of Appointments

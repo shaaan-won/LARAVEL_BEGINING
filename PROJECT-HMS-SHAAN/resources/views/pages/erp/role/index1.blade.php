@@ -47,7 +47,11 @@
                                         <td>{{ $role->id }}</td>
                                         <td>{{ $role->name }}</td>
                                         {{-- <td>{{ optional($role->user)->pluck('name')->implode(', ') }}</td> --}}
-                                        <td>{{ $role->user ? $role->user->pluck('name')->implode(', ') : 'No Users' }}</td>
+                                        {{-- <td>{{ $role->user ? $role->user->pluck('name')->implode(', ') : 'No Users' }}</td> --}}
+                                        {{-- @foreach ($role->user as $user)
+                                            <td>{{ optional($user->pluck('name')->implode(', ')) }}</td>
+                                        @endforeach --}}
+                                        <td>{{ $role->user->pluck('name')->implode(', ') }}</td>
                                         <td>{{ $role->created_at }}</td>
                                         <td>{{ $role->updated_at }}</td>
                                         <td>

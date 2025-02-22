@@ -53,6 +53,23 @@
                                 </svg><span>All Hospitals</span></a>
                         </li>
                     @endif
+                    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
+                        <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
+                                href="javascript:void(0)">
+                                <svg class="stroke-icon">
+                                    <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-button"></use>
+                                </svg>
+                                <svg class="fill-icon">
+                                    <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-button"></use>
+                                </svg><span>Appointments</span></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="{{ url('appointments') }}">All Appointments</a></li>
+                                <li><a href="buttons.html">Pending </a></li>
+                                <li><a href="buttons.html">Completed </a></li>
+                                <li><a href="buttons.html">Cancelled </a></li>
+                            </ul>
+                        </li>
+                    @endif
 
                     <li class="sidebar-main-title">
                         <div>
@@ -84,7 +101,7 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{ url('doctors') }}">Doctors List</a></li>
                             <li><a href="{{ url('doctors/create') }}">Add Doctor</a></li>
-                            <li><a href="{{ url('doctors/schedule') }}">Doctors Schedule</a></li>
+                            <li><a href="{{ url('doctoravailabilitys') }}">Doctors Schedule</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
@@ -99,10 +116,10 @@
                             <li><a href="{{ url('users&roles') }}">All Users&Roles</a></li>
                             <li><a href="{{ url('profile') }}">Users Profile</a></li>
                             @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                            <li><a href="{{ url('users') }}">All Users</a></li>
-                            <li><a href="{{ url('roles') }}">Roles</a></li>
-                            <li><a href="{{ url('user_roles') }}">Roles & Permissions</a></li>
-                           @endif
+                                <li><a href="{{ url('users') }}">All Users</a></li>
+                                <li><a href="{{ url('roles') }}">Roles</a></li>
+                                <li><a href="{{ url('user_roles') }}">Roles & Permissions</a></li>
+                            @endif
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title"
@@ -119,7 +136,8 @@
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a
-                            class="sidebar-link sidebar-title link-nav " href="file-manager.html"> <i class="icofont icofont-doctor-alt icofont-1x"></i>
+                            class="sidebar-link sidebar-title link-nav " href="file-manager.html"> <i
+                                class="icofont icofont-doctor-alt icofont-1x"></i>
                             <span>File manager</span></a></li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
                             class="sidebar-link sidebar-title link-nav" href="file-manager.html">
