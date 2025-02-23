@@ -96,7 +96,7 @@
                                     <tr>
                                         <td>{{ $doctoravailability->id }}</td>
 										<td>{{ $doctoravailability->doctor->name }}</td>
-                                        <td>{{ $doctoravailability->day }}</td>
+                                        <td class="text-wrap">{{ $doctoravailability->day }}</td>
                                         <td>{{ $doctoravailability->start_time }}</td>
                                         <td>{{ $doctoravailability->end_time }}</td>
                                         <td>{{ $doctoravailability->created_at }}</td>

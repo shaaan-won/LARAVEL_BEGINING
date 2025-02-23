@@ -1,7 +1,7 @@
 @extends('layout.erp.app')
 @section('page')
     @php
-        $users = DB::table('hms_users')->get();
+        $users = DB::table('users')->get();
         // print_r($patient->toArray());
     @endphp
 

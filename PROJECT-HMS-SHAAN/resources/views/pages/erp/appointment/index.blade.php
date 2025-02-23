@@ -82,7 +82,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="mb-0 fw-bolder fs-2">Appointment List</h2>
-                        <a href="{{ route('appointments.create') }}" class="btn btn-lg btn-primary">New Appointment</a>
+                        <a href="{{ route('appointments.create') }}" class="btn btn-lg btn-primary">Book New Appointment</a>
                     </div>
                     <div class="table-responsive theme-scrollbar card-body">
                         <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1"

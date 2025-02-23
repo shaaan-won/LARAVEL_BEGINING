@@ -63,8 +63,8 @@
                                     <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-button"></use>
                                 </svg><span>Appointments</span></a>
                             <ul class="sidebar-submenu">
+                                <li><a href="{{ url('appointments/create') }}">Book Appointment</a></li>
                                 <li><a href="{{ url('appointments') }}">All Appointments</a></li>
-                                <li><a href="{{ url('appointmentdetails') }}">Appointments Details</a></li>
                                 <li><a href="buttons.html">Pending </a></li>
                                 <li><a href="buttons.html">Completed </a></li>
                                 <li><a href="buttons.html">Cancelled </a></li>
@@ -87,7 +87,9 @@
                             </svg><span>Patients</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ url('patients') }}">All Patients</a></li>
+                            <li><a href="{{ url('consultations') }}">Consultations</a></li>
                             <li><a href="{{ url('patients/create') }}">Add Patient</a></li>
+                            <li><a href="{{ url('patientrecords') }}">Patients Record</a></li>
                         </ul>
                     </li>
 
