@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Doctors\Doctor;
+use App\Models\Patient\Patient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +68,8 @@ class User extends Authenticatable
     }
     public function doctor(){
         return $this->hasMany(Doctor::class);
+    }
+    public function patient(){
+        return $this->hasMany(Patient::class);
     }
 }

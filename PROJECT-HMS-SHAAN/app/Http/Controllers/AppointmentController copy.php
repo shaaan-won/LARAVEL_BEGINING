@@ -23,6 +23,9 @@ class AppointmentController extends Controller
 		$appointments = Appointment::all();
 		return view("pages.erp.appointment.index", ["appointments" => $appointments]);
 	}
+	// public function create(){
+	// 	return view("pages.erp.appointment.create",["status"=>Status::all()]);
+	// }
 	public function create()
 	{
 		$patients = Patient::all();
@@ -33,6 +36,146 @@ class AppointmentController extends Controller
 		$doctoravailability = DoctorAvailability::all();
 		return view('pages.erp.appointment.create', compact('doctors', 'status', 'users', 'patients', 'departments', 'doctoravailability'));
 	}
+	// public function store(Request $request){
+	// 	//Appointment::create($request->all());
+	// 	$appointment = new Appointment;
+	// 	$appointment->id=$request->id;
+	// 	$appointment->doctor_id=$request->doctor_id;
+	// 	$appointment->patient_id=$request->patient_id;
+	// 	$appointment->appointment_date=$request->appointment_date;
+	// 	$appointment->appointment_time=$request->appointment_time;
+	// 	$appointment->status_id=$request->status_id;
+	// 	$appointment->cancellation_reason=$request->cancellation_reason;
+	// 	date_default_timezone_set("Asia/Dhaka");
+	// 	$appointment->created_at=date('Y-m-d H:i:s');
+	// 	date_default_timezone_set("Asia/Dhaka");
+	// 	$appointment->updated_at=date('Y-m-d H:i:s');
+
+	// 	$appointment->save();
+
+	// 	return back()->with('success', 'Created Successfully.');
+	// }
+
+	//Last one
+	// public function store(Request $request)
+	// {	
+	// 	// print_r($request->all());
+	// 	// $patient_id = Patient::latest()->last()->id;
+	// 	// print_r($patient_id);
+	// 	$request->validate([
+	// 		'department_id' => 'required|exists:departments,id',
+	// 		'doctor_id' => 'required|exists:doctors,id',
+	// 		'patient_id' => 'nullable|exists:patients,id',
+	// 		'appointment_date' => 'required|date|after_or_equal:today',
+	// 		'appointment_time' => 'required',
+	// 		// Validation for walk-in patient details if patient_id is null
+	// 		'walking_user_name' => 'required_if:patient_id,null',
+	// 		'walking_name' => 'required_if:patient_id,null|string|max:255',
+	// 		'walking_date_of_birth' => 'required_if:patient_id,null|date',
+	// 		'walking_email' => 'required_if:patient_id,null',
+	// 		'walking_contact_number' => 'required_if:patient_id,null',
+	// 		'walking_emergency_contact' => 'required_if:patient_id,null',
+	// 		'walking_address' => 'required_if:patient_id,null',
+	// 		'walking_gender' => 'required_if:patient_id,null',
+	// 		'walking_blood_group' => 'required_if:patient_id,null',
+	// 	]);
+	// 	print_r($request->all());
+	// 	$patient_id = $request->patient_id;
+	// 	print_r($patient_id);
+
+	// 	// If patient_id is null, create a walk-in patient
+	// 	// if (!$request->patient_id) {
+	// 	// 	$patient = new Patient;
+	// 	// 	$patient->user_id = $request->walking_user_name;
+	// 	// 	$patient->name = $request->walking_name;
+	// 	// 	$patient->date_of_birth = $request->walking_date_of_birth;
+	// 	// 	$patient->email = $request->walking_email;
+	// 	// 	$patient->contact_number = $request->walking_contact_number;
+	// 	// 	$patient->emergency_contact = $request->walking_emergency_contact;
+	// 	// 	$patient->address = $request->walking_address;
+	// 	// 	$patient->gender = $request->walking_gender;
+	// 	// 	$patient->blood_group = $request->walking_blood_group;
+	// 	// 	$patient = $patient->save();
+	// 	// 	if ($patient) {
+	// 	// 		$patient_id = Patient::latest()->first()->id;
+	// 	// 	}
+	// 	// } else {
+	// 	// 	$patient_id = $request->patient_id;
+	// 	// }
+
+	// 	// // print_r($request->all());
+	// 	// $selectedDate = $request->appointment_date;
+	// 	// $selectedTime = $request->appointment_time;
+	// 	// $doctorId = $request->doctor_id;
+
+	// 	// // Convert the selected date into a day name (e.g., "Monday")
+	// 	// $selectedDay = Carbon::parse($selectedDate)->format('l');
+
+	// 	// // Fetch the doctor's available days
+	// 	// $doctorAvailability = DoctorAvailability::where('doctor_id', $doctorId)
+	// 	// 	->where('day', $selectedDay)
+	// 	// 	->first();
+
+	// 	// if (!$doctorAvailability) {
+	// 	// 	return back()->with('error', "Doctor is not available on {$selectedDay}.");
+	// 	// }
+
+	// 	// // Ensure the appointment time falls within the doctor's working hours
+	// 	// if (
+	// 	// 	$selectedTime < $doctorAvailability->start_time ||
+	// 	// 	$selectedTime > $doctorAvailability->end_time
+	// 	// ) {
+	// 	// 	return back()->with('error', "Doctor is available from {$doctorAvailability->start_time} to {$doctorAvailability->end_time}.");
+	// 	// }
+
+	// 	// // Ensure the appointment date is within the next 15 days
+	// 	// $today = now()->toDateString();
+	// 	// $DaysLater = now()->addDays(15)->toDateString();
+
+	// 	// if ($selectedDate < $today || $selectedDate > $DaysLater) {
+	// 	// 	return back()->with('error', 'Appointments can only be booked within the next 7 days.');
+	// 	// }
+
+	// 	// // Check for conflicts within 30 minutes
+	// 	// $existingAppointment = Appointment::where('doctor_id', $doctorId)
+	// 	// 	->where('appointment_date', $selectedDate)
+	// 	// 	->where(function ($query) use ($selectedTime) {
+	// 	// 		$query->whereBetween('appointment_time', [
+	// 	// 			date('H:i:s', strtotime($selectedTime) - 1800), // 30 mins before
+	// 	// 			date('H:i:s', strtotime($selectedTime) + 1800)  // 30 mins after
+	// 	// 		]);
+	// 	// 	})
+	// 	// 	->exists();
+
+	// 	// if ($existingAppointment) {
+	// 	// 	return back()->with('error', 'Doctor is not available within 30 minutes of this time.');
+	// 	// }
+
+	// 	// // Create appointment if all conditions are met
+	// 	// $appointment = new Appointment;
+	// 	// $appointment->doctor_id = $doctorId;
+	// 	// $appointment->patient_id = $patient_id;
+	// 	// $appointment->appointment_date = $selectedDate;
+	// 	// $appointment->appointment_time = $selectedTime;
+	// 	// $appointment->status_id = 1;
+	// 	// $appointment->cancellation_reason='';
+	// 	// date_default_timezone_set("Asia/Dhaka");
+	// 	// $appointment->created_at=date('Y-m-d H:i:s');
+	// 	// date_default_timezone_set("Asia/Dhaka");
+	// 	// $appointment->updated_at=date('Y-m-d H:i:s');
+	// 	// $appointment = $appointment->save();
+
+	// 	// if ($appointment) {
+	// 	// 	return redirect()->route("appointments.index")->with('success', 'Created Successfully.');
+	// 	// }else{
+	// 	// 	return back()->with('error', 'Something went wrong.');
+	// 	// }
+	// }
+
+	// New one
+
+
+
 	public function store(Request $request)
 	{
 		// Debugging: Check incoming request data
@@ -163,6 +306,7 @@ class AppointmentController extends Controller
 		$departments = Department::all();
 		$doctoravailability = DoctorAvailability::all();
 		return view('pages.erp.appointment.edit', compact('appointment', 'doctors', 'status', 'users', 'patients', 'departments', 'doctoravailability'));
+		// return view("pages.erp.appointment.edit", ["appointment" => $appointment, "status" => Status::all()]);
 	}
 	public function update(Request $request, Appointment $appointment)
 	{
@@ -188,41 +332,5 @@ class AppointmentController extends Controller
 	{
 		$appointment->delete();
 		return redirect()->route("appointments.index")->with('success', 'Deleted Successfully.');
-	}
-	// Pending appointmnets show and change
-	public function pendingAppointments()
-	{
-		$appointments = Appointment::where('status_id', '4')->get();
-		// $statuses = Status::all();
-		$statuses = Status::whereIn('name', ['Pending', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get(); // Only show Pending & Approved
-		return view('pages.erp.appointment.pending', compact('appointments', 'statuses'));
-	}
-
-	// public function updateStatus(Request $request, $id) {
-	// 	$request->validate([
-	// 		'status_id' => 'required'
-	// 	]);
-
-	// 	$appointment = Appointment::findOrFail($id);
-	// 	$appointment->update(['status_id' => $request->status_id]);
-
-	// 	// Notify the patient if status changes
-	// 	// $appointment->patient->notify(new AppointmentStatusChangedNotification($appointment));
-
-	// 	return redirect()->route('appointments.pending')->with('success', 'Appointment status updated.');
-	// }
-	public function updateStatus(Request $request, $id)
-	{
-		$request->validate([
-			'status_id' => 'required|exists:statuss,id',
-			'cancellation_reason' => 'nullable|string'
-		]);
-
-		$appointment = Appointment::findOrFail($id);
-		$appointment->status_id = $request->status_id;
-		$appointment->cancellation_reason = $request->status_id == 6 ? $request->cancellation_reason : null;
-		$appointment->save();
-
-		return redirect()->route('appointments.pending')->with('success', 'Appointment status updated!');
 	}
 }

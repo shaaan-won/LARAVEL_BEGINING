@@ -65,7 +65,7 @@
                             <ul class="sidebar-submenu">
                                 <li><a href="{{ url('appointments/create') }}">Book Appointment</a></li>
                                 <li><a href="{{ url('appointments') }}">All Appointments</a></li>
-                                <li><a href="buttons.html">Pending </a></li>
+                                <li><a href="{{ url('appointments/pending')}}">Pending </a></li>
                                 <li><a href="buttons.html">Completed </a></li>
                                 <li><a href="buttons.html">Cancelled </a></li>
                             </ul>

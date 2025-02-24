@@ -238,7 +238,7 @@
                             <div class="mb-1">
                                 <label class="form-label fw-bold fs-5">Appointment Date</label>
                                 <input type="date" name="appointment_date" class="form-control form-control-lg"
-                                    value="{{ old('appointment_date') }}">
+                                    value="{{ old('appointment_date') }}" min="{{ now()->toDateString() }}" max="{{ now()->addDays(15)->toDateString() }}">
                                 @error('appointment_date')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -247,7 +247,7 @@
                             <div class="mb-1">
                                 <label class="form-label fw-bold fs-5">Appointment Time</label>
                                 <input type="time" name="appointment_time" class="form-control form-control-lg"
-                                    value="{{ old('appointment_time') }}">
+                                    value="{{ old('appointment_time') }}" min="09:00" max="20:00">
                                 @error('appointment_time')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -404,6 +404,22 @@
         </div>
     </section>
 
+    {{-- <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let availableDays = @json($doctoravailability->pluck('day')); // Pass available days from Controller
+    
+            document.getElementById("appointment_date").addEventListener("", function () {
+                let selectedDate = new Date(this.value);
+                let selectedDay = selectedDate.toLocaleString('en-us', { weekday: 'long' });
+    
+                if (!availableDays.includes(selectedDay)) {
+                    alert("Doctor is not available on " + selectedDay);
+                    this.value = ""; // Reset selection
+                }
+            });
+        });
+    </script> --}}
+
     <script>
         document.getElementById('patient-type').addEventListener('change', function() {
             const isWalkin = this.value === 'walkin';
@@ -411,6 +427,7 @@
             document.getElementById('registered-patient').style.display = isWalkin ? 'none' : 'block';
         });
     </script>
+    
 @endsection
 
 

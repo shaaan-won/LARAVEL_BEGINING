@@ -177,6 +177,8 @@ Route::resource('doctoravailabilitys', DoctorAvailabilityController::class)->mid
 
 // Appointments
 
+Route::get('/appointments/pending', [AppointmentController::class, 'pendingAppointments'])->name('appointments.pending');
+Route::put('/appointments/update-status/{id}', [AppointmentController::class, 'updateStatus'])->name('appointments.updateStatus');
 Route::resource('appointments', AppointmentController::class);
 
 //End of Appointments
