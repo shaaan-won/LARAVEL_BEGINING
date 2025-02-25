@@ -6,10 +6,10 @@ use App\Models\Patient\Patient;
 use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model{
 
+    protected $fillable = ['doctor_id', 'patient_id', 'appointment_date', 'appointment_time', 'status', 'status_id'];
     public function patient(){
         return $this->belongsTo(Patient::class);
     }
-
     public function doctor(){
         return $this->belongsTo(Doctor::class);
     }

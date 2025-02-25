@@ -66,8 +66,9 @@
                                 <li><a href="{{ url('appointments/create') }}">Book Appointment</a></li>
                                 <li><a href="{{ url('appointments') }}">All Appointments</a></li>
                                 <li><a href="{{ url('appointments/pending')}}">Pending </a></li>
-                                <li><a href="buttons.html">Completed </a></li>
-                                <li><a href="buttons.html">Cancelled </a></li>
+                                <li><a href="{{ url('appointments/cancelled')}}">Cancelled </a></li>
+                                <li><a href="{{ url('appointments/completed')}}">Completed </a></li>
+                                <li><a href="{{ url('appointmenttrasheds')}}">Trash Appointments </a></li>
                             </ul>
                         </li>
                     @endif
@@ -105,6 +106,7 @@
                             <li><a href="{{ url('doctors') }}">Doctors List</a></li>
                             <li><a href="{{ url('doctors/create') }}">Add Doctor</a></li>
                             <li><a href="{{ url('doctoravailabilitys') }}">Doctors Schedule</a></li>
+                            <li><a href="{{ url('/doctor/appointments') }}">Doctor Appointments </a></li>
                             <li><a href="{{ url('departments') }}">All Departments</a></li>
                         </ul>
                     </li>

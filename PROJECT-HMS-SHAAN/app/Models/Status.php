@@ -17,5 +17,8 @@ class Status extends Model{
     {
         return $this->hasMany(Appointment::class);
     }
+    public function trashappointments() {
+        return $this->hasMany(AppointmentTrashed::class);
+    }
 }
 ?>

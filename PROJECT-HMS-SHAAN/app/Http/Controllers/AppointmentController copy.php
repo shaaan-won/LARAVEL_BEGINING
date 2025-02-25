@@ -333,4 +333,18 @@ class AppointmentController extends Controller
 		$appointment->delete();
 		return redirect()->route("appointments.index")->with('success', 'Deleted Successfully.');
 	}
+	
+	// public function updateStatus(Request $request, $id) {
+	// 	$request->validate([
+	// 		'status_id' => 'required'
+	// 	]);
+
+	// 	$appointment = Appointment::findOrFail($id);
+	// 	$appointment->update(['status_id' => $request->status_id]);
+
+	// 	// Notify the patient if status changes
+	// 	// $appointment->patient->notify(new AppointmentStatusChangedNotification($appointment));
+
+	// 	return redirect()->route('appointments.pending')->with('success', 'Appointment status updated.');
+	// }
 }

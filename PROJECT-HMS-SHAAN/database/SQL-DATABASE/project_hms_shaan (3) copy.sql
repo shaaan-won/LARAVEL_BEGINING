@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2025 at 07:22 PM
+-- Generation Time: Feb 25, 2025 at 08:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,23 @@ CREATE TABLE `hms_appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE Table `hms_trashed_appointments` (
+--
+-- Dumping data for table `hms_appointments`
+--
+
+INSERT INTO `hms_appointments` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `cancellation_reason`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2025-02-25', '10:00:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
+(2, 2, 2, '2025-02-26', '11:30:00', 5, 'Patient not available', '2025-02-25 07:18:14', '2025-02-25 01:18:24'),
+(4, 4, 4, '2025-02-28', '14:45:00', 3, 'Doctor rescheduled', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
+(8, 1, 10, '2025-02-25', '10:58:00', 8, 'juytg ypay 98yhtgw e', '2025-02-25 03:57:07', '2025-02-24 21:58:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_appointment_trasheds`
+--
+
+CREATE TABLE `hms_appointment_trasheds` (
   `id` bigint(20) NOT NULL,
   `doctor_id` bigint(20) DEFAULT NULL,
   `patient_id` bigint(20) DEFAULT NULL,
@@ -52,28 +68,13 @@ CREATE Table `hms_trashed_appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- CREATE Table `hms_appointments_listof_doctors` (
---   `id` bigint(20) NOT NULL,
---   `doctor_id` bigint(20) DEFAULT NULL,
---   `patient_id` bigint(20) DEFAULT NULL,
---   `appointment_date` date DEFAULT NULL,
---   `appointment_time` time DEFAULT NULL,
---   `status_id` int(11) DEFAULT NULL,
---   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
---   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
--- Dumping data for table `hms_appointments`
+-- Dumping data for table `hms_appointment_trasheds`
 --
 
-INSERT INTO `hms_appointments` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `cancellation_reason`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-02-25', '10:00:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(2, 2, 2, '2025-02-26', '11:30:00', 2, 'Patient not available', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(3, 3, 3, '2025-02-27', '09:15:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(4, 4, 4, '2025-02-28', '14:45:00', 3, 'Doctor rescheduled', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(7, 1, 8, '2025-02-24', '20:59:00', 9, NULL, '2025-02-23 15:04:45', '2025-02-24 10:56:26'),
-(8, 1, 10, '2025-02-23', '22:09:00', 4, 'Not Applicable', '2025-02-23 15:09:42', '2025-02-23 15:09:42');
+INSERT INTO `hms_appointment_trasheds` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, '2025-02-27', '09:15:00', 5, '2025-02-24 22:40:17', '2025-02-24 22:40:17'),
+(2, 1, 8, '2025-02-24', '20:59:00', 5, '2025-02-24 23:12:28', '2025-02-24 23:12:28');
 
 -- --------------------------------------------------------
 
@@ -587,7 +588,7 @@ CREATE TABLE `hms_sessions` (
 --
 
 INSERT INTO `hms_sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Am1N6YedAAT8qDBmpoIxMF1QzYTrE9KLP2Oqh0pq', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaW9FazFDM1cwSWx3b0RpZ09HQ2pic2NzOWFFZ3VVU2tnSzg0MDdCRSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBwb2ludG1lbnRzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1740416193);
+('avHqFwqnJ3sFOXZZFedjiiFWKLIOzOVbPwMaSrtc', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMmd4TkNKcU5GbVN5d2FiZzN0a1dobk00bU8wWndkcU5NV3FuTzAwUiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjYzOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZG9jdG9yL2FwcG9pbnRtZW50cz9kb2N0b3JfaWQ9JnN0YXR1c19pZD0iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO30=', 1740469669);
 
 -- --------------------------------------------------------
 
@@ -701,6 +702,12 @@ INSERT INTO `hms_wards` (`id`, `name`, `type`, `created_at`, `updated_at`) VALUE
 -- Indexes for table `hms_appointments`
 --
 ALTER TABLE `hms_appointments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_appointment_trasheds`
+--
+ALTER TABLE `hms_appointment_trasheds`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -879,6 +886,12 @@ ALTER TABLE `hms_wards`
 --
 ALTER TABLE `hms_appointments`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `hms_appointment_trasheds`
+--
+ALTER TABLE `hms_appointment_trasheds`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hms_beds`

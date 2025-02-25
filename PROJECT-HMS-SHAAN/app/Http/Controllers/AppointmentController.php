@@ -168,7 +168,7 @@ class AppointmentController extends Controller
 	{
 		//Appointment::update($request->all());
 		$appointment = Appointment::find($appointment->id);
-		$appointment->id = $request->id;
+		// $appointment->id = $request->id;
 		$appointment->doctor_id = $request->doctor_id;
 		$appointment->patient_id = $request->patient_id;
 		$appointment->appointment_date = $request->appointment_date;
@@ -197,20 +197,6 @@ class AppointmentController extends Controller
 		$statuses = Status::whereIn('name', ['Pending', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get(); // Only show Pending & Approved
 		return view('pages.erp.appointment.pending', compact('appointments', 'statuses'));
 	}
-
-	// public function updateStatus(Request $request, $id) {
-	// 	$request->validate([
-	// 		'status_id' => 'required'
-	// 	]);
-
-	// 	$appointment = Appointment::findOrFail($id);
-	// 	$appointment->update(['status_id' => $request->status_id]);
-
-	// 	// Notify the patient if status changes
-	// 	// $appointment->patient->notify(new AppointmentStatusChangedNotification($appointment));
-
-	// 	return redirect()->route('appointments.pending')->with('success', 'Appointment status updated.');
-	// }
 	public function updateStatus(Request $request, $id)
 	{
 		$request->validate([
@@ -224,5 +210,58 @@ class AppointmentController extends Controller
 		$appointment->save();
 
 		return redirect()->route('appointments.pending')->with('success', 'Appointment status updated!');
+	}
+
+	// Cancelled appointments
+	public function cancelledAppointments()
+	{
+		$appointments = Appointment::where('status_id', 6)->get();
+		$statuses = Status::whereIn('name', ['Pending', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get();
+		return view('pages.erp.appointment.cancelled', compact('appointments', 'statuses'));
+	}
+
+	public function reschedule(Request $request, $id)
+	{
+		$request->validate([
+			'new_date' => 'required|date|after_or_equal:today',
+			'new_time' => 'required'
+		]);
+
+		$appointment = Appointment::findOrFail($id);
+		$appointment->appointment_date = $request->new_date;
+		$appointment->appointment_time = $request->new_time;
+		$appointment->status_id = 8; // Rescheduled Status
+		$appointment->save();
+
+		return redirect()->route('appointments.cancelled')->with('success', 'Appointment rescheduled successfully!');
+	}
+
+	// Completed appointments
+	public function completedAppointments()
+	{
+		$appointments = Appointment::where('status_id', 5)->get();
+		$statuses = Status::whereIn('name', ['Pending', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get();
+		return view('pages.erp.appointment.completed', compact('appointments', 'statuses'));
+	}
+	// Trashed appointments
+	public function trashedAppointments($id)
+	{
+		$appointment = Appointment::findOrFail($id);
+
+		// Move the appointment data to the trashed_appointments table
+		DB::table('appointment_trasheds')->insert([
+			'patient_id' => $appointment->patient_id,
+			'doctor_id' => $appointment->doctor_id,
+			'appointment_date' => $appointment->appointment_date,
+			'appointment_time' => $appointment->appointment_time,
+			'status_id' => $appointment->status_id,
+			'created_at' => now(),
+			'updated_at' => now(),
+		]);
+
+		// Delete the appointment from the original table
+		$appointment->delete();
+
+		return redirect()->route('appointments.index')->with('success', 'Appointment moved to trash!');
 	}
 }

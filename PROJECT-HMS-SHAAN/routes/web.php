@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AppointmentTrashedController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DoctorAppointmentController;
 use App\Http\Controllers\DoctorAvailabilityController;
 use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
@@ -170,8 +172,15 @@ Route::resource('/departments', DepartmentController::class)->middleware(['auth'
 
 Route::get('/doctors/delete/{id}', [DoctorController::class, 'delete'])->name('doctors.delete');
 Route::resource('/doctors', DoctorController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
-
 Route::resource('doctoravailabilitys', DoctorAvailabilityController::class)->middleware(['auth']);
+
+Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index'])->name('doctor.appointments.index')->middleware(['auth']);
+Route::put('/doctor/appointments/updatebydoctor/{id}', [DoctorAppointmentController::class, 'updatebydoctor'])->name('doctor.appointments.updatebydoctor')->middleware(['auth']);
+// Route::middleware(['auth'])->group(function () {
+//     // Doctor appointments page
+//     Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index'])->name('doctor.appointments.index');
+// });
+
 
 //End of doctors
 
@@ -179,6 +188,15 @@ Route::resource('doctoravailabilitys', DoctorAvailabilityController::class)->mid
 
 Route::get('/appointments/pending', [AppointmentController::class, 'pendingAppointments'])->name('appointments.pending');
 Route::put('/appointments/update-status/{id}', [AppointmentController::class, 'updateStatus'])->name('appointments.updateStatus');
+
+Route::get('/appointments/cancelled', [AppointmentController::class, 'cancelledAppointments'])->name('appointments.cancelled');
+Route::put('/appointments/reschedule/{id}', [AppointmentController::class, 'reschedule'])->name('appointments.reschedule');
+
+Route::get('/appointments/completed', [AppointmentController::class, 'completedAppointments'])->name('appointments.completed');
+
+Route::delete('appointments/trash/{id}', [AppointmentController::class, 'trashedAppointments'])->name('appointments.trashed');
+
 Route::resource('appointments', AppointmentController::class);
+Route::resource('appointmenttrasheds', AppointmentTrashedController::class);
 
 //End of Appointments
