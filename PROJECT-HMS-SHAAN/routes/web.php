@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentTrashedController;
+use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\ConsultationLabTestController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorAppointmentController;
 use App\Http\Controllers\DoctorAvailabilityController;
 use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
+use App\Http\Controllers\LabTestCategoryController;
+use App\Http\Controllers\LabTestController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\PaymentStatusController;
 use App\Http\Controllers\ProfileController;
@@ -176,10 +180,8 @@ Route::resource('doctoravailabilitys', DoctorAvailabilityController::class)->mid
 
 Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index'])->name('doctor.appointments.index')->middleware(['auth']);
 Route::put('/doctor/appointments/updatebydoctor/{id}', [DoctorAppointmentController::class, 'updatebydoctor'])->name('doctor.appointments.updatebydoctor')->middleware(['auth']);
-// Route::middleware(['auth'])->group(function () {
-//     // Doctor appointments page
-//     Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index'])->name('doctor.appointments.index');
-// });
+Route::put('/doctor/appointments/cancelbydoctor/{id}', [DoctorAppointmentController::class, 'cancelbydoctor'])->name('doctor.appointments.cancelbydoctor')->middleware(['auth']);
+
 
 
 //End of doctors
@@ -200,3 +202,25 @@ Route::resource('appointments', AppointmentController::class);
 Route::resource('appointmenttrasheds', AppointmentTrashedController::class);
 
 //End of Appointments
+
+// Consultations
+
+Route::get('consultations/{appointmentId}', [ConsultationController::class, 'showConsultationForm'])->name('doctor.consult');
+Route::post('consultations/store/{appointmentId}', [ConsultationController::class, 'storeConsultation'])->name('doctor.consult.store');
+
+// Route::get('/consultations/pending', [ConsultationController::class, 'pendingConsultations'])->name('consultations.pending');
+// Route::put('/consultations/update-status/{id}', [ConsultationController::class, 'updateStatus'])->name('consultations.updateStatus');
+
+Route::get('/labtests/pending', [LabTestController::class, 'pendingTests'])->name('lab.tests.pending');
+Route::post('/labtests/result/update/{testId}', [LabTestController::class, 'updateTestResult'])->name('lab.tests.update');
+
+Route::get('/doctor/review/{consultationId}', [DoctorController::class, 'reviewTestResults'])->name('doctor.review');
+Route::post('/doctor/finalize/{consultationId}', [DoctorController::class, 'finalizeConsultation'])->name('doctor.finalize');
+
+// all resources for consultations  & labtests
+Route::resource('consultations', ConsultationController::class);
+Route::resource('consultationlabtests', ConsultationLabTestController::class);
+Route::resource('labtests', LabTestController::class);
+Route::resource('labtestcategorys', LabTestCategoryController::class);
+
+//End of Consultations

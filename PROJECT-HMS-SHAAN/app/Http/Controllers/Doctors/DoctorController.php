@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Doctors;
 
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 use App\Models\Doctors\Doctor;
 use Illuminate\Http\Request;
 
@@ -201,5 +202,28 @@ class DoctorController extends Controller
         } else {
             return redirect('/doctors')->with('error', 'Doctor deleted failed.');
         }
+    }
+
+
+    // Consultations review and finalize
+    // Show test results for a consultation
+    public function reviewTestResults($consultationId) {
+        $consultation = Consultation::with('appointment.patient', 'labTests.labTest')->findOrFail($consultationId);
+
+        return view('pages.doctors.review', compact('consultation'));
+    }
+
+    // Finalize consultation with prescription
+    public function finalizeConsultation(Request $request, $consultationId) {
+        $request->validate([
+            'prescription' => 'required|string',
+        ]);
+
+        $consultation = Consultation::findOrFail($consultationId);
+        $consultation->update([
+            'prescription' => $request->prescription,
+        ]);
+
+        return redirect()->route('doctor.review', $consultationId)->with('success', 'Consultation finalized.');
     }
 }

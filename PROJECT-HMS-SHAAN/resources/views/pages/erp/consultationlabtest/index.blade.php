@@ -1,43 +1,41 @@
 {{-- 
 @extends('layout.erp.app')
-@section('title','Manage Consultation')
+@section('title','Manage ConsultationLabTest')
 @section('style')
 
 
 @endsection
 @section('page')
-<a href="{{route('consultations.create')}}">New Consultation</a>
+<a href="{{route('consultationlabtests.create')}}">New ConsultationLabTest</a>
 <table class="table table-hover text-nowrap">
 	<thead>
 		<tr>
 			<th>Id</th>
-			<th>Appointment Id</th>
-			<th>Symptoms</th>
-			<th>Diagnosis</th>
-			<th>Prescription</th>
-			<th>Consultation Notes</th>
-			<th>Created At</th>
-			<th>Updated At</th>
+			<th>Consultation Id</th>
+			<th>Lab Test Id</th>
+			<th>Lab Test Result</th>
+			<th>Created By</th>
+			<th>Updated By</th>
+			
 
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
-	@foreach($consultations as $consultation)
+	@foreach($consultationlabtests as $consultationlabtest)
 		<tr>
-			<td>{{$consultation->id}}</td>
-			<td>{{$consultation->appointment_id}}</td>
-			<td>{{$consultation->symptoms}}</td>
-			<td>{{$consultation->diagnosis}}</td>
-			<td>{{$consultation->prescription}}</td>
-			<td>{{$consultation->consultation_notes}}</td>
-			<td>{{$consultation->created_at}}</td>
-			<td>{{$consultation->updated_at}}</td>
+			<td>{{$consultationlabtest->id}}</td>
+			<td>{{$consultationlabtest->consultation_id}}</td>
+			<td>{{$consultationlabtest->labtest->name}}</td>
+			<td>{{$consultationlabtest->lab_test_result}}</td>
+			<td>{{$consultationlabtest->createdBy->name}}</td>
+			<td>{{$consultationlabtest->updatedBy->name}}</td>
+			
 
 			<td>
-			<form action = "{{route('consultations.destroy',$consultation->id)}}" method = "post">
-				<a class= 'btn btn-primary' href = "{{route('consultations.show',$consultation->id)}}">View</a>
-				<a class= 'btn btn-success' href = "{{route('consultations.edit',$consultation->id)}}"> Edit </a>
+			<form action = "{{route('consultationlabtests.destroy',$consultationlabtest->id)}}" method = "post">
+				<a class= 'btn btn-primary' href = "{{route('consultationlabtests.show',$consultationlabtest->id)}}">View</a>
+				<a class= 'btn btn-success' href = "{{route('consultationlabtests.edit',$consultationlabtest->id)}}"> Edit </a>
 				@method('DELETE')
 				@csrf
 				<input type = "submit" class="btn btn-danger" name = "delete" value = "Delete" />
@@ -53,12 +51,11 @@
 
 @endsection --}}
 
-
 @extends('layout.erp.app')
-@section('title', 'Manage Consultations')
+@section('title', 'Manage Consultation Lab Tests')
 @section('style')
-@endsection
 
+@endsection
 @section('page')
 <section id="multilingual-datatable">
     <div class="row" id="table-hover-row">
@@ -80,55 +77,46 @@
             @endif
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h2 class="mb-0 fw-bolder fs-2">Consultation List</h2>
-                    <a href="{{ route('consultations.create') }}" class="btn btn-lg btn-primary">Add Consultation</a>
+                    <h2 class="mb-0 fw-bolder fs-2">Consultation Lab Tests</h2>
+                    <a href="{{ route('consultationlabtests.create') }}" class="btn btn-lg btn-primary">Add Consultation Lab Test</a>
                 </div>
                 <div class="table-responsive theme-scrollbar card-body">
-                    <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1" role="grid">
+                    <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Appointment ID</th>
-                                <th>Symptoms</th>
-                                <th>Diagnosis</th>
-                                <th>Prescription</th>
-                                <th>Consultation Notes</th>
-                                {{-- <th>Created At</th>
-                                <th>Updated At</th> --}}
+                                <th>Consultation</th>
+                                <th>Lab Test</th>
+                                <th>Lab Test Result</th>
+                                <th>Created By</th>
+                                <th>Updated By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($consultations as $consultation)
+                            @forelse ($consultationlabtests as $consultationlabtest)
                                 <tr>
-                                    <td>{{ $consultation->id }}</td>
-                                    <td>{{ $consultation->appointment_id }}</td>
-                                    <td>{{ $consultation->symptoms }}</td>
-                                    <td>{{ $consultation->diagnosis }}</td>
-                                    <td>{{ $consultation->prescription }}</td>
-                                    <td>{{ $consultation->consultation_notes }}</td>
-                                    {{-- <td>{{ $consultation->created_at }}</td>
-                                    <td>{{ $consultation->updated_at }}</td> --}}
+                                    <td>{{ $consultationlabtest->id }}</td>
+                                    <td>{{ $consultationlabtest->consultation_id }}</td>
+                                    <td>{{ $consultationlabtest->labtest->name }}</td>
+                                    <td>{{ $consultationlabtest->lab_test_result }}</td>
+                                    <td>{{ $consultationlabtest->createdBy->name ?? 'N/A' }}</td>
+                                    <td>{{ $consultationlabtest->updatedBy->name ?? 'N/A' }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-sm hide-arrow bg-light" data-bs-toggle="dropdown">
                                                 <i data-feather="more-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu p-2">
-                                                <!-- Show Link -->
-                                                <a class="dropdown-item text-success fs-6" href="{{ route('consultations.show', $consultation->id) }}">
+                                                <a class="dropdown-item text-success fs-6" href="{{ route('consultationlabtests.show', $consultationlabtest->id) }}">
                                                     <i data-feather="eye" class="me-50"></i>
                                                     <span>Show</span>
                                                 </a>
-
-                                                <!-- Edit Link -->
-                                                <a class="dropdown-item text-primary fs-6" href="{{ route('consultations.edit', $consultation->id) }}">
+                                                <a class="dropdown-item text-primary fs-6" href="{{ route('consultationlabtests.edit', $consultationlabtest->id) }}">
                                                     <i data-feather="edit-2" class="me-50"></i>
                                                     <span>Edit</span>
                                                 </a>
-
-                                                <!-- Delete Link (with confirmation) -->
-                                                <form action="{{ route('consultations.destroy', $consultation->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this consultation?');" style="display: inline;">
+                                                <form action="{{ route('consultationlabtests.destroy', $consultationlabtest->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this lab test?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item text-danger fs-6">
@@ -138,11 +126,14 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        <script>
+                                            feather.replace();
+                                        </script>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="text-center fw-bold text-danger fs-10">No Consultations Found</td>
+                                    <td colspan="7" class="text-center fw-bold text-danger fs-10">No Consultation Lab Tests Found</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -153,9 +144,6 @@
     </div>
 </section>
 @endsection
-
 @section('script')
-<script>
-    feather.replace();
-</script>
+
 @endsection

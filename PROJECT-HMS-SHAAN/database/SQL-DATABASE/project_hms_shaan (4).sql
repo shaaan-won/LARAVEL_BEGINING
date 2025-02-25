@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2025 at 07:22 PM
+-- Generation Time: Feb 25, 2025 at 11:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,23 @@ CREATE TABLE `hms_appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE Table `hms_trashed_appointments` (
+--
+-- Dumping data for table `hms_appointments`
+--
+
+INSERT INTO `hms_appointments` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `cancellation_reason`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2025-02-25', '10:00:00', 6, 'dfb ousdhf ouusdhf', '2025-02-25 15:36:00', '2025-02-25 09:36:18'),
+(2, 2, 2, '2025-02-26', '11:30:00', 5, 'Patient not available', '2025-02-25 07:18:14', '2025-02-25 01:18:24'),
+(4, 4, 4, '2025-02-28', '14:45:00', 5, 'Doctor rescheduled', '2025-02-22 15:19:29', '2025-02-25 09:09:53'),
+(8, 1, 10, '2025-02-25', '10:58:00', 6, 'juytg ypay 98yhtgw e', '2025-02-25 15:11:43', '2025-02-25 09:11:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_appointment_trasheds`
+--
+
+CREATE TABLE `hms_appointment_trasheds` (
   `id` bigint(20) NOT NULL,
   `doctor_id` bigint(20) DEFAULT NULL,
   `patient_id` bigint(20) DEFAULT NULL,
@@ -52,28 +68,13 @@ CREATE Table `hms_trashed_appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- CREATE Table `hms_appointments_listof_doctors` (
---   `id` bigint(20) NOT NULL,
---   `doctor_id` bigint(20) DEFAULT NULL,
---   `patient_id` bigint(20) DEFAULT NULL,
---   `appointment_date` date DEFAULT NULL,
---   `appointment_time` time DEFAULT NULL,
---   `status_id` int(11) DEFAULT NULL,
---   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
---   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
--- Dumping data for table `hms_appointments`
+-- Dumping data for table `hms_appointment_trasheds`
 --
 
-INSERT INTO `hms_appointments` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `cancellation_reason`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-02-25', '10:00:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(2, 2, 2, '2025-02-26', '11:30:00', 2, 'Patient not available', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(3, 3, 3, '2025-02-27', '09:15:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(4, 4, 4, '2025-02-28', '14:45:00', 3, 'Doctor rescheduled', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(7, 1, 8, '2025-02-24', '20:59:00', 9, NULL, '2025-02-23 15:04:45', '2025-02-24 10:56:26'),
-(8, 1, 10, '2025-02-23', '22:09:00', 4, 'Not Applicable', '2025-02-23 15:09:42', '2025-02-23 15:09:42');
+INSERT INTO `hms_appointment_trasheds` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, '2025-02-27', '09:15:00', 5, '2025-02-24 22:40:17', '2025-02-24 22:40:17'),
+(2, 1, 8, '2025-02-24', '20:59:00', 5, '2025-02-24 23:12:28', '2025-02-24 23:12:28');
 
 -- --------------------------------------------------------
 
@@ -155,64 +156,52 @@ CREATE TABLE `hms_cache_locks` (
 --
 -- Table structure for table `hms_consultations`
 --
-drop table hms_consultations;
-CREATE TABLE hms_consultations (
-  id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  appointment_id BIGINT(20) ,  -- Ensuring every consultation is linked to an appointment
-  symptoms TEXT DEFAULT NULL,
-  diagnosis TEXT DEFAULT NULL,
-  prescription TEXT DEFAULT NULL,
-  consultation_notes TEXT DEFAULT NULL,
-  created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
 
-CREATE TABLE hms_consultation_lab_tests (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  consultation_id BIGINT(20) NOT NULL,
-  lab_test_id INT NOT NULL,
-  lab_test_result VARCHAR(255) DEFAULT NULL,
-  created_by INT NULL,
-  updated_by INT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE hms_lab_tests (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) ,
-  description TEXT NULL,
-  price DECIMAL(10,2) ,
-  discount_percentage DECIMAL(5,2) DEFAULT 0.00,
-  category_id INT NULL,
-  status_id INT NULL,
-  created_by INT NULL,
-  updated_by INT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE hms_lab_test_categories (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) UNIQUE,
-  description TEXT NULL,
-  status_id INT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
+CREATE TABLE `hms_consultations` (
+  `id` bigint(20) NOT NULL,
+  `appointment_id` bigint(20) DEFAULT NULL,
+  `symptoms` text DEFAULT NULL,
+  `diagnosis` text DEFAULT NULL,
+  `prescription` text DEFAULT NULL,
+  `consultation_notes` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hms_consultations`
 --
 
 INSERT INTO `hms_consultations` (`id`, `appointment_id`, `symptoms`, `diagnosis`, `prescription`, `consultation_notes`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Fever, headache', 'Common cold', 'Paracetamol 500mg', 'Patient advised rest and hydration', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(2, 3, 'Chest pain', 'Acid reflux', 'Antacid tablets', 'Recommended dietary changes', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(3, 4, 'Back pain', 'Muscle strain', 'Pain relief gel', 'Suggested physiotherapy', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(4, 1, 'Cough, sore throat', 'Seasonal flu', 'Cough syrup', 'Monitor symptoms and follow up if needed', '2025-02-22 15:19:29', '2025-02-22 15:19:29');
+(1, 1, 'Fever, cough, sore throat', 'Viral infection', 'Paracetamol, rest', 'Patient advised to rest and hydrate', '2023-10-01 04:00:00', '2025-02-25 17:02:57'),
+(2, 2, 'Headache, dizziness', 'Migraine', 'Ibuprofen', 'Patient to monitor symptoms', '2023-10-02 05:30:00', '2025-02-25 17:03:02'),
+(3, 3, 'Chest pain, shortness of breath', 'Acid reflux', 'Antacids', 'Follow-up in 2 weeks', '2023-10-03 03:15:00', '2025-02-25 17:03:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_consultation_lab_tests`
+--
+
+CREATE TABLE `hms_consultation_lab_tests` (
+  `id` int(11) NOT NULL,
+  `consultation_id` bigint(20) NOT NULL,
+  `lab_test_id` int(11) NOT NULL,
+  `lab_test_result` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_consultation_lab_tests`
+--
+
+INSERT INTO `hms_consultation_lab_tests` (`id`, `consultation_id`, `lab_test_id`, `lab_test_result`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Positive', 1, 1, '2023-10-01 04:30:00', '2023-10-01 04:30:00'),
+(2, 2, 2, 'Negative', 2, 2, '2023-10-02 06:00:00', '2023-10-02 06:00:00'),
+(3, 3, 3, 'Inconclusive', 3, 3, '2023-10-03 03:45:00', '2023-10-03 03:45:00');
 
 -- --------------------------------------------------------
 
@@ -415,6 +404,59 @@ CREATE TABLE `hms_job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hms_lab_tests`
+--
+
+CREATE TABLE `hms_lab_tests` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `discount_percentage` decimal(5,2) DEFAULT 0.00,
+  `category_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_lab_tests`
+--
+
+INSERT INTO `hms_lab_tests` (`id`, `name`, `description`, `price`, `discount_percentage`, `category_id`, `status_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'Blood Test', 'Complete blood count test', 50.00, 0.00, 1, 1, 1, 1, '2023-10-01 04:00:00', '2023-10-01 04:00:00'),
+(2, 'Urine Test', 'Urine analysis test', 30.00, 0.00, 2, 1, 2, 2, '2023-10-02 05:00:00', '2023-10-02 05:00:00'),
+(3, 'X-Ray', 'Chest X-Ray', 100.00, 10.00, 3, 1, 3, 3, '2023-10-03 03:00:00', '2023-10-03 03:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_lab_test_categories`
+--
+
+CREATE TABLE `hms_lab_test_categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_lab_test_categories`
+--
+
+INSERT INTO `hms_lab_test_categories` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 'Hematology', 'Tests related to blood', 1, '2023-10-01 04:00:00', '2023-10-01 04:00:00'),
+(2, 'Urine Analysis', 'Tests related to urine', 1, '2023-10-02 05:00:00', '2023-10-02 05:00:00'),
+(3, 'Radiology', 'Tests related to imaging', 1, '2023-10-03 03:00:00', '2023-10-03 03:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hms_medicine_sales`
 --
 
@@ -599,8 +641,8 @@ INSERT INTO `hms_roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', '2025-02-22 00:56:28', '2025-02-22 00:56:28'),
 (2, 'Admin', '2025-02-22 00:57:44', '2025-02-22 00:57:44'),
 (3, 'Doctor', '2025-02-22 01:00:27', '2025-02-22 01:00:27'),
-(4, 'patient', '2025-02-17 10:36:09', '2025-02-17 10:36:35'),
-(5, 'receptionist', '2025-02-17 10:36:09', '2025-02-17 10:36:41'),
+(4, 'Patient', '2025-02-17 10:36:09', '2025-02-25 16:21:13'),
+(5, 'Receptionist', '2025-02-17 10:36:09', '2025-02-25 16:21:22'),
 (7, 'Drug Dealer', '2025-02-22 02:44:46', '2025-02-22 02:44:46'),
 (8, 'Suppliers', '2025-02-22 15:24:39', '2025-02-22 15:24:39');
 
@@ -624,7 +666,8 @@ CREATE TABLE `hms_sessions` (
 --
 
 INSERT INTO `hms_sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Am1N6YedAAT8qDBmpoIxMF1QzYTrE9KLP2Oqh0pq', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaW9FazFDM1cwSWx3b0RpZ09HQ2pic2NzOWFFZ3VVU2tnSzg0MDdCRSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBwb2ludG1lbnRzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1740416193);
+('3ERCRvV9TKNybQ5mAEUsxwFwYbsnMB3pGLdaI1tx', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiV1hsYXpsOHhXRVY0R2RUOUVPNWhxVDBOc0ZGU0JkZHpUNE5mMVhQaSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZG9jdG9yL2FwcG9pbnRtZW50cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==', 1740521981),
+('7puCsKIva2VtL6M42AyMuCJoAYTWOYbVWgzZzT5c', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiazJjSWUwRXBmaExpbTN2MmhUSFZZTnhMbHBRd0VldmF2d1c2cXF2ViI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo3ODoiaHR0cDovL2xvY2FsaG9zdC9MQVJBVkVMX0JFR0lOSU5HL1BST0pFQ1QtSE1TLVNIQUFOL3B1YmxpYy9kb2N0b3IvYXBwb2ludG1lbnRzIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjQ6Imh0dHA6Ly9sb2NhbGhvc3QvTEFSQVZFTF9CRUdJTklORy9QUk9KRUNULUhNUy1TSEFBTi9wdWJsaWMvbG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1740521981);
 
 -- --------------------------------------------------------
 
@@ -646,13 +689,13 @@ CREATE TABLE `hms_statuss` (
 INSERT INTO `hms_statuss` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Active', '2025-02-17 10:35:44', '2025-02-23 20:53:33'),
 (2, 'Inactive', '2025-02-17 10:35:44', '2025-02-23 20:53:41'),
-(3, 'Suspended', '2025-02-17 10:35:44', '2025-02-23 20:53:44'),
+(3, 'Approved', '2025-02-17 10:35:44', '2025-02-25 16:48:40'),
 (4, 'Pending', '2025-02-17 10:35:44', '2025-02-23 20:53:48'),
 (5, 'Completed', '2025-02-17 10:35:44', '2025-02-23 20:53:54'),
 (6, 'Cancelled', '2025-02-17 10:35:44', '2025-02-23 20:53:58'),
 (7, 'Confirmed', '2025-02-17 10:35:44', '2025-02-22 10:36:01'),
 (8, 'Reschedule', '2025-02-17 10:35:44', '2025-02-24 20:25:42'),
-(9, 'Processing', '2025-02-17 10:35:44', '2025-02-24 20:26:05'),
+(9, 'Processing', '2025-02-17 10:35:44', '2025-02-25 16:48:30'),
 (10, 'Available', '2025-02-17 10:35:44', '2025-02-22 10:49:00'),
 (11, 'Occupied', '2025-02-17 10:35:44', '2025-02-23 20:54:07'),
 (12, 'Maintenance', '2025-02-17 10:35:44', '2025-02-23 20:54:16'),
@@ -703,7 +746,7 @@ INSERT INTO `hms_users` (`id`, `name`, `email`, `email_verified_at`, `role_id`, 
 (1, 'Test User', 'test@example.com', '2025-02-12 21:34:33', 3, '78456892345', 'uytgr oiugrtofiwuer oiugh', '$2y$12$Z.8.vn7a4HgzWeJ4IgvAMeZSHmlTIZ.zHo/uROEU0ZuSVMbSXB/Ja', 'lkeSA7goJL', '2025-02-12 21:34:33', '2025-02-12 21:34:33'),
 (2, 'Shawon Islam', 'shawoni397@gmail.com', NULL, 1, '96793528096', 'iry7t oiurtgoiqu rugt ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '0cDEhJ3BbAKChGngakYo2d9SMmP9ccdNyJtJPD2K2cZkuFuz8CXscsNecKhO', '2025-02-12 21:47:48', '2025-02-12 21:47:48'),
 (3, 'Shawon Islam', 'sshawoni397@gmail.com', NULL, 2, '2956209356', 'kiuerty iurt iurt y', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '6R6dWOvrpszjmeunt1U3Jrz4tN86rm2aFbCIxMqngat7rTYKBGzJNxAC5MED', '2025-02-16 01:20:47', '2025-02-16 01:20:47'),
-(4, 'Shawon Islam', 'shawon.idb61@gmail.com', NULL, 3, '2452345234', 'asdgbv aweg we ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '2lTptYbQVRZqxnx20rwOjAP7Mnau8iB6Yno85olLx8bCPZk2aQ1xkk89GKI7', '2025-02-19 07:12:22', '2025-02-19 07:12:22');
+(4, 'Shawon Islam', 'shawon.idb61@gmail.com', NULL, 4, '2452345234', 'asdgbv aweg we ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '2lTptYbQVRZqxnx20rwOjAP7Mnau8iB6Yno85olLx8bCPZk2aQ1xkk89GKI7', '2025-02-19 07:12:22', '2025-02-19 07:12:22');
 
 -- --------------------------------------------------------
 
@@ -741,6 +784,12 @@ ALTER TABLE `hms_appointments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hms_appointment_trasheds`
+--
+ALTER TABLE `hms_appointment_trasheds`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hms_beds`
 --
 ALTER TABLE `hms_beds`
@@ -774,6 +823,12 @@ ALTER TABLE `hms_cache_locks`
 -- Indexes for table `hms_consultations`
 --
 ALTER TABLE `hms_consultations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_consultation_lab_tests`
+--
+ALTER TABLE `hms_consultation_lab_tests`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -819,6 +874,19 @@ ALTER TABLE `hms_jobs`
 --
 ALTER TABLE `hms_job_batches`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_lab_tests`
+--
+ALTER TABLE `hms_lab_tests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_lab_test_categories`
+--
+ALTER TABLE `hms_lab_test_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `hms_medicine_sales`
@@ -918,6 +986,12 @@ ALTER TABLE `hms_appointments`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `hms_appointment_trasheds`
+--
+ALTER TABLE `hms_appointment_trasheds`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `hms_beds`
 --
 ALTER TABLE `hms_beds`
@@ -939,7 +1013,13 @@ ALTER TABLE `hms_billings`
 -- AUTO_INCREMENT for table `hms_consultations`
 --
 ALTER TABLE `hms_consultations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `hms_consultation_lab_tests`
+--
+ALTER TABLE `hms_consultation_lab_tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hms_departments`
@@ -976,6 +1056,18 @@ ALTER TABLE `hms_hospitals`
 --
 ALTER TABLE `hms_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `hms_lab_tests`
+--
+ALTER TABLE `hms_lab_tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `hms_lab_test_categories`
+--
+ALTER TABLE `hms_lab_test_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hms_medicine_sales`

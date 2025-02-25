@@ -72,4 +72,10 @@ class User extends Authenticatable
     public function patient(){
         return $this->hasMany(Patient::class);
     }
+    // public function created_by(){
+    //     return $this->hasMany(User::class);
+    // }
+    // public function updated_by(){
+    //     return $this->hasMany(User::class);
+    // }
 }

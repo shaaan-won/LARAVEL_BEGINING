@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class AppointmentTrashedController extends Controller{
 	public function index(){
-		$appointmenttrasheds = AppointmentTrashed::paginate(10);
+		$appointmenttrasheds = AppointmentTrashed::all();
 		return view("pages.erp.appointmenttrashed.index",["appointmenttrasheds"=>$appointmenttrasheds]);
 	}
 	public function create(){

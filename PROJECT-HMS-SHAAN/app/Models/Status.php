@@ -20,5 +20,17 @@ class Status extends Model{
     public function trashappointments() {
         return $this->hasMany(AppointmentTrashed::class);
     }
+    public function consultation() {
+        return $this->hasMany(Consultation::class);
+    }
+    public function consultationlabtest() {
+        return $this->hasMany(ConsultationLabTest::class);
+    }
+    public function labtest() {
+        return $this->hasMany(LabTest::class);
+    }
+    public function labtestcategory() {
+        return $this->hasMany(LabTestCategory::class);
+    }
 }
 ?>
