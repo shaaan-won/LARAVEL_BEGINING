@@ -52,7 +52,7 @@
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h3 class="mb-0 fw-bolder text-white fs-2">Doctor Consultation</h3>
-                        <a href="{{ url('appointments') }}" class="btn btn-lg btn-warning">Back</a>
+                        <a href="{{ url('/doctor/appointments') }}" class="btn btn-lg btn-warning">Back</a>
                     </div>
                     <div class="card-body">
                         @if (session('success') || session('error'))
@@ -111,30 +111,7 @@
                                 </textarea>
 
                             </div>
-                            {{-- <div class="mb-3">
-                                <label class="form-label">Symptoms</label>
-                                <select name="symptoms[]" class="form-select select2" multiple="multiple" id="symptomsSelect">
-                                    @php
-                                        $symptoms = json_decode(file_get_contents(public_path('assets/data/disease/disease.json')));
-                                    @endphp
-                                    @foreach ($symptoms as $symptom)
-                                        <option value="{{ $symptom->symptom }}" 
-                                            @if (in_array($symptom->symptom, old('symptoms', []))) selected @endif>
-                                            {{ $symptom->symptom }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>                             --}}
-
-                            {{-- <div class="mb-3">
-                                <label class="form-label">Diagnosis</label>
-                                <textarea name="diagnosis" class="form-control" id="diagnosisTextarea" readonly>{{ old('diagnosis') }}</textarea>
-                            </div> --}}
-
-                            {{-- <div class="mb-3">
-                            <label class="form-label">Prescription</label>
-                            <textarea name="prescription" class="form-control">{{ old('prescription') }}</textarea>
-                        </div> --}}
+                            
                             <div class="mb-3">
                                 <label class="form-label">Prescription</label>
                                 <select name="prescription[]" class="form-select select2" multiple="multiple"
@@ -178,6 +155,8 @@
     </section>
 @endsection
 
+
+
 @section('script')
     <script>
         $(document).ready(function() {
@@ -210,7 +189,7 @@
                 });
 
                 // Populate the diagnosis textarea with the related diagnoses
-                $("#diagnosisTextarea").val(diagnosis.join("\n"));
+                $("#diagnosisTextarea").val(diagnosis.join(",\n"));
             }
 
             // Event listener when symptoms are selected or deselected
@@ -223,3 +202,29 @@
         });
     </script>
 @endsection
+
+
+                            {{-- <div class="mb-3">
+                                <label class="form-label">Symptoms</label>
+                                <select name="symptoms[]" class="form-select select2" multiple="multiple" id="symptomsSelect">
+                                    @php
+                                        $symptoms = json_decode(file_get_contents(public_path('assets/data/disease/disease.json')));
+                                    @endphp
+                                    @foreach ($symptoms as $symptom)
+                                        <option value="{{ $symptom->symptom }}" 
+                                            @if (in_array($symptom->symptom, old('symptoms', []))) selected @endif>
+                                            {{ $symptom->symptom }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>                             --}}
+
+                            {{-- <div class="mb-3">
+                                <label class="form-label">Diagnosis</label>
+                                <textarea name="diagnosis" class="form-control" id="diagnosisTextarea" readonly>{{ old('diagnosis') }}</textarea>
+                            </div> --}}
+
+                            {{-- <div class="mb-3">
+                            <label class="form-label">Prescription</label>
+                            <textarea name="prescription" class="form-control">{{ old('prescription') }}</textarea>
+                        </div> --}}

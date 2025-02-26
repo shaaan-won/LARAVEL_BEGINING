@@ -87,9 +87,14 @@ class LabTestController extends Controller
 	// Show pending lab tests
 	public function pendingTests()
 	{
+		// $pendingTests = ConsultationLabTest::whereNull('lab_test_result')
+		// 	->with('consultation.patient', 'labTest')
+		// 	->get();
 		$pendingTests = ConsultationLabTest::whereNull('lab_test_result')
-			->with('consultation.patient', 'labTest')
+			->whereHas('consultation.appointment.patient') // Ensures valid patient
+			->with('consultation.appointment.patient', 'labTest')
 			->get();
+
 
 		return view('pages.erp.labtest.pending', compact('pendingTests'));
 	}

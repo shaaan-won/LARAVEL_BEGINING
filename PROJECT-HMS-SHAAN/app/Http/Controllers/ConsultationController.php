@@ -77,7 +77,7 @@ class ConsultationController extends Controller
 	}
 
 	// Consultation Controller
-	
+
 	// Show consultation form
 	public function showConsultationForm($appointmentId)
 	{
@@ -88,21 +88,59 @@ class ConsultationController extends Controller
 	}
 
 	// Store Consultation Data
+	// public function storeConsultation(Request $request, $appointmentId)
+	// {
+	// 	// print_r($request->all());
+	// 	$request->validate([
+	// 		'symptoms' => 'required|string',
+	// 		'diagnosis' => 'required|string',
+	// 		'prescription' => 'nullable|string',
+	// 		'consultation_notes' => 'nullable|string',
+	// 		'lab_tests' => 'array', // Optional lab tests
+	// 	]);
+
+	// 	$consultation = Consultation::create([
+	// 		'appointment_id' => $appointmentId,
+	// 		'symptoms' => $request->symptoms,
+	// 		'diagnosis' => $request->diagnosis,
+	// 		'prescription' => $request->prescription,
+	// 		'consultation_notes' => $request->consultation_notes,
+	// 	]);
+
+	// 	// If lab tests are selected, assign them to the consultation
+	// 	if ($request->has('lab_tests')) {
+	// 		foreach ($request->lab_tests as $labTestId) {
+	// 			ConsultationLabTest::create([
+	// 				'consultation_id' => $consultation->id,
+	// 				'lab_test_id' => $labTestId,
+	// 				'lab_test_result' => null, // No result yet
+	// 			]);
+	// 		}
+	// 		$appointment = Appointment::findOrFail($appointmentId);
+	// 		$appointment->status_id = 9; // Completed Status
+	// 		$appointment->save();
+	// 		return redirect()->back()->with('success', 'Lab tests ordered successfully.');
+	// 	}
+
+	// 	// return redirect('/doctor/appointments')->with('success', 'Consultation saved successfully.');
+	// 	return redirect('/doctor/appointments/updatebydoctor/{ $appointmentId}')->with('success', 'Consultation saved successfully.');
+	// }
+
 	public function storeConsultation(Request $request, $appointmentId)
 	{
 		$request->validate([
-			'symptoms' => 'required|string',
+			'symptoms' => 'required|array',
 			'diagnosis' => 'required|string',
-			'prescription' => 'nullable|string',
+			'prescription' => 'nullable|array',
 			'consultation_notes' => 'nullable|string',
 			'lab_tests' => 'array', // Optional lab tests
 		]);
 
 		$consultation = Consultation::create([
 			'appointment_id' => $appointmentId,
-			'symptoms' => $request->symptoms,
-			'diagnosis' => $request->diagnosis,
-			'prescription' => $request->prescription,
+			'symptoms' => json_encode($request->symptoms), // Store as JSON
+			'diagnosis' => json_encode($request->diagnosis),
+			'prescription' => json_encode($request->prescription), // Store as JSON
 			'consultation_notes' => $request->consultation_notes,
 		]);
 
@@ -115,9 +153,15 @@ class ConsultationController extends Controller
 					'lab_test_result' => null, // No result yet
 				]);
 			}
+
+			$appointment = Appointment::findOrFail($appointmentId);
+			$appointment->status_id = 9; // processing Status
+			$appointment->save();
+
 			return redirect()->back()->with('success', 'Lab tests ordered successfully.');
 		}
 
-		return redirect()->route('consultations', $appointmentId)->with('success', 'Consultation saved successfully.');
+		return redirect()->route('doctor.appointments.updatebydoctor', ['appointmentId' => $appointmentId])
+			->with('success', 'Consultation saved successfully.');
 	}
 }
