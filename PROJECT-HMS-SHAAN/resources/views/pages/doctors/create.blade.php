@@ -4,7 +4,7 @@
     @php
         $departments = DB::table('departments')->get();  // Fetch departments for the dropdown
         $users = DB::table('users')->get();  // Fetch users for the user selection
-        $statuses = DB::table('statuses')->get();
+        $statuses = DB::table('statuss')->get();
     @endphp
 
     <section class="bs-validation">

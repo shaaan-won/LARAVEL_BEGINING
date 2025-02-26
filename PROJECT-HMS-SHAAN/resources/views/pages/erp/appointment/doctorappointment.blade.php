@@ -99,13 +99,15 @@
                                 <label for="status_id" class="form-label">Filter by Status</label>
                                 <select name="status_id" class="form-control">
                                     <option value="">-- All Statuses --</option>
-                                    <option value="1" {{ request('status_id') == '4' ? 'selected' : '' }}>Pending
+                                    <option value="4" {{ request('status_id') == '4' ? 'selected' : '' }}>Pending
                                     </option>
-                                    <option value="2" {{ request('status_id') == '7' ? 'selected' : '' }}>Confirmed
+                                    <option value="3" {{ request('status_id') == '3' ? 'selected' : '' }}>Approved
                                     </option>
-                                    <option value="3" {{ request('status_id') == '5' ? 'selected' : '' }}>Completed
+                                    <option value="7" {{ request('status_id') == '7' ? 'selected' : '' }}>Confirmed
                                     </option>
-                                    <option value="4" {{ request('status_id') == '6' ? 'selected' : '' }}>Cancelled
+                                    <option value="5" {{ request('status_id') == '5' ? 'selected' : '' }}>Completed
+                                    </option>
+                                    <option value="6" {{ request('status_id') == '6' ? 'selected' : '' }}>Cancelled
                                     </option>
                                 </select>
                             </div>
@@ -131,7 +133,7 @@
 
                     <div class="table-responsive theme-scrollbar card-body">
                         @if ($appointments->isEmpty())
-                            <p>No appointments found.</p>
+                            <h1 class="text-center fw-bold text-danger" >No appointments found.</h1>
                         @else
                             <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1"
                                 role="grid" aria-describedby="basic-1_info">
@@ -158,7 +160,7 @@
                                             @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
                                                 <td>
                                                     <div class="d-flex justify-content-center align-items-center gap-2">
-                                                        <form action="{{ url('consultations', $appointment->id) }}"
+                                                        <form action="{{ url('consultations/form', $appointment->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('GET')

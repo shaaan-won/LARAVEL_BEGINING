@@ -205,8 +205,8 @@ Route::resource('appointmenttrasheds', AppointmentTrashedController::class);
 
 // Consultations
 
-Route::get('consultations/{appointmentId}', [ConsultationController::class, 'showConsultationForm'])->name('doctor.consult');
-Route::post('consultations/store/{appointmentId}', [ConsultationController::class, 'storeConsultation'])->name('doctor.consult.store');
+Route::get('consultations/form/{appointmentId}', [ConsultationController::class, 'showConsultationForm'])->name('consultations.form');
+Route::post('consultations/form/store/{appointmentId}', [ConsultationController::class, 'storeConsultation'])->name('consultations.form.store');
 
 // Route::get('/consultations/pending', [ConsultationController::class, 'pendingConsultations'])->name('consultations.pending');
 // Route::put('/consultations/update-status/{id}', [ConsultationController::class, 'updateStatus'])->name('consultations.updateStatus');

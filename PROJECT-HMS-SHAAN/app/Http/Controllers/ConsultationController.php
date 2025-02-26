@@ -77,6 +77,7 @@ class ConsultationController extends Controller
 	}
 
 	// Consultation Controller
+	
 	// Show consultation form
 	public function showConsultationForm($appointmentId)
 	{

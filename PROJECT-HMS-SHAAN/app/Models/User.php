@@ -9,11 +9,12 @@ use App\Models\Patient\Patient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -48,28 +49,40 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function isSuperAdmin(){
+    public function isSuperAdmin()
+    {
         return $this->role_id == 1;
     }
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return $this->role_id == 2;
     }
-    public function isDoctor(){
+    public function isDoctor()
+    {
         return $this->role_id == 3;
     }
-    public function isPatient(){
+    public function isPatient()
+    {
         return $this->role_id == 4;
     }
-    public function isReceptionist(){
+    public function isReceptionist()
+    {
         return $this->role_id == 5;
     }
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
-    public function doctor(){
+    public function hasRole($role)
+    {
+        return $this->role === $role; // Assuming you have a 'role' column in your users table
+    }
+    public function doctor()
+    {
         return $this->hasMany(Doctor::class);
     }
-    public function patient(){
+    public function patient()
+    {
         return $this->hasMany(Patient::class);
     }
     // public function created_by(){

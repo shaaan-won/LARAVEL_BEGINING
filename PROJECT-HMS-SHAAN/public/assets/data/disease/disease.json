@@ -1,0 +1,276 @@
+ [
+      {
+        "symptom": "Fever",
+        "diagnosis": [
+          "Physical examination",
+          "Blood test (CBC, ESR)",
+          "Urine test"
+        ]
+      },
+      {
+        "symptom": "Cough",
+        "diagnosis": [
+          "Physical examination",
+          "Chest X-ray",
+          "Sputum culture"
+        ]
+      },
+      {
+        "symptom": "Sore throat",
+        "diagnosis": [
+          "Physical examination",
+          "Throat swab (Rapid antigen test)",
+          "Blood culture"
+        ]
+      },
+      {
+        "symptom": "Body aches",
+        "diagnosis": [
+          "Physical examination",
+          "Blood test (CBC)",
+          "X-ray (if joint pain is suspected)"
+        ]
+      },
+      {
+        "symptom": "Fatigue",
+        "diagnosis": [
+          "Physical examination",
+          "Blood test (Thyroid function tests, CBC)",
+          "Urine test"
+        ]
+      },
+      {
+        "symptom": "Headache",
+        "diagnosis": [
+          "Physical examination",
+          "CT scan of the head",
+          "MRI of the brain"
+        ]
+      },
+      {
+        "symptom": "Frequent urination",
+        "diagnosis": [
+          "Urine test (Urinalysis)",
+          "Blood test (Blood glucose)",
+          "Ultrasound of the kidneys"
+        ]
+      },
+      {
+        "symptom": "Excessive thirst",
+        "diagnosis": [
+          "Blood test (Blood glucose)",
+          "Urine test (for glucose)",
+          "Oral glucose tolerance test (OGTT)"
+        ]
+      },
+      {
+        "symptom": "Unexplained weight loss",
+        "diagnosis": [
+          "Blood tests (CBC, Thyroid function)",
+          "CT scan (Abdomen)",
+          "Endoscopy"
+        ]
+      },
+      {
+        "symptom": "Blurred vision",
+        "diagnosis": [
+          "Eye examination",
+          "Blood test (Blood glucose)",
+          "Fundoscopy"
+        ]
+      },
+      {
+        "symptom": "Shortness of breath",
+        "diagnosis": [
+          "Physical examination",
+          "Chest X-ray",
+          "ECG (Electrocardiogram)"
+        ]
+      },
+      {
+        "symptom": "Chest pain",
+        "diagnosis": [
+          "ECG",
+          "Chest X-ray",
+          "Blood test (Troponin levels)"
+        ]
+      },
+      {
+        "symptom": "Dizziness",
+        "diagnosis": [
+          "Physical examination",
+          "MRI of the brain",
+          "Blood tests (CBC, electrolytes)"
+        ]
+      },
+      {
+        "symptom": "Fatigue",
+        "diagnosis": [
+          "Physical examination",
+          "Thyroid function test",
+          "Blood tests (CBC, Iron studies)"
+        ]
+      },
+      {
+        "symptom": "Nausea",
+        "diagnosis": [
+          "Physical examination",
+          "Abdominal ultrasound",
+          "Blood tests (Liver function tests)"
+        ]
+      },
+      {
+        "symptom": "Vomiting",
+        "diagnosis": [
+          "Physical examination",
+          "CT scan (Brain and abdomen)",
+          "Endoscopy"
+        ]
+      },
+      {
+        "symptom": "Abdominal pain",
+        "diagnosis": [
+          "Abdominal ultrasound",
+          "CT scan of the abdomen",
+          "Blood test (Liver function, Amylase, Lipase)"
+        ]
+      },
+      {
+        "symptom": "Diarrhea",
+        "diagnosis": [
+          "Stool culture",
+          "Blood tests (CBC, Electrolytes)",
+          "Colonoscopy"
+        ]
+      },
+      {
+        "symptom": "Constipation",
+        "diagnosis": [
+          "Physical examination",
+          "Colonoscopy",
+          "Abdominal X-ray"
+        ]
+      },
+      {
+        "symptom": "Joint pain",
+        "diagnosis": [
+          "Physical examination",
+          "X-ray of the joints",
+          "Blood tests (Rheumatoid factor, ESR)"
+        ]
+      },
+      {
+        "symptom": "Back pain",
+        "diagnosis": [
+          "Physical examination",
+          "X-ray of the spine",
+          "MRI of the spine"
+        ]
+      },
+      {
+        "symptom": "Skin rash",
+        "diagnosis": [
+          "Physical examination",
+          "Skin biopsy",
+          "Blood tests (CBC, ANA)"
+        ]
+      },
+      {
+        "symptom": "Swollen lymph nodes",
+        "diagnosis": [
+          "Physical examination",
+          "Biopsy of the lymph node",
+          "Blood tests (CBC, ESR)"
+        ]
+      },
+      {
+        "symptom": "Insomnia",
+        "diagnosis": [
+          "Physical examination",
+          "Polysomnography (sleep study)",
+          "Blood tests (Thyroid function)"
+        ]
+      },
+      {
+        "symptom": "Severe sweating",
+        "diagnosis": [
+          "Physical examination",
+          "Blood tests (CBC, Electrolytes)",
+          "CT scan of the chest and abdomen"
+        ]
+      },
+      {
+        "symptom": "Numbness or tingling",
+        "diagnosis": [
+          "Physical examination",
+          "MRI of the brain and spine",
+          "Nerve conduction studies"
+        ]
+      },
+      {
+        "symptom": "Coughing up blood",
+        "diagnosis": [
+          "Chest X-ray",
+          "CT scan of the chest",
+          "Bronchoscopy"
+        ]
+      },
+      {
+        "symptom": "Yellowing of skin or eyes",
+        "diagnosis": [
+          "Blood tests (Liver function tests)",
+          "Abdominal ultrasound",
+          "CT scan of the abdomen"
+        ]
+      },
+      {
+        "symptom": "Painful urination",
+        "diagnosis": [
+          "Urine test (Urinalysis, culture)",
+          "Pelvic ultrasound",
+          "Cystoscopy"
+        ]
+      },
+      {
+        "symptom": "Tinnitus (ringing in the ears)",
+        "diagnosis": [
+          "Physical examination",
+          "Audiometry",
+          "MRI of the brain"
+        ]
+      },
+      {
+        "symptom": "Swelling in the legs",
+        "diagnosis": [
+          "Physical examination",
+          "Ultrasound of the legs",
+          "Blood tests (Kidney function)"
+        ]
+      },
+      {
+        "symptom": "Confusion",
+        "diagnosis": [
+          "Physical examination",
+          "CT scan of the brain",
+          "Blood tests (CBC, Electrolytes)"
+        ]
+      },
+      {
+        "symptom": "Severe headache",
+        "diagnosis": [
+          "Physical examination",
+          "CT scan of the head",
+          "MRI of the brain"
+        ]
+      },
+      {
+        "symptom": "Loss of appetite",
+        "diagnosis": [
+          "Blood tests (CBC, Liver function)",
+          "Abdominal ultrasound",
+          "Endoscopy"
+        ]
+      }
+    ]
+  
+  

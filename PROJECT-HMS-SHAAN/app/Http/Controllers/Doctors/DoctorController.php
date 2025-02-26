@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Doctors;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use App\Models\Doctors\Doctor;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -23,7 +24,8 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('pages.doctors.create');
+        $statuses = Status::all();
+        return view('pages.doctors.create', compact('statuses'));
     }
 
     /**

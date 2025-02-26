@@ -4,7 +4,7 @@
     @php
         $users = DB::table('users')->get();
         $departments = DB::table('departments')->get(); 
-        $statuses = DB::table('statuses')->get();
+        $statuses = DB::table('statuss')->get();
     @endphp
 
     <section class="bs-validation">

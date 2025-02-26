@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctors\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorAppointmentController extends Controller
 {
@@ -29,7 +30,25 @@ class DoctorAppointmentController extends Controller
         $doctors = Doctor::all();
 
         // Get doctor appointments
-        $appointments = Appointment::get();
+        switch (Auth::user()->role_id) {
+            case 3: // Doctor
+                $appointments = Appointment::where('doctor_id', auth()->user()->id)
+                    ->whereIn('status_id', [3, 4])
+                    ->get();
+                break;
+
+            case 2: // Admin
+            case 1: // Superadmin
+                $appointments = Appointment::all();
+                break;
+
+            default:
+                $appointments = collect(); // Empty collection for unauthorized users
+                break;
+        }
+        
+        // print_r($appointments);
+
         // Filter by appointment status (if selected)
         if ($request->has('status_id') && $request->status_id != '') {
             $appointments = $appointments->where('status_id', $request->status_id);
