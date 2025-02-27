@@ -76,15 +76,20 @@ class ConsultationController extends Controller
 		return redirect()->route("consultations.index")->with('success', 'Deleted Successfully.');
 	}
 
-	// Consultation Controller
+	// Consultation Controller End
 
-	// Show consultation form
-	public function showConsultationForm($appointmentId)
+	// Show consultation form for doctor
+	public function showConsultationForm($appointmentId, Consultation $consultation)
 	{
 		$appointment = Appointment::with('patient', 'doctor')->findOrFail($appointmentId);
+		$consultation = Consultation::where('appointment_id', $appointmentId)->first();
+		// print_r(in_array($appointmentId, $consultation));
+		// print_r($appointmentId);
+		// echo json_encode($consultation->symptoms);
+		// $existingSymptoms = $consultation ? json_decode($consultation->symptoms, true) : [];
 		$labTests = LabTest::all(); // Fetch available lab tests
 
-		return view('pages.erp.consultation.consultation', compact('appointment', 'labTests'));
+		return view('pages.erp.consultation.consultation', compact('appointment', 'labTests', 'consultation'));
 	}
 
 	// Store Consultation Data
@@ -135,11 +140,11 @@ class ConsultationController extends Controller
 			'consultation_notes' => 'nullable|string',
 			'lab_tests' => 'array', // Optional lab tests
 		]);
-
+		$diagnosis = $request->has(!'lab_tests') ? $request->diagnosis : '';
 		$consultation = Consultation::create([
 			'appointment_id' => $appointmentId,
 			'symptoms' => json_encode($request->symptoms), // Store as JSON
-			'diagnosis' => json_encode($request->diagnosis),
+			'diagnosis' => $diagnosis,
 			'prescription' => json_encode($request->prescription), // Store as JSON
 			'consultation_notes' => $request->consultation_notes,
 		]);
@@ -158,10 +163,15 @@ class ConsultationController extends Controller
 			$appointment->status_id = 9; // processing Status
 			$appointment->save();
 
-			return redirect()->back()->with('success', 'Lab tests ordered successfully.');
+			return redirect()->route('doctor.appointments.index')
+			   ->with('success', 'Lab tests ordered successfully.');
 		}
 
-		return redirect()->route('doctor.appointments.updatebydoctor', ['appointmentId' => $appointmentId])
+		$appointment = Appointment::findOrFail($appointmentId);
+		$appointment->status_id = 5; // Completed Status
+		$appointment->save();
+
+		return redirect()->route('doctor.appointments.index')
 			->with('success', 'Consultation saved successfully.');
 	}
 }

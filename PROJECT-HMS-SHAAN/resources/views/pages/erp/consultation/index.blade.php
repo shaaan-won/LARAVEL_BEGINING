@@ -57,6 +57,14 @@
 @extends('layout.erp.app')
 @section('title', 'Manage Consultations')
 @section('style')
+ <style>
+    .shortline{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 180px;
+    }
+ </style>
 @endsection
 
 @section('page')
@@ -103,10 +111,13 @@
                                 <tr>
                                     <td>{{ $consultation->id }}</td>
                                     <td>{{ $consultation->appointment_id }}</td>
-                                    <td>{{ $consultation->symptoms }}</td>
-                                    <td>{{ $consultation->diagnosis }}</td>
-                                    <td>{{ $consultation->prescription }}</td>
-                                    <td>{{ $consultation->consultation_notes }}</td>
+                                    <td class="shortline">{{ $consultation->symptoms }}</td>
+                                    {{-- <td>{{ $consultation->diagnosis }}</td> --}}
+                                    {{-- <td>{{ \Illuminate\Support\Str::limit($consultation->diagnosis, 20, '...') }}</td> --}}
+                                    {{-- <td class="text-nowrap">{{ $consultation->prescription }}</td> --}}
+                                    <td class="shortline">{{$consultation->diagnosis}}</td>
+                                    <td class="shortline">{{ $consultation->prescription }}</td>                                    
+                                    <td class="shortline">{{ $consultation->consultation_notes }}</td>
                                     {{-- <td>{{ $consultation->created_at }}</td>
                                     <td>{{ $consultation->updated_at }}</td> --}}
                                     <td>

@@ -38,7 +38,7 @@
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets')}}/css/responsive.css">
 
-    @yield('css')
+    @yield('style')
 
     <script src="{{asset('assets')}}/js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>

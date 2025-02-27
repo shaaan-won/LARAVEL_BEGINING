@@ -153,7 +153,7 @@
                                     @foreach ($appointments as $appointment)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $appointment->patient->name }}</td>
+                                            <td class="text-nowrap" style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $appointment->patient->name }}</td>
                                             <td>{{ $appointment->appointment_date }}</td>
                                             <td>{{ $appointment->appointment_time }}</td>
                                             <td>{{ $appointment->status->name }}</td>
