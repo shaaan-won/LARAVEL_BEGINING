@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Doctors\Doctor;
 use App\Models\Patient\Patient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,10 @@ class Consultation extends Model
     public function patient()
     {
         return $this->hasOneThrough(Patient::class, Appointment::class, 'id', 'id', 'appointment_id', 'patient_id');
+    }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
     public function labTests()
     {

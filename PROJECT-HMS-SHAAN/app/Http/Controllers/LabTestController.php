@@ -82,14 +82,19 @@ class LabTestController extends Controller
 		return redirect()->route("labtests.index")->with('success', 'Deleted Successfully.');
 	}
 
+
+
+
+
 	// pending tests and consultations updates results
+
+	// $pendingTests = ConsultationLabTest::whereNull('lab_test_result')
+	// 	->with('consultation.patient', 'labTest')
+	// 	->get();
 
 	// Show pending lab tests
 	public function pendingTests()
 	{
-		// $pendingTests = ConsultationLabTest::whereNull('lab_test_result')
-		// 	->with('consultation.patient', 'labTest')
-		// 	->get();
 		$pendingTests = ConsultationLabTest::whereNull('lab_test_result')
 			->whereHas('consultation.appointment.patient') // Ensures valid patient
 			->with('consultation.appointment.patient', 'labTest')
@@ -99,18 +104,69 @@ class LabTestController extends Controller
 		return view('pages.erp.labtest.pending', compact('pendingTests'));
 	}
 
-	// Update lab test result
 	public function updateTestResult(Request $request, $testId)
 	{
 		$request->validate([
-			'lab_test_result' => 'required|string',
+			'lab_test_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png', // Only allow specific file types
+			'lab_test_result' => 'nullable|string',
 		]);
 
 		$labTest = ConsultationLabTest::findOrFail($testId);
-		$labTest->update([
-			'lab_test_result' => $request->lab_test_result,
-		]);
+		if ($request->hasFile('lab_test_file')) {
 
-		return redirect()->route('labtests.pending')->with('success', 'Lab test result updated.');
+			$patientID = $labTest->consultation->appointment->patient->id;
+			$testName = $labTest->labTest->name;
+			// if patient folder needed
+			// $patientName = $labTest->consultation->appointment->patient->name;
+			// $filename = str_replace(' ', '_', $patientName) . '.' . $request->file('lab_test_file')->getClientOriginalExtension();
+			$filename = str_replace(' ', '_', $testName) . '.' . $request->file('lab_test_file')->getClientOriginalExtension();
+		
+			$request->file('lab_test_file')->move(public_path('patient_lab_results/' . $patientID ), $filename);
+
+			$labTest->lab_test_result = 'patient_lab_results/' . $patientID . '/' . $filename;
+		} else {
+			if ($request->filled('lab_test_result')) {
+				$labTest->lab_test_result = $request->lab_test_result;
+			}
+		}		
+		
+		$success = $labTest->save();
+
+		if (!$success) {
+			return redirect()->route('lab.tests.pending')->with('error', 'Failed to update lab test result.');
+		}else{
+			return redirect()->route('lab.tests.pending')->with('success', 'Lab test result updated successfully.');
+		}
 	}
+
+	// if ($request->hasFile('lab_test_file')) {
+
+	// 	$patientID= $labTest->consultation->appointment->patient->id;
+	// 	$patientName = $labTest->consultation->appointment->patient->name;
+	// 	$filename = str_replace(' ', '_', $patientName) . '.' . $request->file('lab_test_file')->getClientOriginalExtension();
+	// 	$request->file('lab_test_file')->move(public_path('patient_lab_results/{{$patientID}}'), $filename);
+
+	// 	// $labTest->lab_test_result = 'patient_lab_results/$patientID/' . $filename;
+	// 	$labTest->lab_test_result = $filename;
+	// } else {
+	// 	if ($request->filled('lab_test_result')) {
+	// 		$labTest->lab_test_result = $request->lab_test_result;
+	// 	}
+	// }
+
+	// // Update lab test result
+	// public function updateTestResult(Request $request, $testId)
+	// {
+	// 	$request->validate([
+	// 		'lab_test_result' => 'required|string',
+	// 	]);
+
+	// 	$labTest = ConsultationLabTest::findOrFail($testId);
+	// 	$labTest->update([
+	// 		'lab_test_result' => $request->lab_test_result,
+	// 	]);
+
+	// 	return redirect()->route('labtests.pending')->with('success', 'Lab test result updated.');
+	// }
+
 }

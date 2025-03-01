@@ -212,7 +212,9 @@ Route::post('consultations/form/store/{appointmentId}', [ConsultationController:
 // Route::put('/consultations/update-status/{id}', [ConsultationController::class, 'updateStatus'])->name('consultations.updateStatus');
 
 Route::get('/labtests/pending', [LabTestController::class, 'pendingTests'])->name('lab.tests.pending');
-Route::post('/labtests/result/update/{testId}', [LabTestController::class, 'updateTestResult'])->name('lab.tests.update');
+// Route::post('/labtests/result/update/{testId}', [LabTestController::class, 'updateTestResult'])->name('lab.tests.update');
+Route::put('labtests/result/update/{testId}', [LabTestController::class, 'updateTestResult'])
+    ->name('labtests.update');
 
 Route::get('/doctor/review/{consultationId}', [DoctorController::class, 'reviewTestResults'])->name('doctor.review');
 Route::post('/doctor/finalize/{consultationId}', [DoctorController::class, 'finalizeConsultation'])->name('doctor.finalize');

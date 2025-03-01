@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Pending Lab Tests</h2>
 
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($pendingTests as $test)
+            @foreach ($pendingTests as $test)
                 <tr>
                     <td>{{ $test->consultation_id }}</td>
                     <td>{{ $test->consultation->patient->name }}</td>
@@ -39,6 +39,15 @@
 
 @extends('layout.erp.app')
 
+@section('title', 'Pending Lab Tests')
+{{-- @section('css')
+    .shortline {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 180px;
+    }
+@endsection --}}
 @section('page')
     <section id="multilingual-datatable">
         <div class="row" id="table-hover-row">
@@ -70,9 +79,14 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Consultation ID</th>
+                                    <th
+                                        style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 50px; display: block;">
+                                        Consultation ID
+                                    </th>
+                                    <th>Doctor Name</th>
                                     <th>Patient Name</th>
                                     <th>Test Name</th>
+                                    <th>Test Price</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -81,19 +95,65 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $test->consultation_id }}</td>
+                                        <td>{{ $test->consultation->appointment->doctor->name ?? 'N/A' }}</td>
                                         <td>{{ $test->consultation->patient->name ?? 'N/A' }}</td>
                                         <td>{{ $test->labTest->name ?? 'N/A' }}</td>
+                                        <td>{{ $test->labTest->price ?? 'N/A' }}</td>
                                         <td>
-                                            <form action="{{ url('labtests/result/update', $test->id) }}" method="POST">
-                                                @csrf
-                                                <input type="text" name="lab_test_result" placeholder="Enter result" required>
-                                                <button type="submit" class="btn btn-success">Submit Result</button>
-                                            </form>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#uploadResultModal{{ $test->id }}">
+                                                Upload Result
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="uploadResultModal{{ $test->id }}" tabindex="-1"
+                                                aria-labelledby="uploadResultModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content p-3">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Upload Test Result</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ url('labtests/result/update', $test->id) }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <input type="hidden" name="lab_test_id"
+                                                                    value="{{ $test->id }}">
+                                                                <!-- Text Input for Lab Result -->
+                                                                <div class="mb-3">
+                                                                    <label for="lab_test_result" class="form-label">Enter
+                                                                        Result (Optional)</label>
+                                                                    <input type="text" name="lab_test_result"
+                                                                        class="form-control" placeholder="Enter result">
+                                                                </div>
+
+                                                                <!-- File Upload Input -->
+                                                                <div class="mb-3">
+                                                                    <label for="lab_test_file" class="form-label">Upload
+                                                                        File (PDF, JPG, PNG)</label>
+                                                                    <input type="file" name="lab_test_file"
+                                                                        class="form-control" accept=".pdf,.jpg,.png,.jpeg">
+                                                                </div>
+
+                                                                <!-- Submit Button (Centered) -->
+                                                                <div class="text-center">
+                                                                    <button type="submit" class="btn btn-success">Submit
+                                                                        Result</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center fw-bold text-danger fs-6">No Pending Lab Tests Found</td>
+                                        <td colspan="7" class="text-center fw-bold text-danger fs-6">No Pending Lab Tests
+                                            Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -170,3 +170,14 @@
     feather.replace();
 </script>
 @endsection
+
+
+{{-- <td>
+    @if($test->lab_test_file)
+        <a href="{{ asset('storage/' . $test->lab_test_file) }}" target="_blank" class="btn btn-info">
+            View Result
+        </a>
+    @else
+        <span class="text-muted">No file uploaded</span>
+    @endif
+</td> --}}

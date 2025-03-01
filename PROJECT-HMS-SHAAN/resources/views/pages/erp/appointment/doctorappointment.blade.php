@@ -131,9 +131,9 @@
                         </form>
                     </div>
 
-                    <div class="table-responsive theme-scrollbar card-body">
+                    <div class="table-responsive theme-scrollbar card-body w-100">
                         @if ($appointments->isEmpty())
-                            <h1 class="text-center fw-bold text-danger" >No appointments found.</h1>
+                            <h1 class="text-center fw-bold text-danger">No appointments found.</h1>
                         @else
                             <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1"
                                 role="grid" aria-describedby="basic-1_info">
@@ -153,7 +153,9 @@
                                     @foreach ($appointments as $appointment)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td class="text-nowrap" style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $appointment->patient->name }}</td>
+                                            <td class="text-nowrap"
+                                                style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                {{ $appointment->patient->name }}</td>
                                             <td>{{ $appointment->appointment_date }}</td>
                                             <td>{{ $appointment->appointment_time }}</td>
                                             <td>{{ $appointment->status->name }}</td>
@@ -197,8 +199,8 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('PUT')
-                                                            <button type="submit" class="btn btn-success">Mark as
-                                                                Completed</button>
+                                                            <button type="submit" class="btn btn-success"
+                                                                onclick="return confirm('Are you sure you want to mark this appointment as completed?')" >Mark as Completed</button>
                                                         </form>
 
                                                         <!-- Trigger Button for Modal -->

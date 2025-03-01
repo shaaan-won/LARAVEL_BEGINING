@@ -17,11 +17,11 @@ class ConsultationController extends Controller
 	public function index()
 	{
 		$consultations = Consultation::all();
-		return view("pages.erp.consultation.index", ["consultations" => $consultations]);
+		return view ("pages.erp.consultation.index", ["consultations" => $consultations]);
 	}
 	public function create()
 	{
-		return view("pages.erp.consultation.create", []);
+		return view ("pages.erp.consultation.create", []);
 	}
 	public function store(Request $request)
 	{

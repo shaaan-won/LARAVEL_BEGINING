@@ -4,6 +4,7 @@ namespace App\Models\Doctors;
 
 use App\Models\Appointment;
 use App\Models\AppointmentTrashed;
+use App\Models\Consultation;
 use App\Models\Department;
 use App\Models\DoctorAvailability;
 use App\Models\Status;
@@ -35,5 +36,7 @@ class Doctor extends Model
     public function trashappointments() {
         return $this->hasMany(AppointmentTrashed::class);
     }
-
+    public function consultation() {
+        return $this->hasMany(Consultation::class);
+    }
 }

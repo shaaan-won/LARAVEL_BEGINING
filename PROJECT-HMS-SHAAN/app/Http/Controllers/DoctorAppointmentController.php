@@ -32,11 +32,11 @@ class DoctorAppointmentController extends Controller
         // Get doctor appointments
         switch (Auth::user()->role_id) {
             case 3: // Doctor
-                $appointments = Appointment::where('doctor_id', auth()->user()->id)
+                $appointments = Appointment::where('doctor_id', Auth::user()->id)
                     ->whereIn('status_id', [3, 4])
                     ->get();
                 break;
-
+ 
             case 2: // Admin
             case 1: // Superadmin
                 $appointments = Appointment::all();

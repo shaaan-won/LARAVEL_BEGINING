@@ -106,7 +106,6 @@
                             <li><a href="{{ url('doctors') }}">Doctors List</a></li>
                             <li><a href="{{ url('doctors/create') }}">Add Doctor</a></li>
                             <li><a href="{{ url('doctoravailabilitys') }}">Doctors Schedule</a></li>
-                            <li><a href="{{ url('/doctor/appointments') }}">Doctor Appointments </a></li>
                             <li><a href="{{ url('departments') }}">All Departments</a></li>
                         </ul>
                     </li>
@@ -119,6 +118,7 @@
                                 <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-table"></use>
                             </svg><span>Consultations</span></a>
                         <ul class="sidebar-submenu">
+                            <li><a href="{{ url('/doctor/appointments') }}">Doctor Appointments </a></li>
                             {{-- <li><a href="{{ url('consultations/{appointmentId}') }}">Consultation Create</a></li> --}}
                             <li><a href="{{ url('consultations') }}">Consultations List</a></li>
                             <li><a href="{{ url('consultationlabtests') }}"> Lab Results Consultations </a></li>
