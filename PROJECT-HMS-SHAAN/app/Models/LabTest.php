@@ -24,7 +24,12 @@ class LabTest extends Model
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
-    public function labtest(){
-        return $this->hasMany(ConsultationLabTest::class , 'lab_test_id');
+    public function labtest()
+    {
+        return $this->hasMany(ConsultationLabTest::class, 'lab_test_id');
+    }
+    public function consultation()
+    {
+        return $this->belongsTo(Consultation::class);
     }
 }

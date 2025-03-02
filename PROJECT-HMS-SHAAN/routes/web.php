@@ -60,7 +60,7 @@ Route::get('/400', function () {
 })->name('400');
 
 Route::get('/500', function () {
-    return view('pages.errors.500');
+    return view ('pages.errors.500');
 })->name('500');
 
 Route::get('/503', function () {

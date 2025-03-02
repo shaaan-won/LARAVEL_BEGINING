@@ -45,7 +45,7 @@ class ConsultationController extends Controller
 	public function show($id)
 	{
 		$consultation = Consultation::find($id);
-		return view("pages.erp.consultation.show", ["consultation" => $consultation]);
+		return view ("pages.erp.consultation.show", ["consultation" => $consultation]);
 	}
 	public function edit(Consultation $consultation)
 	{

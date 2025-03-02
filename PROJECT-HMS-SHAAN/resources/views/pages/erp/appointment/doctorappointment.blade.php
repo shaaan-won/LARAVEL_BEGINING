@@ -103,6 +103,8 @@
                                     </option>
                                     <option value="3" {{ request('status_id') == '3' ? 'selected' : '' }}>Approved
                                     </option>
+                                    <option value="9" {{ request('status_id') == '9' ? 'selected' : '' }}>Processing
+                                    </option>
                                     <option value="7" {{ request('status_id') == '7' ? 'selected' : '' }}>Confirmed
                                     </option>
                                     <option value="5" {{ request('status_id') == '5' ? 'selected' : '' }}>Completed
@@ -179,13 +181,36 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('GET')
+                                                            {{-- @php
+                                                                // $consultation=$appointment->consultation->all();
+                                                                $labTests=$appointment->consultation->labtestresults->all();
+                                                                print_r($labTests);
+                                                                // print_r($consultation);
+                                                                // $hasTestResults =
+                                                                //     $appointment->consultation &&
+                                                                //     $appointment->consultation->labTests
+                                                                //         ->whereNotNull('lab_test_result')
+                                                                //         ->count() > 0;
+                                                                // dd($hasTestResults);
+                                                            @endphp --}}
 
                                                             @php
-                                                                $hasTestResults =
+                                                                $hasTestResults = false;
+                                                                $hasAllTestResults = false;
+                                                                if (
                                                                     $appointment->consultation &&
-                                                                    $appointment->consultation->labTests
-                                                                        ->whereNotNull('lab_test_result')
-                                                                        ->count() > 0;
+                                                                    $appointment->consultation->labTests->count() > 0
+                                                                ) {
+                                                                    $hasAllTestResults = $appointment->consultation->labTests->every(
+                                                                        function ($test) {
+                                                                            return !is_null($test->lab_test_result);
+                                                                        },
+                                                                    );
+                                                                }
+
+                                                                if ($hasAllTestResults) {
+                                                                    $hasTestResults = true;
+                                                                }
                                                             @endphp
 
                                                             <button type="submit" class="btn btn-warning"
@@ -200,7 +225,8 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <button type="submit" class="btn btn-success"
-                                                                onclick="return confirm('Are you sure you want to mark this appointment as completed?')" >Mark as Completed</button>
+                                                                onclick="return confirm('Are you sure you want to mark this appointment as completed?')">Mark
+                                                                as Completed</button>
                                                         </form>
 
                                                         <!-- Trigger Button for Modal -->
@@ -237,7 +263,7 @@
                                                                                 for="cancellationReason{{ $appointment->id }}"
                                                                                 class="form-label">Reason for
                                                                                 Cancellation</label>
-                                                                            <textarea class="form-control" id="cancellationReason{{ $appointment->id }}" name="cancellation_reason" rows="3"
+                                                                            <textarea class="form-control" id="cancellationReason{{ $appointment->id }}" name="cancellation_reason" rows="5"
                                                                                 placeholder="Enter cancellation reason"></textarea>
                                                                         </div>
                                                                     </div>

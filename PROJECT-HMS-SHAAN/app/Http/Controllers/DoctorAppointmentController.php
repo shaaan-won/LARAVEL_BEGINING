@@ -43,7 +43,7 @@ class DoctorAppointmentController extends Controller
                 break;
 
             default:
-                $appointments = collect(); // Empty collection for unauthorized users
+                $appointments = collect (); // Empty collection for unauthorized users
                 break;
         }
         

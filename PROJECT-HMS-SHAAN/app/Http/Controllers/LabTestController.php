@@ -122,7 +122,7 @@ class LabTestController extends Controller
 			$filename = str_replace(' ', '_', $testName) . '.' . $request->file('lab_test_file')->getClientOriginalExtension();
 		
 			$request->file('lab_test_file')->move(public_path('patient_lab_results/' . $patientID ), $filename);
-
+ 
 			$labTest->lab_test_result = 'patient_lab_results/' . $patientID . '/' . $filename;
 		} else {
 			if ($request->filled('lab_test_result')) {

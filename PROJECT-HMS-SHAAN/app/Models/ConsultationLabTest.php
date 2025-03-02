@@ -39,4 +39,8 @@ class ConsultationLabTest extends Model
     {
         return $this->belongsTo(LabTest::class, 'lab_test_id');
     }
+    public function labTests()
+    {
+        return $this->belongsTo(LabTest::class);
+    }
 }
