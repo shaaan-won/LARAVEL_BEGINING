@@ -173,13 +173,15 @@
                                 <select name="prescription[]" class="form-select select2" multiple="multiple"
                                     id="prescription">
                                     @php
-                                        $medicines = json_decode(
-                                            file_get_contents(public_path('assets/data/medicines/medicines.json')),
-                                        );
+                                        // $medicines = json_decode(
+                                        //     file_get_contents(public_path('assets/data/medicines/medicines.json')),
+                                        // );
+                                        $medicines = DB::table('medicines')->get();
                                     @endphp
                                     @foreach ($medicines as $medicine)
                                         <option value="{{ $medicine->name }}">
-                                            {{ $medicine->name }} ({{ $medicine->strength }}) - ${{ $medicine->price }}
+                                            {{ $medicine->name }} ({{ $medicine->strength }}) 
+                                            {{-- - ${{ $medicine->price }} --}}
                                         </option>
                                     @endforeach
                                 </select>

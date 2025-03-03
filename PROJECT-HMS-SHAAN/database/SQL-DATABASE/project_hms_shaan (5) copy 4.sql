@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2025 at 07:22 PM
+-- Generation Time: Mar 03, 2025 at 07:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `project_hms_shaan`
 --
-DROP DATABASE IF EXISTS `project_hms_shaan`;
+drop database if exists project_hms_shaan;
 CREATE DATABASE IF NOT EXISTS `project_hms_shaan` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `project_hms_shaan`;
 -- --------------------------------------------------------
@@ -41,7 +41,23 @@ CREATE TABLE `hms_appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE Table `hms_trashed_appointments` (
+--
+-- Dumping data for table `hms_appointments`
+--
+
+INSERT INTO `hms_appointments` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `cancellation_reason`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2025-02-25', '10:00:00', 5, 'dfb ousdhf ouusdhf', '2025-02-26 04:00:55', '2025-03-02 21:38:33'),
+(2, 2, 2, '2025-02-26', '11:30:00', 5, 'Patient not available', '2025-02-26 04:04:22', '2025-03-02 21:29:01'),
+(4, 4, 4, '2025-02-28', '14:45:00', 5, 'Doctor rescheduled', '2025-02-26 04:04:31', '2025-02-27 00:40:11'),
+(8, 1, 10, '2025-02-25', '10:58:00', 9, 'juytg ypay 98yhtgw e', '2025-02-26 04:07:23', '2025-02-27 00:01:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_appointment_trasheds`
+--
+
+CREATE TABLE `hms_appointment_trasheds` (
   `id` bigint(20) NOT NULL,
   `doctor_id` bigint(20) DEFAULT NULL,
   `patient_id` bigint(20) DEFAULT NULL,
@@ -52,37 +68,23 @@ CREATE Table `hms_trashed_appointments` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- CREATE Table `hms_appointments_listof_doctors` (
---   `id` bigint(20) NOT NULL,
---   `doctor_id` bigint(20) DEFAULT NULL,
---   `patient_id` bigint(20) DEFAULT NULL,
---   `appointment_date` date DEFAULT NULL,
---   `appointment_time` time DEFAULT NULL,
---   `status_id` int(11) DEFAULT NULL,
---   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
---   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
--- Dumping data for table `hms_appointments`
+-- Dumping data for table `hms_appointment_trasheds`
 --
 
-INSERT INTO `hms_appointments` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `cancellation_reason`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-02-25', '10:00:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(2, 2, 2, '2025-02-26', '11:30:00', 2, 'Patient not available', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(3, 3, 3, '2025-02-27', '09:15:00', 1, NULL, '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(4, 4, 4, '2025-02-28', '14:45:00', 3, 'Doctor rescheduled', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(7, 1, 8, '2025-02-24', '20:59:00', 9, NULL, '2025-02-23 15:04:45', '2025-02-24 10:56:26'),
-(8, 1, 10, '2025-02-23', '22:09:00', 4, 'Not Applicable', '2025-02-23 15:09:42', '2025-02-23 15:09:42');
+INSERT INTO `hms_appointment_trasheds` (`id`, `doctor_id`, `patient_id`, `appointment_date`, `appointment_time`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, '2025-02-27', '09:15:00', 5, '2025-02-24 22:40:17', '2025-02-24 22:40:17'),
+(2, 1, 8, '2025-02-24', '20:59:00', 5, '2025-02-24 23:12:28', '2025-02-24 23:12:28'),
+(3, 5, 7, '2025-03-05', '15:24:00', 5, '2025-03-02 21:35:44', '2025-03-02 21:35:44');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `hms_beds`
 --
-drop table if exists hms_beds;
+
 CREATE TABLE `hms_beds` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `bed_number` varchar(50) DEFAULT NULL,
   `ward_id` int(11) DEFAULT NULL,
   `status_id` int(11) DEFAULT NULL,
@@ -90,14 +92,30 @@ CREATE TABLE `hms_beds` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `hms_beds`
+--
+
+INSERT INTO `hms_beds` (`id`, `bed_number`, `ward_id`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 'B101', 1, 1, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(2, 'B102', 1, 2, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(3, 'B103', 1, 3, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(4, 'B201', 2, 1, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(5, 'B202', 2, 2, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(6, 'B203', 2, 1, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(7, 'B301', 3, 3, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(8, 'B302', 3, 1, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(9, 'B303', 3, 2, '2025-03-03 11:19:26', '2025-03-03 11:19:26'),
+(10, 'B304', 3, 1, '2025-03-03 11:19:26', '2025-03-03 11:19:26');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `hms_bed_assignments`
 --
-Drop table if exists hms_bed_assignments;
+
 CREATE TABLE `hms_bed_assignments` (
-  `id`  int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `bed_id` int(11) DEFAULT NULL,
   `patient_id` int(11) DEFAULT NULL,
   `assigned_at` datetime DEFAULT current_timestamp(),
@@ -106,23 +124,30 @@ CREATE TABLE `hms_bed_assignments` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `hms_bed_assignments`
+--
+
+INSERT INTO `hms_bed_assignments` (`id`, `bed_id`, `patient_id`, `assigned_at`, `discharged_at`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, '2025-02-26 11:19:26', NULL, '2025-03-03 11:19:26', '2025-03-03 11:19:38'),
+(2, 5, 2, '2025-02-21 11:19:26', '2025-02-28 11:19:26', '2025-03-03 11:19:26', '2025-03-03 11:19:44'),
+(3, 9, 3, '2025-03-01 11:19:26', NULL, '2025-03-03 11:19:26', '2025-03-03 11:20:33'),
+(4, 3, 4, '2025-02-23 11:19:26', '2025-03-02 11:19:26', '2025-03-03 11:19:26', '2025-03-03 11:20:25'),
+(5, 7, 5, '2025-02-25 11:19:26', NULL, '2025-03-03 11:19:26', '2025-03-03 11:20:25'),
+(6, 1, 6, '2025-02-24 11:19:26', '2025-03-01 11:19:26', '2025-03-03 11:19:26', '2025-03-03 11:20:25'),
+(7, 4, 7, '2025-02-28 11:19:26', NULL, '2025-03-03 11:19:26', '2025-03-03 11:20:25'),
+(8, 6, 8, '2025-02-22 11:19:26', '2025-02-26 11:19:26', '2025-03-03 11:19:26', '2025-03-03 11:20:25'),
+(9, 8, 9, '2025-03-02 11:19:26', NULL, '2025-03-03 11:19:26', '2025-03-03 11:20:25'),
+(10, 10, 10, '2025-02-27 11:19:26', '2025-03-02 11:19:26', '2025-03-03 11:19:26', '2025-03-03 11:20:25');
+
 -- --------------------------------------------------------
--- drop table if exists hms_billing_details;
--- CREATE TABLE `hms_billing_details` (
---   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
---   `billing_id` int(11) DEFAULT NULL,
---   `appointment_id` int(11) DEFAULT NULL,
---   `consultation_id` int(11) DEFAULT NULL,
---   `total_amount` decimal(10,2) DEFAULT NULL,
---   `created_at` datetime DEFAULT current_timestamp(),
---   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
--- );
+
 --
 -- Table structure for table `hms_billings`
 --
-drop table if exists hms_billings;
+
 CREATE TABLE `hms_billings` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `patient_id` int(11) DEFAULT NULL,
   `appointment_id` int(11) DEFAULT NULL,
   `total_amount` decimal(10,2) DEFAULT NULL,
@@ -134,79 +159,162 @@ CREATE TABLE `hms_billings` (
   `payment_mode` enum('cash','credit_card','insurance','online') DEFAULT 'cash',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-drop table if exists hms_billing_consultations;
-CREATE TABLE `hms_billing_consultations` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `billing_id` int(11) DEFAULT NULL,
-  `consultation_id` int(11) DEFAULT NULL,
-  `consultation_fee` decimal(10,2) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);
-drop table if exists hms_billing_beds;
+--
+-- Dumping data for table `hms_billings`
+--
+
+INSERT INTO `hms_billings` (`id`, `patient_id`, `appointment_id`, `total_amount`, `discount`, `tax`, `paid_amount`, `balance_amount`, `payment_status_id`, `payment_mode`, `created_at`, `updated_at`) VALUES
+(1, 1, 101, 500.00, 50.00, 45.00, 495.00, 0.00, 1, 'cash', '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 2, 102, 1200.00, 100.00, 108.00, 1000.00, 208.00, 2, 'credit_card', '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 3, 103, 800.00, 0.00, 72.00, 800.00, 0.00, 1, 'online', '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 4, 104, 1500.00, 200.00, 117.00, 1300.00, 117.00, 3, 'insurance', '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 5, 105, 300.00, 0.00, 27.00, 300.00, 0.00, 1, 'cash', '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 6, 106, 2000.00, 300.00, 153.00, 1700.00, 153.00, 2, 'credit_card', '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 7, 107, 700.00, 50.00, 58.50, 700.00, 0.00, 1, 'online', '2025-03-03 12:43:30', '2025-03-03 12:43:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_billing_beds`
+--
+
 CREATE TABLE `hms_billing_beds` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `billing_id` int(11) DEFAULT NULL,
   `bed_id` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-drop table if exists hms_billing_medicines;
+--
+-- Dumping data for table `hms_billing_beds`
+--
+
+INSERT INTO `hms_billing_beds` (`id`, `billing_id`, `bed_id`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 301, 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 2, 302, 150.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 3, 303, 200.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 4, 304, 250.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 5, 305, 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 6, 306, 300.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 7, 307, 150.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_billing_consultations`
+--
+
+CREATE TABLE `hms_billing_consultations` (
+  `id` int(11) NOT NULL,
+  `billing_id` int(11) DEFAULT NULL,
+  `consultation_id` int(11) DEFAULT NULL,
+  `consultation_fee` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_billing_consultations`
+--
+
+INSERT INTO `hms_billing_consultations` (`id`, `billing_id`, `consultation_id`, `consultation_fee`, `created_at`, `updated_at`) VALUES
+(1, 1, 201, 200.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 2, 202, 300.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 3, 203, 150.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 4, 204, 400.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 5, 205, 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 6, 206, 500.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 7, 207, 250.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_billing_lab_tests`
+--
+
+CREATE TABLE `hms_billing_lab_tests` (
+  `id` int(11) NOT NULL,
+  `billing_id` int(11) DEFAULT NULL,
+  `lab_test_id` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_billing_lab_tests`
+--
+
+INSERT INTO `hms_billing_lab_tests` (`id`, `billing_id`, `lab_test_id`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 601, 150.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 2, 602, 250.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 3, 603, 200.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 4, 604, 300.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 5, 605, 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 6, 606, 350.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 7, 607, 180.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_billing_medicines`
+--
+
 CREATE TABLE `hms_billing_medicines` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `billing_id` int(11) DEFAULT NULL,
   `medicine_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-drop table if exists hms_billing_services;
+--
+-- Dumping data for table `hms_billing_medicines`
+--
+
+INSERT INTO `hms_billing_medicines` (`id`, `billing_id`, `medicine_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 401, 2, 50.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 2, 402, 1, 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 3, 403, 3, 30.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 4, 404, 2, 75.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 5, 405, 1, 20.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 6, 406, 4, 25.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 7, 407, 2, 40.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_billing_services`
+--
+
 CREATE TABLE `hms_billing_services` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `billing_id` int(11) DEFAULT NULL,
   `service_id` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-drop table if exists hms_billing_lab_tests;
-CREATE TABLE `hms_billing_lab_tests` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `billing_id` int(11) DEFAULT NULL,
-  `lab_test_id` int(11) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-);
+--
+-- Dumping data for table `hms_billing_services`
+--
 
-drop table if exists hms_medicines;
-CREATE TABLE `hms_medicines` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `category` varchar(255) DEFAULT NULL,
-  `dosage` varchar(255) DEFAULT NULL,
-  `strength` varchar(255) DEFAULT NULL,
-  `manufacturer` varchar(255) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `hms_billing_services` (`id`, `billing_id`, `service_id`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 501, 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 2, 502, 200.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 3, 503, 150.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 4, 504, 300.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 5, 505, 50.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 6, 506, 400.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 7, 507, 250.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30');
 
-drop table if exists hms_services;
-CREATE TABLE `hms_services` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-)
 -- --------------------------------------------------------
 
 --
@@ -236,64 +344,57 @@ CREATE TABLE `hms_cache_locks` (
 --
 -- Table structure for table `hms_consultations`
 --
-drop table hms_consultations;
-CREATE TABLE hms_consultations (
-  id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  appointment_id BIGINT(20) ,  -- Ensuring every consultation is linked to an appointment
-  symptoms TEXT DEFAULT NULL,
-  diagnosis TEXT DEFAULT NULL,
-  prescription TEXT DEFAULT NULL,
-  consultation_notes TEXT DEFAULT NULL,
-  created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
 
-CREATE TABLE hms_consultation_lab_tests (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  consultation_id BIGINT(20) NOT NULL,
-  lab_test_id INT NOT NULL,
-  lab_test_result VARCHAR(255) DEFAULT NULL,
-  created_by INT NULL,
-  updated_by INT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE hms_lab_tests (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) ,
-  description TEXT NULL,
-  price DECIMAL(10,2) ,
-  discount_percentage DECIMAL(5,2) DEFAULT 0.00,
-  category_id INT NULL,
-  status_id INT NULL,
-  created_by INT NULL,
-  updated_by INT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE hms_lab_test_categories (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) UNIQUE,
-  description TEXT NULL,
-  status_id INT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
+CREATE TABLE `hms_consultations` (
+  `id` bigint(20) NOT NULL,
+  `appointment_id` bigint(20) DEFAULT NULL,
+  `symptoms` text DEFAULT NULL,
+  `diagnosis` text DEFAULT NULL,
+  `prescription` text DEFAULT NULL,
+  `consultation_notes` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hms_consultations`
 --
 
 INSERT INTO `hms_consultations` (`id`, `appointment_id`, `symptoms`, `diagnosis`, `prescription`, `consultation_notes`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Fever, headache', 'Common cold', 'Paracetamol 500mg', 'Patient advised rest and hydration', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(2, 3, 'Chest pain', 'Acid reflux', 'Antacid tablets', 'Recommended dietary changes', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(3, 4, 'Back pain', 'Muscle strain', 'Pain relief gel', 'Suggested physiotherapy', '2025-02-22 15:19:29', '2025-02-22 15:19:29'),
-(4, 1, 'Cough, sore throat', 'Seasonal flu', 'Cough syrup', 'Monitor symptoms and follow up if needed', '2025-02-22 15:19:29', '2025-02-22 15:19:29');
+(1, 1, '[\"Fever\",\"Cough\",\"Sore throat\"]', '1. Physical examination\n2. Blood test (CBC, ESR)\n3. Urine test\n4. Chest X-ray\n5. Sputum culture\n6. Throat swab (Rapid antigen test)\n7. Blood culture', '[\"Ibuprofen\",\"Aspirin\",\"Diclofenac\",\"Tramadol\",\"Metformin\"]', 'ffffffff', '2025-02-27 00:53:48', '2025-03-03 04:11:08'),
+(2, 2, '[\"Body aches\",\"Fatigue\",\"Headache\"]', '1. Blood Glucose Test\n2. Blood Glucose Test\n3. X-Ray Chest\n4. Pregnancy Test', '[\"Ibuprofen\",\"Diclofenac\",\"Tramadol\",\"Lisinopril\",\"Salbutamol\",\"Doxycycline\",\"Methotrexate\",\"Haloperidol\"]', 'Meet 5 days later', '2025-02-27 00:58:45', '2025-03-02 22:25:13'),
+(3, 9, '[\"Diarrhea\",\"Severe headache\"]', '', '[\"Aspirin\",\"Diclofenac\",\"Tramadol\"]', 'dtyudtytdyu', '2025-02-27 01:26:12', '2025-02-27 01:26:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_consultation_lab_tests`
+--
+
+CREATE TABLE `hms_consultation_lab_tests` (
+  `id` int(11) NOT NULL,
+  `consultation_id` bigint(20) NOT NULL,
+  `lab_test_id` int(11) NOT NULL,
+  `lab_test_result` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_consultation_lab_tests`
+--
+
+INSERT INTO `hms_consultation_lab_tests` (`id`, `consultation_id`, `lab_test_id`, `lab_test_result`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Positive', 1, 1, '2023-10-01 04:30:00', '2023-10-01 04:30:00'),
+(2, 2, 2, 'Negative', 2, 2, '2023-10-02 06:00:00', '2023-10-02 06:00:00'),
+(3, 3, 3, 'Inconclusive', 3, 3, '2023-10-03 03:45:00', '2023-10-03 03:45:00'),
+(18, 2, 2, 'Thats Good', 1, 1, '2025-02-27 00:58:45', '2025-03-03 03:05:14'),
+(19, 2, 6, 'patient_lab_results/2/X-Ray_Chest.pdf', 2, 2, '2025-03-01 07:11:49', '2025-03-03 03:05:19'),
+(20, 2, 19, 'patient_lab_results/2/Pregnancy_Test.jpg', 3, 3, '2025-03-01 06:28:36', '2025-03-03 03:05:23'),
+(22, 6, 4, NULL, NULL, NULL, '2025-03-02 21:38:03', '2025-03-02 21:38:03'),
+(23, 6, 5, NULL, NULL, NULL, '2025-03-02 21:38:03', '2025-03-02 21:38:03');
 
 -- --------------------------------------------------------
 
@@ -496,6 +597,133 @@ CREATE TABLE `hms_job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hms_lab_tests`
+--
+
+CREATE TABLE `hms_lab_tests` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `discount_percentage` decimal(5,2) DEFAULT 0.00,
+  `category_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_lab_tests`
+--
+
+INSERT INTO `hms_lab_tests` (`id`, `name`, `description`, `price`, `discount_percentage`, `category_id`, `status_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'Complete Blood Count (CBC)', 'A test to evaluate overall health.', 50.00, 5.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(2, 'Blood Glucose Test', 'Measures blood sugar levels.', 25.00, 0.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(3, 'Lipid Profile', 'Measures cholesterol and triglycerides.', 70.00, 10.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(4, 'Urine Routine Examination', 'Basic urine test.', 30.00, 0.00, 2, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(5, 'Urine Culture', 'Identifies bacterial infections in urine.', 40.00, 5.00, 2, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(6, 'X-Ray Chest', 'Chest imaging for lung and heart examination.', 100.00, 15.00, 3, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(7, 'MRI Brain', 'Magnetic Resonance Imaging of the brain.', 500.00, 20.00, 3, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(8, 'Thyroid Function Test', 'Checks T3, T4, and TSH levels.', 60.00, 5.00, 4, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(9, 'Testosterone Test', 'Measures testosterone hormone levels.', 55.00, 0.00, 4, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(10, 'HIV Test', 'Detects HIV infection.', 80.00, 10.00, 5, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(11, 'Hepatitis B Test', 'Checks for Hepatitis B infection.', 75.00, 10.00, 5, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(12, 'Dengue Test', 'Detects Dengue fever infection.', 90.00, 10.00, 5, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(13, 'Malaria Test', 'Detects Malaria parasite.', 65.00, 5.00, 5, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(14, 'Vitamin D Test', 'Measures vitamin D levels.', 45.00, 5.00, 4, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(15, 'Electrolyte Panel', 'Checks electrolyte balance.', 50.00, 0.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(16, 'Liver Function Test', 'Evaluates liver health.', 85.00, 10.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(17, 'Kidney Function Test', 'Checks kidney performance.', 70.00, 5.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(18, 'C-Reactive Protein (CRP)', 'Measures inflammation levels.', 40.00, 5.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(19, 'Pregnancy Test', 'Detects pregnancy.', 30.00, 0.00, 2, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(20, 'Hemoglobin A1c Test', 'Measures average blood sugar over three months.', 60.00, 10.00, 1, 1, 1, 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_lab_test_categories`
+--
+
+CREATE TABLE `hms_lab_test_categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_lab_test_categories`
+--
+
+INSERT INTO `hms_lab_test_categories` (`id`, `name`, `description`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 'Blood Tests', 'General blood tests including CBC and glucose levels.', 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(2, 'Urine Tests', 'Urine analysis including culture and sensitivity.', 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(3, 'Imaging Tests', 'Radiology and imaging-related lab tests.', 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(4, 'Hormonal Tests', 'Tests for hormonal imbalances and thyroid functions.', 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46'),
+(5, 'Infectious Diseases', 'Tests for bacterial and viral infections.', 1, '2025-02-27 03:37:46', '2025-02-27 03:37:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_medicines`
+--
+
+CREATE TABLE `hms_medicines` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `dosage` varchar(255) DEFAULT NULL,
+  `strength` varchar(255) DEFAULT NULL,
+  `manufacturer` varchar(255) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_medicines`
+--
+
+INSERT INTO `hms_medicines` (`id`, `name`, `category`, `dosage`, `strength`, `manufacturer`, `price`, `created_at`, `updated_at`) VALUES
+(1, 'Paracetamol', 'Painkiller', 'Tablet', '500mg', 'Pfizer', 2.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(2, 'Ibuprofen', 'Painkiller', 'Tablet', '400mg', 'GSK', 3.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(3, 'Aspirin', 'Painkiller', 'Tablet', '300mg', 'Bayer', 2.80, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(4, 'Diclofenac', 'Painkiller', 'Tablet', '50mg', 'Novartis', 3.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(5, 'Tramadol', 'Painkiller', 'Capsule', '100mg', 'Sanofi', 6.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(6, 'Metformin', 'Diabetes', 'Tablet', '500mg', 'Novartis', 4.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(7, 'Amlodipine', 'Blood Pressure', 'Tablet', '5mg', 'AstraZeneca', 3.20, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(8, 'Atorvastatin', 'Cholesterol', 'Tablet', '10mg', 'Pfizer', 5.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(9, 'Losartan', 'Blood Pressure', 'Tablet', '50mg', 'Sanofi', 4.80, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(10, 'Omeprazole', 'Acid Reflux', 'Capsule', '20mg', 'GSK', 3.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(11, 'Simvastatin', 'Cholesterol', 'Tablet', '20mg', 'Merck', 5.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(12, 'Levothyroxine', 'Thyroid', 'Tablet', '100mcg', 'AbbVie', 4.20, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(13, 'Lisinopril', 'Blood Pressure', 'Tablet', '10mg', 'Novartis', 3.90, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(14, 'Clopidogrel', 'Blood Thinner', 'Tablet', '75mg', 'Sanofi', 6.20, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(15, 'Salbutamol', 'Asthma', 'Inhaler', '100mcg', 'GSK', 7.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(16, 'Ranitidine', 'Acid Reflux', 'Tablet', '150mg', 'Zydus', 3.70, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(17, 'Ciprofloxacin', 'Antibiotic', 'Tablet', '500mg', 'Bayer', 6.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(18, 'Cetirizine', 'Allergy', 'Tablet', '10mg', 'Zydus', 2.90, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(19, 'Amoxicillin', 'Antibiotic', 'Capsule', '500mg', 'GSK', 5.80, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(20, 'Azithromycin', 'Antibiotic', 'Tablet', '250mg', 'Pfizer', 7.30, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(21, 'Doxycycline', 'Antibiotic', 'Capsule', '100mg', 'Sanofi', 5.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(22, 'Prednisolone', 'Steroid', 'Tablet', '5mg', 'Merck', 4.60, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(23, 'Hydrochlorothiazide', 'Diuretic', 'Tablet', '25mg', 'Bayer', 3.80, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(24, 'Warfarin', 'Blood Thinner', 'Tablet', '5mg', 'Boehringer Ingelheim', 6.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(25, 'Metoprolol', 'Blood Pressure', 'Tablet', '50mg', 'Novartis', 4.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(26, 'Furosemide', 'Diuretic', 'Tablet', '40mg', 'Sanofi', 3.90, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(27, 'Insulin Glargine', 'Diabetes', 'Injection', '100 IU/ml', 'Sanofi', 12.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(28, 'Morphine', 'Painkiller', 'Injection', '10mg/ml', 'Pfizer', 15.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(29, 'Clarithromycin', 'Antibiotic', 'Tablet', '500mg', 'AbbVie', 8.50, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(30, 'Methotrexate', 'Cancer', 'Tablet', '2.5mg', 'Pfizer', 18.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24'),
+(31, 'Haloperidol', 'Antipsychotic', 'Tablet', '5mg', 'Janssen', 7.00, '2025-03-03 12:46:24', '2025-03-03 12:46:24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hms_medicine_sales`
 --
 
@@ -577,7 +805,7 @@ INSERT INTO `hms_patients` (`id`, `user_id`, `name`, `date_of_birth`, `email`, `
 (4, 4, 'Emily Davis', '1998-12-05', NULL, '+6655443322', '+2233445566', '321 Pine St, Florida, USA', 'female', 'AB-', 'Cigna', 'INS998877', '2025-02-06 13:12:26', '2025-02-06 18:58:23'),
 (6, 2, 'Shawon Islam', '1985-09-22', NULL, '+9876543210', '+0123456789', '456 Elm St, California, USA', 'male', 'A-', 'UnitedHealth', 'INS987654', '2025-02-06 13:03:44', '2025-02-06 13:03:44'),
 (7, 4, 'FAQRUL ISLAM TAPAN', '1998-12-05', NULL, '+6655443322', '+2233445566', '321 Pine St, Florida, USA', 'male', 'AB-', 'Cigna', 'INS998877', '2025-02-06 13:05:58', '2025-02-06 13:05:58'),
-(8, NULL, 'Shawon Islam', '2025-02-04', 'shawon.idb61@gmail.com', '8801941424166', '012305121215', 'Shahapur,Sonargaon', 'male', 'AB+', NULL, NULL, '2025-02-23 21:04:45', '2025-02-23 21:04:45'),
+(8, 2, 'Shawon Islam', '2025-02-04', 'shawon.idb61@gmail.com', '8801941424166', '012305121215', 'Shahapur,Sonargaon', 'male', 'AB+', NULL, NULL, '2025-02-23 21:04:45', '2025-02-26 11:36:51'),
 (10, 1, 'Shawon Islam', '2025-02-23', 'shawon.idb61@gmail.com', '+8801941424166', '012305121215', 'Shahapur,Sonargaon', 'male', 'AB+', NULL, NULL, '2025-02-23 21:09:42', '2025-02-23 21:09:42');
 
 -- --------------------------------------------------------
@@ -680,10 +908,37 @@ INSERT INTO `hms_roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', '2025-02-22 00:56:28', '2025-02-22 00:56:28'),
 (2, 'Admin', '2025-02-22 00:57:44', '2025-02-22 00:57:44'),
 (3, 'Doctor', '2025-02-22 01:00:27', '2025-02-22 01:00:27'),
-(4, 'patient', '2025-02-17 10:36:09', '2025-02-17 10:36:35'),
-(5, 'receptionist', '2025-02-17 10:36:09', '2025-02-17 10:36:41'),
+(4, 'Patient', '2025-02-17 10:36:09', '2025-02-25 16:21:13'),
+(5, 'Receptionist', '2025-02-17 10:36:09', '2025-02-25 16:21:22'),
 (7, 'Drug Dealer', '2025-02-22 02:44:46', '2025-02-22 02:44:46'),
 (8, 'Suppliers', '2025-02-22 15:24:39', '2025-02-22 15:24:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hms_services`
+--
+
+CREATE TABLE `hms_services` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hms_services`
+--
+
+INSERT INTO `hms_services` (`id`, `name`, `price`, `created_at`, `updated_at`) VALUES
+(1, 'General Consultation', 100.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(2, 'X-Ray', 200.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(3, 'Blood Test', 150.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(4, 'MRI Scan', 500.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(5, 'ECG', 300.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(6, 'Ultrasound', 400.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30'),
+(7, 'Physiotherapy', 250.00, '2025-03-03 12:43:30', '2025-03-03 12:43:30');
 
 -- --------------------------------------------------------
 
@@ -705,7 +960,7 @@ CREATE TABLE `hms_sessions` (
 --
 
 INSERT INTO `hms_sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Am1N6YedAAT8qDBmpoIxMF1QzYTrE9KLP2Oqh0pq', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaW9FazFDM1cwSWx3b0RpZ09HQ2pic2NzOWFFZ3VVU2tnSzg0MDdCRSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBwb2ludG1lbnRzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1740416193);
+('iGiHhQJbFZoAxlu9F28BSayKkGxFSYnIHio3tPtj', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZUlxdGFBb3FBaXY4ZVN2aHgzOGdVSldQNTRHcWloUkhEZHBRZ0NaVCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb2N0b3JzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1740983721);
 
 -- --------------------------------------------------------
 
@@ -727,13 +982,13 @@ CREATE TABLE `hms_statuss` (
 INSERT INTO `hms_statuss` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Active', '2025-02-17 10:35:44', '2025-02-23 20:53:33'),
 (2, 'Inactive', '2025-02-17 10:35:44', '2025-02-23 20:53:41'),
-(3, 'Suspended', '2025-02-17 10:35:44', '2025-02-23 20:53:44'),
+(3, 'Approved', '2025-02-17 10:35:44', '2025-02-25 16:48:40'),
 (4, 'Pending', '2025-02-17 10:35:44', '2025-02-23 20:53:48'),
 (5, 'Completed', '2025-02-17 10:35:44', '2025-02-23 20:53:54'),
 (6, 'Cancelled', '2025-02-17 10:35:44', '2025-02-23 20:53:58'),
 (7, 'Confirmed', '2025-02-17 10:35:44', '2025-02-22 10:36:01'),
 (8, 'Reschedule', '2025-02-17 10:35:44', '2025-02-24 20:25:42'),
-(9, 'Processing', '2025-02-17 10:35:44', '2025-02-24 20:26:05'),
+(9, 'Processing', '2025-02-17 10:35:44', '2025-02-25 16:48:30'),
 (10, 'Available', '2025-02-17 10:35:44', '2025-02-22 10:49:00'),
 (11, 'Occupied', '2025-02-17 10:35:44', '2025-02-23 20:54:07'),
 (12, 'Maintenance', '2025-02-17 10:35:44', '2025-02-23 20:54:16'),
@@ -782,9 +1037,9 @@ CREATE TABLE `hms_users` (
 
 INSERT INTO `hms_users` (`id`, `name`, `email`, `email_verified_at`, `role_id`, `phone`, `address`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Test User', 'test@example.com', '2025-02-12 21:34:33', 3, '78456892345', 'uytgr oiugrtofiwuer oiugh', '$2y$12$Z.8.vn7a4HgzWeJ4IgvAMeZSHmlTIZ.zHo/uROEU0ZuSVMbSXB/Ja', 'lkeSA7goJL', '2025-02-12 21:34:33', '2025-02-12 21:34:33'),
-(2, 'Shawon Islam', 'shawoni397@gmail.com', NULL, 1, '96793528096', 'iry7t oiurtgoiqu rugt ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '0cDEhJ3BbAKChGngakYo2d9SMmP9ccdNyJtJPD2K2cZkuFuz8CXscsNecKhO', '2025-02-12 21:47:48', '2025-02-12 21:47:48'),
+(2, 'Shawon Islam', 'shawoni397@gmail.com', NULL, 1, '96793528096', 'iry7t oiurtgoiqu rugt ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', 'B5Q2zLYSGKLY1u1sArne4yh0eqBs3NWepl1AhkAh5IVdIWousVF5GNM2DW6y', '2025-02-12 21:47:48', '2025-02-12 21:47:48'),
 (3, 'Shawon Islam', 'sshawoni397@gmail.com', NULL, 2, '2956209356', 'kiuerty iurt iurt y', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '6R6dWOvrpszjmeunt1U3Jrz4tN86rm2aFbCIxMqngat7rTYKBGzJNxAC5MED', '2025-02-16 01:20:47', '2025-02-16 01:20:47'),
-(4, 'Shawon Islam', 'shawon.idb61@gmail.com', NULL, 3, '2452345234', 'asdgbv aweg we ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '2lTptYbQVRZqxnx20rwOjAP7Mnau8iB6Yno85olLx8bCPZk2aQ1xkk89GKI7', '2025-02-19 07:12:22', '2025-02-19 07:12:22');
+(4, 'Shawon Islam', 'shawon.idb61@gmail.com', NULL, 4, '2452345234', 'asdgbv aweg we ', '$2y$12$vOEvZdBf/ZOzD3lyMb42D.VoxUwR5dt/7m83sB.zT8Hfv3GVmwU8.', '2lTptYbQVRZqxnx20rwOjAP7Mnau8iB6Yno85olLx8bCPZk2aQ1xkk89GKI7', '2025-02-19 07:12:22', '2025-02-19 07:12:22');
 
 -- --------------------------------------------------------
 
@@ -822,6 +1077,12 @@ ALTER TABLE `hms_appointments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hms_appointment_trasheds`
+--
+ALTER TABLE `hms_appointment_trasheds`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hms_beds`
 --
 ALTER TABLE `hms_beds`
@@ -840,6 +1101,36 @@ ALTER TABLE `hms_billings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hms_billing_beds`
+--
+ALTER TABLE `hms_billing_beds`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_billing_consultations`
+--
+ALTER TABLE `hms_billing_consultations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_billing_lab_tests`
+--
+ALTER TABLE `hms_billing_lab_tests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_billing_medicines`
+--
+ALTER TABLE `hms_billing_medicines`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_billing_services`
+--
+ALTER TABLE `hms_billing_services`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hms_cache`
 --
 ALTER TABLE `hms_cache`
@@ -855,6 +1146,12 @@ ALTER TABLE `hms_cache_locks`
 -- Indexes for table `hms_consultations`
 --
 ALTER TABLE `hms_consultations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_consultation_lab_tests`
+--
+ALTER TABLE `hms_consultation_lab_tests`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -899,6 +1196,25 @@ ALTER TABLE `hms_jobs`
 -- Indexes for table `hms_job_batches`
 --
 ALTER TABLE `hms_job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_lab_tests`
+--
+ALTER TABLE `hms_lab_tests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hms_lab_test_categories`
+--
+ALTER TABLE `hms_lab_test_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `hms_medicines`
+--
+ALTER TABLE `hms_medicines`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -956,6 +1272,12 @@ ALTER TABLE `hms_roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `hms_services`
+--
+ALTER TABLE `hms_services`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hms_sessions`
 --
 ALTER TABLE `hms_sessions`
@@ -996,31 +1318,73 @@ ALTER TABLE `hms_wards`
 -- AUTO_INCREMENT for table `hms_appointments`
 --
 ALTER TABLE `hms_appointments`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `hms_appointment_trasheds`
+--
+ALTER TABLE `hms_appointment_trasheds`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hms_beds`
 --
 ALTER TABLE `hms_beds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `hms_bed_assignments`
 --
 ALTER TABLE `hms_bed_assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `hms_billings`
 --
 ALTER TABLE `hms_billings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `hms_billing_beds`
+--
+ALTER TABLE `hms_billing_beds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `hms_billing_consultations`
+--
+ALTER TABLE `hms_billing_consultations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `hms_billing_lab_tests`
+--
+ALTER TABLE `hms_billing_lab_tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `hms_billing_medicines`
+--
+ALTER TABLE `hms_billing_medicines`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `hms_billing_services`
+--
+ALTER TABLE `hms_billing_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `hms_consultations`
 --
 ALTER TABLE `hms_consultations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `hms_consultation_lab_tests`
+--
+ALTER TABLE `hms_consultation_lab_tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `hms_departments`
@@ -1057,6 +1421,24 @@ ALTER TABLE `hms_hospitals`
 --
 ALTER TABLE `hms_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `hms_lab_tests`
+--
+ALTER TABLE `hms_lab_tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `hms_lab_test_categories`
+--
+ALTER TABLE `hms_lab_test_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `hms_medicines`
+--
+ALTER TABLE `hms_medicines`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `hms_medicine_sales`
@@ -1105,6 +1487,12 @@ ALTER TABLE `hms_reports`
 --
 ALTER TABLE `hms_roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `hms_services`
+--
+ALTER TABLE `hms_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `hms_statuss`

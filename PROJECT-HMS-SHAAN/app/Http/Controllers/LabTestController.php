@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 
 class LabTestController extends Controller
 {
@@ -129,7 +130,8 @@ class LabTestController extends Controller
 				$labTest->lab_test_result = $request->lab_test_result;
 			}
 		}		
-		
+		$labTest->created_by = Auth::user()->id;
+		$labTest->updated_by = Auth::user()->id;
 		$success = $labTest->save();
 
 		if (!$success) {

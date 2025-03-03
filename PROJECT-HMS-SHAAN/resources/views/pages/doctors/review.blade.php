@@ -86,8 +86,8 @@
                         <h4 class="mb-3 text-primary fw-bold fs-3 text-uppercase text-center">Lab Test Results</h4>
                         <div class="card p-3 shadow-sm">
                             <div class="table-responsive">
-                                <table class="table table-bordered text-center align-middle">
-                                    <thead class="text-white fs-3 fs-bold">
+                                <table class="table table-bordered  table-striped text-center align-middle" id="table1">
+                                    <thead class="text-white fs-3 table bg-primary text-uppercase text-center fw-bold">
                                         <tr>
                                             <th class="py-3">Test Name</th>
                                             <th class="py-3">Result</th>
@@ -148,7 +148,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -156,8 +155,7 @@
                             </div>
                         </div>
 
-                        <h4 class="mb-2 mt-2 text-primary fw-bold fs-3 text-uppercase text-center">Finalize Consultation
-                        </h4>
+                        <h4 class="mb-2 mt-2 text-primary fw-bold fs-3 text-uppercase text-center">Finalize Consultation</h4>
                         <form action="{{ route('doctor.finalize', $consultation->id) }}" method="POST">
                             @csrf
                             {{-- <div class="mb-3">
@@ -169,13 +167,15 @@
                                 <select name="prescription[]" class="form-select select2" multiple="multiple"
                                     id="prescription">
                                     @php
-                                        $medicines = json_decode(
-                                            file_get_contents(public_path('assets/data/medicines/medicines.json')),
-                                        );
+                                        // $medicines = json_decode(
+                                        //     file_get_contents(public_path('assets/data/medicines/medicines.json')),
+                                        // );
+                                        $medicines = DB::table('medicines')->get();
                                     @endphp
                                     @foreach ($medicines as $medicine)
                                         <option value="{{ $medicine->name }}">
-                                            {{ $medicine->name }} ({{ $medicine->strength }}) - ${{ $medicine->price }}
+                                            {{ $medicine->name }} ({{ $medicine->strength }})
+                                             {{-- - ${{ $medicine->price }} --}}
                                         </option>
                                     @endforeach
                                 </select>
@@ -187,6 +187,9 @@
                             <div class="mb-3">
                                 <label class="form-label">Additional Notes</label>
                                 <textarea name="consultation_notes" class="form-control">{{ old('consultation_notes') }}</textarea>
+                                @error('consultation_notes')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="d-flex justify-content-center mt-3">
                                 <button type="submit" class="btn btn-primary btn-lg">Finalize Consultation</button>

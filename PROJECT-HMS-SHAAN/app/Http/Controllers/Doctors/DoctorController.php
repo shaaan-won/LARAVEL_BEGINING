@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Doctors;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Consultation;
 use App\Models\Doctors\Doctor;
 use App\Models\Status;
@@ -32,64 +33,64 @@ class DoctorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // print_r($request->all());
-    // Validate the incoming request data
-    $request->validate([
-        'user_id' => 'required',
-        'name' => 'required|max:255 |unique:doctors,name',
-        'date_of_birth' => 'required|date',
-        'department_id' => 'nullable|exists:departments,id',
-        'specialization' => 'required|max:255',
-        'experience' => 'required|integer',
-        'contact_number' => 'required|max:20',
-        'email' => 'required|max:255',
-        'address' => 'required',
-        'gender' => 'required|in:Male,Female,Other',
-        'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation for the image
-        'qualification' => 'required|string|max:255',
-        'registration_no' => 'required|string|max:255',
-        'consultation_fee' => 'required|integer',
-        'status_id' => 'required',
-    ]);
+    {
+        // print_r($request->all());
+        // Validate the incoming request data
+        $request->validate([
+            'user_id' => 'required',
+            'name' => 'required|max:255 |unique:doctors,name',
+            'date_of_birth' => 'required|date',
+            'department_id' => 'nullable|exists:departments,id',
+            'specialization' => 'required|max:255',
+            'experience' => 'required|integer',
+            'contact_number' => 'required|max:20',
+            'email' => 'required|max:255',
+            'address' => 'required',
+            'gender' => 'required|in:Male,Female,Other',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation for the image
+            'qualification' => 'required|string|max:255',
+            'registration_no' => 'required|string|max:255',
+            'consultation_fee' => 'required|integer',
+            'status_id' => 'required',
+        ]);
 
-    // Create a new Doctor instance
-    $doctor = new Doctor();
-    $doctor->user_id = $request->input('user_id');
-    $doctor->name = $request->input('name');
-    $doctor->date_of_birth = $request->input('date_of_birth');
-    $doctor->department_id = $request->input('department_id');
-    $doctor->specialization = $request->input('specialization');
-    $doctor->experience = $request->input('experience');
-    $doctor->contact_number = $request->input('contact_number');
-    $doctor->email = $request->input('email');
-    $doctor->address = $request->input('address');
-    $doctor->gender = $request->input('gender');
-    $doctor->qualification = $request->input('qualification');
-    $doctor->registration_no = $request->input('registration_no');
-    $doctor->bio = $request->input('bio');
-    $doctor->consultation_fee = $request->input('consultation_fee');
-    $doctor->status_id = $request->input('status_id');
+        // Create a new Doctor instance
+        $doctor = new Doctor();
+        $doctor->user_id = $request->input('user_id');
+        $doctor->name = $request->input('name');
+        $doctor->date_of_birth = $request->input('date_of_birth');
+        $doctor->department_id = $request->input('department_id');
+        $doctor->specialization = $request->input('specialization');
+        $doctor->experience = $request->input('experience');
+        $doctor->contact_number = $request->input('contact_number');
+        $doctor->email = $request->input('email');
+        $doctor->address = $request->input('address');
+        $doctor->gender = $request->input('gender');
+        $doctor->qualification = $request->input('qualification');
+        $doctor->registration_no = $request->input('registration_no');
+        $doctor->bio = $request->input('bio');
+        $doctor->consultation_fee = $request->input('consultation_fee');
+        $doctor->status_id = $request->input('status_id');
 
-    // Handle the image upload
-    if ($request->hasFile('photo')) {
-        $image = $request->file('photo');
-        $imageName = $doctor->name . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('img/doctors'), $imageName);
-        $doctor->photo = $imageName;
+        // Handle the image upload
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $imageName = $doctor->name . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('img/doctors'), $imageName);
+            $doctor->photo = $imageName;
+        }
+
+        // print_r($doctor-> toArray());
+
+        // // Save the doctor to the database
+        $success = $doctor->save();
+
+        if ($success) {
+            return redirect('/doctors')->with('success', 'Doctor created successfully.');
+        } else {
+            return redirect('/doctors')->with('error', 'Doctor creation failed.');
+        }
     }
-
-    // print_r($doctor-> toArray());
-
-    // // Save the doctor to the database
-    $success = $doctor->save();
-
-    if ($success) {
-        return redirect('/doctors')->with('success', 'Doctor created successfully.');
-    } else {
-        return redirect('/doctors')->with('error', 'Doctor creation failed.');
-    }
-}
 
     /**
      * Display the specified resource.
@@ -184,8 +185,6 @@ class DoctorController extends Controller
         } else {
             return redirect('/doctors')->with('error', 'Doctor update failed.');
         }
-
-
     }
 
     /**
@@ -209,23 +208,53 @@ class DoctorController extends Controller
 
     // Consultations review and finalize
     // Show test results for a consultation
-    public function reviewTestResults($consultationId) {
+    public function reviewTestResults($consultationId)
+    {
         $consultation = Consultation::with('appointment.patient', 'labTests.labTest')->findOrFail($consultationId);
 
         return view('pages.doctors.review', compact('consultation'));
     }
 
     // Finalize consultation with prescription
-    public function finalizeConsultation(Request $request, $consultationId) {
+    public function finalizeConsultation(Request $request, $consultationId)
+    {
         $request->validate([
-            'prescription' => 'required|string',
+            'prescription' => 'required|array',
+            'prescription.*' => 'string',
+            'consultation_notes' => 'nullable|string',
         ]);
 
         $consultation = Consultation::findOrFail($consultationId);
+        $diagnosislist = []; 
+        $diagnosislist = $consultation->labTests->map(function ($labTest) {
+            return [
+                'diagnosis' => $labTest->labTest->name,
+            ];
+        })->toArray(); 
+        // print_r($diagnosislist); 
+        //in json formate
+        // $formattedDiagnosis = collect($diagnosislist)->pluck('diagnosis')->toArray();
+        // print_r(json_encode($formattedDiagnosis));
+        // if want to formated in a string 1.2.3.
+        $formattedDiagnosis = collect($diagnosislist)->pluck('diagnosis')->map(function ($item, $index) {
+            return ($index + 1) . '. ' . $item;
+        })->implode("\n"); 
+        // print_r($formattedDiagnosis);
+
+        // Update the consultation
         $consultation->update([
-            'prescription' => $request->prescription,
+            'prescription' => json_encode($request->prescription),
+            'consultation_notes' => $request->consultation_notes,
+            // 'diagnosis' => json_encode($formattedDiagnosis),
+            'diagnosis' => $formattedDiagnosis, // Store as a formatted string
         ]);
 
-        return redirect()->route('doctor.review', $consultationId)->with('success', 'Consultation finalized.');
+        // Update the appointment status
+        $appointmentID = $consultation->appointment->id;
+        $appointment = Appointment::findOrFail($appointmentID);
+        $appointment->status_id = 5; // Completed Status
+        $appointment->save();
+
+        return redirect()->route('doctor.appointments.index')->with('success', 'Consultation finalized.');
     }
 }
