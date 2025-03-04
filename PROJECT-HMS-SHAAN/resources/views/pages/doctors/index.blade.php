@@ -4,40 +4,37 @@
     <section id="multilingual-datatable">
         <div class="row" id="table-hover-row">
             <div class="col-12">
-                @if (session('success'))
-                    <div class="card-header m-2 p-2 d-flex justify-content-center alert alert-success">
-                        {{ session('success') }}</div>
+                @if (session('success') || session('error'))
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-header transparent d-flex justify-content-center align-items-center bg-transparent shadow">
+                                        <h2 class="text-center font-weight-bold {{ session('success') ? 'text-success' : 'text-danger' }}">
+                                            {{ session('success') ?? session('error') }}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endif
                 <div class="card">
-
-                    <div class="card-header">
-                        <h2 class="card-title fw-bolder">DOCTOR List</h2>
-                        <a href="{{ url('doctors/create') }}" class="btn btn-primary float-end">Add DOCTORS</a>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0 fw-bolder fs-2">Doctor List</h2>
+                        <a href="{{ url('doctors/create') }}" class="btn btn-lg btn-primary">Add Doctor</a>
                     </div>
-                    <div class="table-responsive">
-                        {{-- {{print_r($doctors->toArray())}} --}}
-                        <table class="table table-striped table-responsive">
+                    <div class="table-responsive theme-scrollbar card-body">
+                        <table class="table table-striped table-responsive display dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Author User</th>
                                     <th>Name</th>
-                                    {{-- <th>Date of Birth</th> --}}
                                     <th>Department</th>
-                                    {{-- <th>Specialization</th>
-                                    <th>Experience (Years)</th> --}}
                                     <th>Contact Number</th>
                                     <th>Email</th>
-                                    {{-- <th>Address</th> --}}
-                                    <th>Gender</th>
-                                    {{-- <th>Qualification</th> --}}
-                                    <th>Registration No</th>
                                     <th>Photo</th>
-                                    {{-- <th>Bio</th> --}}
                                     <th>Consultation Fee</th>
-                                    <th>Status</th>
-                                    {{-- <th>Created At</th>
-                                    <th>Updated At</th> --}}
                                     @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                         <th>Action</th>
                                     @endif
@@ -47,66 +44,49 @@
                                 @forelse ($doctors as $doctor)
                                     <tr>
                                         <td>{{ $doctor->id }}</td>
-                                        <td>{{ $doctor->user->name }}</td>
                                         <td>{{ $doctor->name }}</td>
-                                        {{-- <td>{{ $doctor->date_of_birth }}</td> --}}
                                         <td>{{ $doctor->department->name ?? 'N/A' }}</td>
-                                        {{-- <td>{{ $doctor->specialization }}</td> --}}
-                                        {{-- <td>{{ $doctor->experience }}</td> --}}
                                         <td>{{ $doctor->contact_number }}</td>
                                         <td>{{ $doctor->email }}</td>
-                                        {{-- <td>{{ $doctor->address }}</td> --}}
-                                        <td>{{ ucfirst($doctor->gender) }}</td>
-                                        {{-- <td>{{ $doctor->qualification }}</td> --}}
-                                        <td>{{ $doctor->registration_no }}</td>
-                                        <td><img src="{{ asset('img/doctors/' . $doctor->photo) }}" alt="Doctor Photo"
-                                                width="50"></td>
-                                        {{-- <td>{{ $doctor->bio }}</td> --}}
+                                        <td>
+                                            <img class="img-fluid" style="max-width: 50px; height: auto;" src="{{ asset('img/doctors/' . $doctor->photo) }}" alt="Doctor Photo">
+                                        </td>
                                         <td>{{ $doctor->consultation_fee }}</td>
-                                        <td>{{ ucfirst($doctor->status->name) }}</td>
-                                        {{-- <td>{{ $doctor->created_at }}</td>
-                                        <td>{{ $doctor->updated_at }}</td> --}}
                                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                             <td>
                                                 <div class="dropdown">
-                                                    <button type="button" class="btn btn-sm  hide-arrow"
-                                                        data-bs-toggle="dropdown">
+                                                    <button type="button" class="btn btn-sm hide-arrow bg-light" data-bs-toggle="dropdown">
                                                         <i data-feather="more-vertical"></i>
                                                     </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('doctors/' . $doctor->id) }}">
+                                                    <div class="dropdown-menu p-2">
+                                                        <a class="dropdown-item text-success fs-6" href="{{ url('doctors/' . $doctor->id) }}">
                                                             <i data-feather="eye" class="me-50"></i>
                                                             <span>Show</span>
                                                         </a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('doctors/' . $doctor->id . '/edit') }}">
+                                                        <a class="dropdown-item text-primary fs-6" href="{{ url('doctors/' . $doctor->id . '/edit') }}">
                                                             <i data-feather="edit-2" class="me-50"></i>
                                                             <span>Edit</span>
                                                         </a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ url('doctors/delete/' . $doctor->id) }}">
-                                                            <i data-feather="trash" class="me-50"></i>
-                                                            <span>Delete</span>
-                                                        </a>
+                                                        <form action="{{ url('doctors/' . $doctor->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this doctor?');" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item text-danger fs-6">
+                                                                <i data-feather="trash" class="me-50"></i>
+                                                                <span>Delete</span>
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <script>
-                                                    feather.replace();
-                                                </script>
                                             </td>
                                         @endif
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="{{ Auth::user()->role_id == 1 || Auth::user()->role_id == 2 ? 18 : 16 }}" class="text-center fw-bold text-danger fs-10">No Doctors Found
-                                        </td>
+                                        <td colspan="{{ Auth::user()->role_id == 1 || Auth::user()->role_id == 2 ? 8 : 7 }}" class="text-center fw-bold text-danger fs-10">No Doctors Found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>

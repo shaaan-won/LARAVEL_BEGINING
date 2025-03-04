@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return Auth::check() ? view('dashboard') : view('welcome');
+    return Auth::check() ? view ('dashboard') : view('welcome');
     // return view('welcome');
 });
 

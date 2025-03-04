@@ -177,7 +177,15 @@
                                                             <button type="submit"
                                                                 class="btn btn-warning">Review Test</button>
                                                         </form> --}}
-                                                        <form action="{{ url('/doctor/review', $appointment->id) }}"
+
+                                                        {{-- <form action="{{ url('/doctor/review', $appointment->id) }}" --}}
+                                                        @php
+                                                            $ss =
+                                                                    $appointment->consultation->id ??
+                                                                    'No consultation found';
+                                                                // print_r($ss);
+                                                        @endphp
+                                                        <form action="{{ url('/doctor/review', $ss) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('GET')
