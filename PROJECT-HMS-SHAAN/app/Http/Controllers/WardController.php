@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class WardController extends Controller{
 	public function index(){
-		$wards = Ward::paginate(10);
+		$wards = Ward::all();
 		return view("pages.erp.ward.index",["wards"=>$wards]);
 	}
 	public function create(){

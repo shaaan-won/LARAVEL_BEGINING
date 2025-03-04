@@ -13,7 +13,7 @@ use Illuminate\Pagination\Paginator;
 class BillingBedController extends Controller{
 	public function index(){
 		$billingbeds = BillingBed::paginate(10);
-		return view("pages.erp.billingbed.index",["billingbeds"=>$billingbeds]);
+		return view ("pages.erp.billingbed.index",["billingbeds"=>$billingbeds]);
 	}
 	public function create(){
 		return view("pages.erp.billingbed.create",["billings"=>Billing::all(),"beds"=>Bed::all()]);

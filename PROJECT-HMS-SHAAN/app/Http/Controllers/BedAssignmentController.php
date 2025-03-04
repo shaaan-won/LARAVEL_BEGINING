@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class BedAssignmentController extends Controller{
 	public function index(){
-		$bedassignments = BedAssignment::paginate(10);
+		$bedassignments = BedAssignment::all();
 		return view("pages.erp.bedassignment.index",["bedassignments"=>$bedassignments]);
 	}
 	public function create(){
@@ -42,7 +42,7 @@ date_default_timezone_set("Asia/Dhaka");
 	}
 	public function show($id){
 		$bedassignment = BedAssignment::find($id);
-		return view("pages.erp.bedassignment.show",["bedassignment"=>$bedassignment]);
+		return view ("pages.erp.bedassignment.show",["bedassignment"=>$bedassignment]);
 	}
 	public function edit(BedAssignment $bedassignment){
 		return view("pages.erp.bedassignment.edit",["bedassignment"=>$bedassignment,"beds"=>Bed::all(),"patients"=>PatientPatient::all()]);

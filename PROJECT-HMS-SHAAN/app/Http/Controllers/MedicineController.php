@@ -11,7 +11,7 @@ use Illuminate\Pagination\Paginator;
 class MedicineController extends Controller{
 	public function index(){
 		$medicines = Medicine::paginate(10);
-		return view("pages.erp.medicine.index",["medicines"=>$medicines]);
+		return view ("pages.erp.medicine.index",["medicines"=>$medicines]);
 	}
 	public function create(){
 		return view("pages.erp.medicine.create",[]);

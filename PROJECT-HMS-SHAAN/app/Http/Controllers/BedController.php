@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class BedController extends Controller{
 	public function index(){
-		$beds = Bed::paginate(10);
+		$beds = Bed::all();
 		return view("pages.erp.bed.index",["beds"=>$beds]);
 	}
 	public function create(){

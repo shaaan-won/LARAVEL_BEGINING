@@ -16,7 +16,7 @@ class BillingMedicineController extends Controller{
 		return view("pages.erp.billingmedicine.index",["billingmedicines"=>$billingmedicines]);
 	}
 	public function create(){
-		return view("pages.erp.billingmedicine.create",["billings"=>Billing::all(),"medicines"=>Medicine::all()]);
+		return view ("pages.erp.billingmedicine.create",["billings"=>Billing::all(),"medicines"=>Medicine::all()]);
 	}
 	public function store(Request $request){
 		//BillingMedicine::create($request->all());

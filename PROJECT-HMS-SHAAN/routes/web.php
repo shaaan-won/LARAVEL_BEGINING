@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentTrashedController;
+use App\Http\Controllers\BedAssignmentController;
+use App\Http\Controllers\BedController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ConsultationLabTestController;
 use App\Http\Controllers\DepartmentController;
@@ -17,6 +19,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -226,3 +229,11 @@ Route::resource('labtests', LabTestController::class);
 Route::resource('labtestcategorys', LabTestCategoryController::class);
 
 //End of Consultations
+
+//Beds & Wards
+
+Route::resource('/wards', WardController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+Route::resource('/beds', BedController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+Route::resource('/bedassignments', BedAssignmentController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+//End of Beds & Wards

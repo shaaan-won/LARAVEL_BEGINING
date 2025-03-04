@@ -18,7 +18,7 @@ class BillingController extends Controller{
 		return view("pages.erp.billing.index",["billings"=>$billings]);
 	}
 	public function create(){
-		return view("pages.erp.billing.create",["patients"=>PatientPatient::all(),"appointments"=>Appointment::all(),"payment_statuss"=>PaymentStatus::all()]);
+		return view ("pages.erp.billing.create",["patients"=>PatientPatient::all(),"appointments"=>Appointment::all(),"payment_statuss"=>PaymentStatus::all()]);
 	}
 	public function store(Request $request){
 		//Billing::create($request->all());

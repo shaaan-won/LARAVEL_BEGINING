@@ -157,6 +157,20 @@
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
                             href="javascript:void(0)">
                             <svg class="stroke-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-ecommerce"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-ecommerce"></use>
+                            </svg><span>Beds & Wards</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ url('beds') }}">Beds List</a></li>
+                            <li><a href="{{ url('bedassignments') }}">Beds Allocation</a></li>
+                            <li><a href="{{ url('wards') }}">All Wards</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
+                            href="javascript:void(0)">
+                            <svg class="stroke-icon">
                                 <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-user"></use>
                             </svg>
                             <svg class="fill-icon">
@@ -172,6 +186,7 @@
                             @endif
                         </ul>
                     </li>
+
                     <li class="mega-menu sidebar-list"><i class="fa fa-thumb-tack"></i><a
                             class="sidebar-link sidebar-title" href="javascript:void(0)">
                             <svg class="stroke-icon">
