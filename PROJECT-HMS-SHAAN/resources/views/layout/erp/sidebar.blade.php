@@ -87,11 +87,15 @@
                                 <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-ecommerce"></use>
                             </svg><span>HMS-Billing</span></a>
                         <ul class="sidebar-submenu">
+                            <li><a href="{{ url('invoices') }}">Create Invoice</a></li>
                             <li><a href="{{ url('billings') }}">Bill Invoice</a></li>
-                            <li><a href="{{ url('payment_details') }}">Payment Details</a></li>
+                            <li><a href="{{ url('paymentdetails') }}">Payment Details</a></li>
                             <li><a class="submenu-title" href="javascript:void(0)">Bill Details<span class="sub-arrow"><i
                                 class="fa fa-angle-right"></i></span></a>
                                 <ul class="nav-sub-childmenu submenu-content">
+                                    <li><a href="{{ url('billingconsultations') }}">Bill of Consultation</a></li>
+                                    <li><a href="{{ url('billingbeds') }}">Bill of Beds</a></li>
+                                    <li><a href="{{ url('billinglabtests') }}">Bill of Labs</a></li>
                                     <li><a href="{{ url('billingservices') }}">Bill of Medicine</a></li>
                                     <li><a href="{{ url('billingservices') }}">Bill of Services</a></li>
                                 </ul>
