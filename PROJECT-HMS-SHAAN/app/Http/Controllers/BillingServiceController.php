@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class BillingServiceController extends Controller{
 	public function index(){
-		$billingservices = BillingService::paginate(10);
+		$billingservices = BillingService::all();
 		return view("pages.erp.billingservice.index",["billingservices"=>$billingservices]);
 	}
 	public function create(){

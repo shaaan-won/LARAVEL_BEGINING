@@ -81,6 +81,27 @@
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
                             href="javascript:void(0)">
                             <svg class="stroke-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-ecommerce"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-ecommerce"></use>
+                            </svg><span>HMS-Billing</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ url('billings') }}">Bill Invoice</a></li>
+                            <li><a href="{{ url('payment_details') }}">Payment Details</a></li>
+                            <li><a class="submenu-title" href="javascript:void(0)">Bill Details<span class="sub-arrow"><i
+                                class="fa fa-angle-right"></i></span></a>
+                                <ul class="nav-sub-childmenu submenu-content">
+                                    <li><a href="{{ url('billingservices') }}">Bill of Medicine</a></li>
+                                    <li><a href="{{ url('billingservices') }}">Bill of Services</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{{ url('invoice_trashed') }}">Trashed Invoice</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
+                            href="javascript:void(0)">
+                            <svg class="stroke-icon">
                                 <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-user"></use>
                             </svg>
                             <svg class="fill-icon">
@@ -119,25 +140,8 @@
                             </svg><span>Consultations</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ url('/doctor/appointments') }}">Doctor Appointments </a></li>
-                            {{-- <li><a href="{{ url('consultations/{appointmentId}') }}">Consultation Create</a></li> --}}
                             <li><a href="{{ url('consultations') }}">Consultations List</a></li>
                             <li><a href="{{ url('consultationlabtests') }}"> Lab Results Consultations </a></li>
-                            {{-- <li><a class="submenu-title" href="javascript:void(0)">Bootstrap Tables<span
-                                        class="sub-arrow"><i class="fa fa-angle-right"></i></span></a>
-                                <ul class="nav-sub-childmenu submenu-content">
-                                    <li><a href="bootstrap-basic-table.html">Basic Tables</a></li>
-                                    <li><a href="table-components.html">Table components</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="submenu-title" href="javascript:void(0)">Data Tables<span
-                                        class="sub-arrow"><i class="fa fa-angle-right"></i></span></a>
-                                <ul class="nav-sub-childmenu submenu-content">
-                                    <li><a href="datatable-basic-init.html">Basic Init</a></li>
-                                    <li> <a href="datatable-advance.html">Advance Init </a></li>
-                                    <li><a href="datatable-API.html">API</a></li>
-                                    <li><a href="datatable-data-source.html">Data Sources</a></li>
-                                </ul>
-                            </li> --}}
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
@@ -168,6 +172,25 @@
                             <li><a href="{{ url('wards') }}">All Wards</a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
+                            class="sidebar-link sidebar-title link-nav" href="{{ url('services') }}">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-task"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-task"> </use>
+                            </svg><span>Services</span></a>
+                    </li>
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a
+                            class="sidebar-link sidebar-title link-nav" href="{{ url('medicines') }}">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#stroke-to-do"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{ asset('assets') }}/svg/icon-sprite.svg#fill-to-do"> </use>
+                            </svg><span>Medicines</span></a>
+                    </li>
+
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title"
                             href="javascript:void(0)">
                             <svg class="stroke-icon">

@@ -55,17 +55,17 @@
                             {{ session('success') ?? session('error') }}
                         </div>
                     @endif
-                    {{-- {{print_r($beds)}} --}}
+                    {{-- {{print_r(json_encode($beds))}} --}}
 
                     <form action="{{ route('bedassignments.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-1">
-                            <label class="form-label fw-bold fs-5" for="bed_id">Bed</label>
+                            <label class="form-label fw-bold fs-5" for="bed_id">Bed Number</label>
                             <select class="form-select form-control-lg" name="bed_id" id="bed_id">
                                 <option value="">Select Bed</option>
                                 @foreach($beds as $bed)
-                                    <option value="{{ $bed->id }}">{{ $bed->name }}</option>
+                                    <option value="{{ $bed->id }}">{{ $bed->bed_number }}</option>
                                 @endforeach
                             </select>
                             @error('bed_id')

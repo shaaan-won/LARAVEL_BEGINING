@@ -4,6 +4,9 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentTrashedController;
 use App\Http\Controllers\BedAssignmentController;
 use App\Http\Controllers\BedController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\BillingMedicineController;
+use App\Http\Controllers\BillingServiceController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ConsultationLabTestController;
 use App\Http\Controllers\DepartmentController;
@@ -13,13 +16,16 @@ use App\Http\Controllers\Doctors\DoctorController;
 use App\Http\Controllers\Hospital_List\HospitalListController;
 use App\Http\Controllers\LabTestCategoryController;
 use App\Http\Controllers\LabTestController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\PaymentStatusController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WardController;
+use App\Models\BillingMedicine;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -237,3 +243,24 @@ Route::resource('/beds', BedController::class)->middleware(['auth', 'AdminOrSupe
 Route::resource('/bedassignments', BedAssignmentController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
 
 //End of Beds & Wards
+
+// Services
+
+Route::resource('/services', ServiceController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+//End of Services
+
+// Medicines
+
+Route::resource('/medicines', MedicineController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+//End of Medicines
+
+//Billings & Payments
+
+Route::resource('/billings', BillingController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+// Route::resource('/paymentdetails', PaymentDetailController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+Route::resource('/billingmedicines', BillingMedicineController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+Route::resource('/billingservices', BillingServiceController::class)->middleware(['auth', 'AdminOrSuperAdminCheck']);
+
+//End of Billings & Payments

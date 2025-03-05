@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 class MedicineController extends Controller{
 	public function index(){
-		$medicines = Medicine::paginate(10);
+		$medicines = Medicine::all();
 		return view ("pages.erp.medicine.index",["medicines"=>$medicines]);
 	}
 	public function create(){

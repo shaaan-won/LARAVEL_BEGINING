@@ -1,13 +1,13 @@
 
 @extends('layout.erp.app')
-@section('title','Create BillingBed')
+@section('title','Create PaymentDetail')
 @section('style')
 
 
 @endsection
 @section('page')
-<a class='btn btn-success' href="{{route('billingbeds.index')}}">Manage</a>
-<form action="{{route('billingbeds.store')}}" method ="post" enctype="multipart/form-data">
+<a class='btn btn-success' href="{{route('paymentdetails.index')}}">Manage</a>
+<form action="{{route('paymentdetails.store')}}" method ="post" enctype="multipart/form-data">
 @csrf
 <div class="row mb-3">
 	<label for="billing_id" class="col-sm-2 col-form-label">Billing</label>
@@ -20,19 +20,15 @@
 	</div>
 </div>
 <div class="row mb-3">
-	<label for="bed_id" class="col-sm-2 col-form-label">Bed</label>
+	<label for="amount" class="col-sm-2 col-form-label">Amount</label>
 	<div class="col-sm-10">
-		<select class="form-control" name="bed_id" id="bed_id">
-			@foreach($beds as $bed)
-				<option value="{{$bed->id}}">{{$bed->name}}</option>
-			@endforeach
-		</select>
+		<input type = "text" class="form-control" name="amount" id="amount" placeholder="Amount">
 	</div>
 </div>
 <div class="row mb-3">
-	<label for="price" class="col-sm-2 col-form-label">Price</label>
+	<label for="payment_mode" class="col-sm-2 col-form-label">Payment Mode</label>
 	<div class="col-sm-10">
-		<input type = "text" class="form-control" name="price" id="price" placeholder="Price">
+		<input type = "text" class="form-control" name="payment_mode" id="payment_mode" placeholder="Payment Mode">
 	</div>
 </div>
 
