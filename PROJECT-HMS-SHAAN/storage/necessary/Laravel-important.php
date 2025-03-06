@@ -30,3 +30,23 @@ php artisan make:middleware MiddlewareName
 
 auth class facades:
 C:\xampp\htdocs\LARAVEL_BEGINING\PROJECT-HMS-SHAAN\vendor\laravel\framework\src\Illuminate\Support\Facades\Auth.php
+
+
+
+
+{{-- php artisan make:controller Api/UserController  -r
+php artisan make:controller Api/PatientController  -r
+php artisan make:controller Api/DoctorController  -r
+php artisan make:controller Api/BedController  -r
+php artisan make:controller Api/BedAssignmentController  -r
+php artisan make:controller Api/AppointmentController  -r
+php artisan make:controller Api/ConsultationController  -r
+php artisan make:controller Api/ConsultationLabTestController  -r
+php artisan make:controller Api/DoctorAppointmentController  -r
+php artisan make:controller Api/PaymentDetailController  -r
+php artisan make:controller Api/BillingController  -r
+php artisan make:controller Api/BillingBedController  -r
+php artisan make:controller Api/BillingConsultationController  -r
+php artisan make:controller Api/BillingLabTestController  -r
+php artisan make:controller Api/BillingMedicineController  -r
+php artisan make:controller Api/BillingServiceController  -r --}}

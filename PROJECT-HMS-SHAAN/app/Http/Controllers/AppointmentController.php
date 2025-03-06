@@ -194,7 +194,7 @@ class AppointmentController extends Controller
 	{
 		$appointments = Appointment::where('status_id', '4')->get();
 		// $statuses = Status::all();
-		$statuses = Status::whereIn('name', ['Pending', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get(); // Only show Pending & Approved
+		$statuses = Status::whereIn('name', ['Pending','Approved', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get(); // Only show Pending & Approved
 		return view('pages.erp.appointment.pending', compact('appointments', 'statuses'));
 	}
 	public function updateStatus(Request $request, $id)
@@ -234,6 +234,13 @@ class AppointmentController extends Controller
 		$appointment->save();
 
 		return redirect()->route('appointments.cancelled')->with('success', 'Appointment rescheduled successfully!');
+	}
+	//Aproved appointments
+	public function approvedAppointments()
+	{
+		$appointments = Appointment::where('status_id', 3)->get();
+		$statuses = Status::whereIn('name', ['Pending', 'Completed', 'Cancelled', 'Reschedule', 'Processing'])->get();
+		return view('pages.erp.appointment.approved', compact('appointments', 'statuses'));
 	}
 
 	// Completed appointments

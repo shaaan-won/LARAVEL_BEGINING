@@ -67,6 +67,7 @@
                                 <li><a href="{{ url('appointments') }}">All Appointments</a></li>
                                 <li><a href="{{ url('appointments/pending') }}">Pending </a></li>
                                 <li><a href="{{ url('appointments/cancelled') }}">Cancelled </a></li>
+                                <li><a href="{{ url('appointments/approved') }}">Approved </a></li>
                                 <li><a href="{{ url('appointments/completed') }}">Completed </a></li>
                                 <li><a href="{{ url('appointmenttrasheds') }}">Trash Appointments </a></li>
                             </ul>

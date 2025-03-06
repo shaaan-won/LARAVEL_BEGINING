@@ -207,6 +207,7 @@ Route::put('/appointments/update-status/{id}', [AppointmentController::class, 'u
 Route::get('/appointments/cancelled', [AppointmentController::class, 'cancelledAppointments'])->name('appointments.cancelled');
 Route::put('/appointments/reschedule/{id}', [AppointmentController::class, 'reschedule'])->name('appointments.reschedule');
 
+Route::get('/appointments/approved', [AppointmentController::class, 'approvedAppointments'])->name('appointments.approved');
 Route::get('/appointments/completed', [AppointmentController::class, 'completedAppointments'])->name('appointments.completed');
 
 Route::delete('appointments/trash/{id}', [AppointmentController::class, 'trashedAppointments'])->name('appointments.trashed');
@@ -279,3 +280,4 @@ Route::get('/invoices',[BillingController::class, 'invoice'])->middleware(['auth
 
 
 //End of Invoices
+

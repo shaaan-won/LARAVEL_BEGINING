@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +14,7 @@ class UserController extends Controller
     {
         //
     }
-    public function index1()
-    {
-        return response()->json([
-            'message' => 'API is working!',
-            'id' => 1,
-            'name' => 'John Doe',
-            'email' => 'tH2Rf@example.com',
-            'role' => 'admin',
-            'status' => 'active'
-        ]);
-    }
+
     /**
      * Show the form for creating a new resource.
      */

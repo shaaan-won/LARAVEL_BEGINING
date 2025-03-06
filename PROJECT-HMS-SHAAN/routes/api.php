@@ -12,4 +12,4 @@ Route::get('/test', function () {
     return response()->json(['message' => 'API is working!']);
 });
 
-Route::get('/users', [UserController::class, 'index']);
+Route::get('/users1', [UserController::class, 'index1']);
