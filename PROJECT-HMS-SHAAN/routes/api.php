@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,3 +14,8 @@ Route::get('/test', function () {
 });
 
 Route::get('/users1', [UserController::class, 'index1']);
+
+
+//API Routes 
+Route::resource('/users', UserController::class);
+Route::resource('/appointments', AppointmentController::class);

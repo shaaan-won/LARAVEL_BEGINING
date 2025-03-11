@@ -15,7 +15,7 @@ php artisan make:model Appointment -mrc
 php artisan make:model Appointment -mcrfs // advanced
 
 
-Cache clear: Clear Cached Routes
+//Cache clear: Clear Cached Routes
 php artisan route:clear
 php artisan cache:clear
 php artisan config:clear

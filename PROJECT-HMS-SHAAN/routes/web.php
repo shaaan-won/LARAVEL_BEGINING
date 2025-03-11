@@ -280,4 +280,3 @@ Route::get('/invoices',[BillingController::class, 'invoice'])->middleware(['auth
 
 
 //End of Invoices
-

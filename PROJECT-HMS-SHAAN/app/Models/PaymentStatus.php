@@ -6,5 +6,9 @@ class PaymentStatus extends Model{
 
     protected $table = 'payment_statuss';
 
+    public function billing(){
+        return $this->hasMany(Billing::class);
+    }
+
 }
 ?>
