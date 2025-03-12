@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctors\Doctor as DoctorsDoctor;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -12,7 +13,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        $doctors = DoctorsDoctor::all();
+        return response()->json($doctors);
     }
 
     /**

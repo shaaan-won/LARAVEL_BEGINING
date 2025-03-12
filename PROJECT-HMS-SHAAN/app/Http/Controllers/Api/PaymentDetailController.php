@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
 
 class PaymentDetailController extends Controller
@@ -12,7 +13,8 @@ class PaymentDetailController extends Controller
      */
     public function index()
     {
-        //
+        $paymentDetails = PaymentDetail::all();
+        return response()->json($paymentDetails);
     }
 
     /**

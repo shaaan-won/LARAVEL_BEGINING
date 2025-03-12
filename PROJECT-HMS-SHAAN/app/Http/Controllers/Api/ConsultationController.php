@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
@@ -12,7 +13,8 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        //
+        $consultations = Consultation::all();
+        return response()->json($consultations);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillingLabTest;
 use Illuminate\Http\Request;
 
 class BillingLabTestController extends Controller
@@ -12,7 +13,8 @@ class BillingLabTestController extends Controller
      */
     public function index()
     {
-        //
+        $billingLabTests = BillingLabTest::all();
+        return response()->json($billingLabTests);
     }
 
     /**

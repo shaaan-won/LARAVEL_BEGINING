@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BedAssignment;
 use Illuminate\Http\Request;
 
 class BedAssignmentController extends Controller
@@ -12,7 +13,8 @@ class BedAssignmentController extends Controller
      */
     public function index()
     {
-        //
+        $bedAssignments = BedAssignment::all();
+        return response()->json($bedAssignments);
     }
 
     /**

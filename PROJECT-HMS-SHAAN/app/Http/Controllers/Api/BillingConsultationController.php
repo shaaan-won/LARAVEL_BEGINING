@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillingConsultation;
 use Illuminate\Http\Request;
 
 class BillingConsultationController extends Controller
@@ -12,7 +13,8 @@ class BillingConsultationController extends Controller
      */
     public function index()
     {
-        //
+        $billingConsultations = BillingConsultation::all();
+        return response()->json($billingConsultations);
     }
 
     /**

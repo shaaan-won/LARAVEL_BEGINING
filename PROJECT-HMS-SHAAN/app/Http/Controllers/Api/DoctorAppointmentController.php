@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DoctorAppointmentController as ControllersDoctorAppointmentController;
+use App\Models\DoctorAvailability;
 use Illuminate\Http\Request;
 
 class DoctorAppointmentController extends Controller
@@ -12,7 +14,8 @@ class DoctorAppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $doctorAppointments = DoctorAvailability::all();
+        return response()->json($doctorAppointments);
     }
 
     /**

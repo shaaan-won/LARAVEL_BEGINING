@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Billing;
 use Illuminate\Http\Request;
 
 class BillingController extends Controller
@@ -12,7 +13,13 @@ class BillingController extends Controller
      */
     public function index()
     {
-        //
+        $billing = Billing::all();
+        return response()->json($billing);
+    }
+    public function lastId()
+    {
+        $lastID = Billing::latest()->value('id'); // Get the last inserted ID
+        return response()->json(['last_id' => $lastID]);
     }
 
     /**

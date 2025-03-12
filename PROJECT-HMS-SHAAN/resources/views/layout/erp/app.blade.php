@@ -112,7 +112,9 @@
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{asset('assets')}}/js/script.js"></script>
-    <script src="{{asset('assets')}}/js/theme-customizer/customizer.js"></script>
+
+    {{-- if you want another color theme then use it  --}}
+    {{-- <script src="{{asset('assets')}}/js/theme-customizer/customizer.js"></script> --}}
     <!-- Plugin used-->
 
     @yield('script')
