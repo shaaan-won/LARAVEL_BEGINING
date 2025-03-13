@@ -17,6 +17,12 @@ class PatientController extends Controller
         return response()->json($patients);
     }
 
+    public function find($id)
+    {
+        $patient = Patient::find($id);
+        return response()->json($patient);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

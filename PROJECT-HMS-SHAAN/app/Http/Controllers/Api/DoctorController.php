@@ -16,6 +16,11 @@ class DoctorController extends Controller
         $doctors = DoctorsDoctor::all();
         return response()->json($doctors);
     }
+    public function findDoctor($id)
+    {
+        $doctors = DoctorsDoctor::where('id', $id)->get();
+        return response()->json($doctors);
+    }
 
     /**
      * Show the form for creating a new resource.

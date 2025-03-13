@@ -49,22 +49,34 @@
                         <div class="card-header ">
                             <table class="table ">
                                 <tr>
-                                    <td style="display: flex; align-items: space-between; gap: 15px; width: 50%; ">
-                                        <label><strong>Name of Patient:</strong></label>
-                                        <select name="patient_name" id="patient_name" required>
-                                            <option value="">Select Patient</option>
-                                            <!-- Options will be populated dynamically -->
-                                        </select>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <label for="patient_name" class="me-2"><strong>Name of
+                                                    Patient:</strong></label>
+                                            <select name="patient_name" id="patient_name" class="form-control w-50"
+                                                required>
+                                                <option value="">Select Patient</option>
+                                                <!-- Options will be populated dynamically -->
+                                            </select>
+                                        </div>
                                     </td>
-                                    <td><strong>Address:</strong></td>
+                                    <td><strong>Address: <span id="patient_address"></span></strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mobile No.: <span id="patient_contact"></span></strong></td>
+                                    <td><strong>Email: <span id="patient_email"></span></strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Name of Treating Doctor: <span id="doctor_name"></span></strong></td>
+                                    <td><strong>Department: <span id="department"></span></strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Appointment Date: <span id="appointment_date"></span></strong></td>
+                                    <td><strong>Appointment Time: <span id="appointment_time"></span></strong></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Date/Time of Admission:</strong></td>
                                     <td><strong>Date/Time of Discharge:</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Name of Treating Doctor:</strong></td>
-                                    <td><strong>Department:</strong></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Accommodation Type:</strong></td>
@@ -163,6 +175,9 @@
 @section('script')
     <script>
         $(function() {
+            //  alert('hello');
+            // const cart = new Cart('consultations');
+            // printCart();
             function formatDate(dateTimeString) {
                 const date = new Date(dateTimeString); // Parse the date-time string
                 const options = {
@@ -172,17 +187,12 @@
                 }; // Customize the format
                 return date.toLocaleDateString(undefined, options); // Format to a readable date
             }
-            //  alert('hello');
-            // const cart = new Cart('consultations');
-            // printCart();
             $('select').select2();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-
             $.ajax({
                 url: "/api/billings/lastID", // Replace with Laravel route
                 type: "get",
@@ -204,28 +214,115 @@
                     key2: "",
                 },
                 success: function(response) {
-                    console.log("Successfully Data Loaded.");
-                    console.log(response);
+                    // console.log("Successfully Data Loaded.");
+                    // console.log(response);
 
                     if (Array.isArray(response)) { // Check if response is an array
                         response.forEach(patient => {
-                            console.log("Patient_ID:", patient.id);
-                            console.log("Patient_Name:", patient.name);
+                            // console.log("Patient_ID:", patient.id);
+                            // console.log("Patient_Name:", patient.name);
                             html = "";
-                            html += '<option value="' + patient.id + '">' + patient.name + '</option>';
+                            html += '<option value="' + patient.id + '">' + patient.name +
+                                '</option>';
                             $("#patient_name").append(html);
                         });
                     } else {
-                        console.log("Single Patient ID:", response.id);
-                        console.log("Single Patient Name:", response.name);
+                        // console.log("Single Patient ID:", response.id);
+                        // console.log("Single Patient Name:", response.name);
+                        html = "";
+                        html += '<option value="' + response.id + '">' + response.name +
+                            '</option>';
+                        $("#patient_name").append(html);
                     }
-
-
                 },
                 error: function(xhr, status, error) {
                     console.error("Error:", error);
                 }
             });
+            $("#patient_name").on("change", function() {
+                let patient_id = $(this).val();
+                // console.log(patient_id);
+                $.ajax({
+                    url: "/api/patients/" + patient_id, // Replace with Laravel route
+                    type: "get", // Use GET, POST, PUT, DELETE
+                    data: {
+                        key1: "",
+                        key2: "",
+                    },
+                    success: function(response) {
+                        // console.log("Successfully Data Loaded.");
+                        // console.log(response);
+                        $("#patient_address").text(response.address);
+                        $("#patient_contact").text(response.contact_number);
+                        $("#patient_email").text(response.email);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+                });
+                $.ajax({
+                    url: "/api/appointments/" + patient_id, // Laravel API route
+                    type: "GET",
+                    success: function(response) {
+                        let appointment = null;
+
+                        if (response.approved && response.approved.length > 0) {
+                            appointment = response.approved[
+                            0]; // Get the first approved appointment
+                        } else if (response.completed && response.completed.length > 0) {
+                            appointment = response.completed[
+                            0]; // Get the first completed appointment
+                        } else if (response.ongoing && response.ongoing.length > 0) {
+                            appointment = response.ongoing[
+                            0]; // Get the first ongoing appointment
+                        }
+
+                        if (appointment) {
+                            $("#appointment_date").text(appointment.appointment_date);
+                            $("#appointment_time").text(appointment.appointment_time);
+
+                            // Ensure doctor_id exists before making AJAX request
+                            if (appointment.doctor_id) {
+                                $.ajax({
+                                    url: "/api/doctors/" + appointment
+                                    .doctor_id, // Laravel API route
+                                    type: "GET",
+                                    success: function(response) {
+                                        console.log("Successfully Data Loaded.");
+                                        console.log(response[0]);
+                                        $("#doctor_name").text(response[0].name);
+                                        // $("#department").text(response.department);
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error(
+                                            "Error fetching doctor details:",
+                                            error);
+                                        $("#doctor_name").text(
+                                            "Error loading doctor details.");
+                                    }
+                                });
+                            } else {
+                                console.error("Invalid appointment or missing doctor ID.");
+                                $("#doctor_name").text("No doctor assigned.");
+                            }
+                        } else {
+                            // No appointments found, reset UI
+                            console.log("No appointments found.");
+                            $("#appointment_date").text("No appointments found.");
+                            $("#appointment_time").text("No appointments found.");
+                            $("#doctor_name").text("");
+                            // $("#doctor_name").text("No doctor found.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching appointments:", error);
+                        $("#appointment_date").text("Error loading appointments.");
+                        $("#appointment_time").text("Error loading appointments.");
+                        $("#doctor_name").text("Error loading doctor details.");
+                    }
+                });
+
+            })
         })
     </script>
     <script src="{{ asset('assets') }}/js/cart-invoice/cart_.js"></script>

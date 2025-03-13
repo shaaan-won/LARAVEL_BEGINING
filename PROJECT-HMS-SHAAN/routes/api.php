@@ -31,6 +31,9 @@ Route::get('/users1', [UserController::class, 'index1']);
 
 //API Routes 
 Route::get('/billings/lastID' , [BillingController::class, 'lastId']);
+Route::get('/patients/{id}' , [PatientController::class, 'find']);
+Route::get('/appointments/{id}' , [AppointmentController::class, 'findPatient']);
+Route::get('/doctors/{id}' , [DoctorController::class, 'findDoctor']);
 
 
 

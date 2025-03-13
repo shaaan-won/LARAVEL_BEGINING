@@ -17,6 +17,18 @@ class AppointmentController extends Controller
         return response()->json($appoitment);
     }
 
+    public function  findPatient($id)
+    {
+        $appointments = Appointment::where('patient_id', $id)->get();
+        $completed = $appointments->where('status_id', '5');
+        $ongoing = $appointments->where('status_id', '4'); // Adjust according to your status
+        $approved = $appointments->where('status_id', '3');
+        return response()->json([
+            'completed' => $completed,
+            'ongoing' => $ongoing,
+            'approved' => $approved
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
