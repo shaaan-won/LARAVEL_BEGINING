@@ -194,7 +194,7 @@
                 }
             });
             $.ajax({
-                url: "/api/billings/lastID", // Replace with Laravel route
+                url: "api/billings/lastID", // Replace with Laravel route
                 type: "get",
                 success: function(response) {
                     // console.log("Success:", response);
@@ -207,7 +207,7 @@
                 }
             });
             $.ajax({
-                url: "/api/patients", // Replace with Laravel route
+                url: "api/patients", // Replace with Laravel route
                 type: "get", // Use GET, POST, PUT, DELETE
                 data: {
                     key1: "",
@@ -261,7 +261,7 @@
                     }
                 });
                 $.ajax({
-                    url: "/api/appointments/" + patient_id, // Laravel API route
+                    url: "api/appointments/" + patient_id, // Laravel API route
                     type: "GET",
                     success: function(response) {
                         let appointment = null;
