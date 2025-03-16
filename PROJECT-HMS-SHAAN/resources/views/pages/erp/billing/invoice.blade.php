@@ -243,7 +243,7 @@
                 let patient_id = $(this).val();
                 // console.log(patient_id);
                 $.ajax({
-                    url: "/api/patients/" + patient_id, // Replace with Laravel route
+                    url: "api/patients/" + patient_id, // Replace with Laravel route
                     type: "get", // Use GET, POST, PUT, DELETE
                     data: {
                         key1: "",
@@ -284,7 +284,7 @@
                             // Ensure doctor_id exists before making AJAX request
                             if (appointment.doctor_id) {
                                 $.ajax({
-                                    url: "/api/doctors/" + appointment
+                                    url: "api/doctors/" + appointment
                                     .doctor_id, // Laravel API route
                                     type: "GET",
                                     success: function(response) {
