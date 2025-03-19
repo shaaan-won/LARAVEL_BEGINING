@@ -42,7 +42,38 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate input data
+        // $request->validate ([
+        //     'uname' => 'required|string|max:255',
+        //     'uemail' => 'required|email|max:255',
+        //     'unumber' => 'required|string|max:20',
+        //     'udate' => 'required|date',
+        //     'utime' => 'required',
+        //     'udepartment' => 'required|exists:departments,id',
+        //     'udoctor' => 'required|exists:doctors,id',
+        //     'umsg' => 'nullable|string|max:500',
+        // ]);
+
+        // if ($request->fails()) {
+        //     return response()->json(['errors' => $request->errors()], 422);
+        // }
+
+        // Store the appointment
+        $appointment = Appointment::create([
+            'name' => $request->uname,
+            'email' => $request->uemail,
+            'phone' => $request->unumber,
+            'date' => $request->udate,
+            'time' => $request->utime,
+            'department_id' => $request->udepartment,
+            'doctor_id' => $request->udoctor,
+            'message' => $request->umsg,
+        ]);
+
+        return response()->json([
+            'message' => 'Appointment booked successfully!',
+            // 'appointment' => $appointment
+        ], 201);
     }
 
     /**

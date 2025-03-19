@@ -108,10 +108,10 @@
                                     <tr>
                                         <td>{{ $appointment->id }}</td>
                                         <td>{{ $appointment->doctor->name }}</td>
-                                        <td>{{ $appointment->patient->name }}</td>
+                                        <td>{{ optional($appointment->patient)->name }}</td>
                                         <td>{{ $appointment->appointment_date }}</td>
                                         <td>{{ $appointment->appointment_time }}</td>
-                                        <td>{{ $appointment->status->name }}</td>
+                                        <td>{{ optional($appointment->status)->name }}</td>
                                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                             <td>{{ $appointment->cancellation_reason }}</td>
                                             {{-- <td>{{ $appointment->created_at }}</td>
