@@ -96,7 +96,7 @@
                                     <th>Appointment Time</th>
                                     <th>Status</th>
                                     @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                                        <th>Cancellation Reason</th>
+                                        <th>Reason/Message</th>
                                         {{-- <th>Created At</th>
                                     	<th>Updated At</th> --}}
                                         <th>Action</th>

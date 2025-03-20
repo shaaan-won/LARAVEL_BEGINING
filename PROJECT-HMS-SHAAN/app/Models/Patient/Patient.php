@@ -13,6 +13,14 @@ class Patient extends Model
     use HasFactory;
 
     protected $table = 'patients';
+    protected $fillable = [
+        'user_id',
+        'name',
+        'email',
+        'gender',
+        'contact_number',
+        'address',
+    ];
 
     public function appointments()
     {
