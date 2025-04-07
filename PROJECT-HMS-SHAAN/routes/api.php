@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\PaymentDetailController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VueApi\WardController;
+use App\Http\Controllers\WardController as ControllersWardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +60,9 @@ Route::resource('/doctors' , DoctorController::class);
 Route::resource('/departments' , DepartmentController::class);
 Route::resource('/patients' , PatientController::class);
 Route::resource('/paymentdetails' , PaymentDetailController::class);
+Route::resource('/ward' , ControllersWardController::class);
+
+
+//VUE API ROUTES
+// Route::resource('/wards' , WardController::class);
+Route::apiResource('/wards' , WardController::class);

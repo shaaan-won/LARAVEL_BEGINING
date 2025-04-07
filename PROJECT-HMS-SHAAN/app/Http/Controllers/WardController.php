@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Js;
+
 class WardController extends Controller{
 	public function index(){
 		$wards = Ward::all();
+		// return response()->json($wards);
 		return view("pages.erp.ward.index",["wards"=>$wards]);
 	}
 	public function create(){
