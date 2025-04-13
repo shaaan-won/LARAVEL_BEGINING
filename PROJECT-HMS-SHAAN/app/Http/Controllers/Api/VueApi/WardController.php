@@ -15,6 +15,7 @@ class WardController extends Controller
     {
         $wards = Ward::all();
         return response()->json($wards);
+        // return response()->json(['wards' => $wards]);
     }
 
     /**
